@@ -2,6 +2,9 @@
 @config "../tailwind.config.js";
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   :root {
     --background: 210 20% 96%; /* #F3F4F6 */
     --foreground: 177 80% 30%; /* #0F8B83 */

@@ -22,10 +22,10 @@ const About = () => {
                     <div className="lg:col-span-2 max-w-3xl mx-auto space-y-8">
                         {/* Bio Card */}
                         <motion.div 
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8 }}
-                            viewport={{ once: true }}
+                            initial={{ opacity: 0, x: -50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8, ease: "easeOut" }}
+                            viewport={{ once: true, amount: 0.3 }}
                             className="p-10 rounded-2xl border border-primary/10 bg-card/60 backdrop-blur-md hover:bg-card/80 transition-all shadow-xl"
                         >
                             <h3 className="text-2xl font-bold text-primary mb-6 flex items-center">
@@ -39,10 +39,10 @@ const About = () => {
     
                         {/* Location Card */}
                         <motion.div 
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
-                            viewport={{ once: true }}
+                            initial={{ opacity: 0, x: 50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+                            viewport={{ once: true, amount: 0.3 }}
                             className="p-8 rounded-2xl border border-secondary/20 bg-secondary/40 backdrop-blur-md hover:bg-secondary/60 transition-all shadow-lg"
                         >
                             <h3 className="text-xl font-bold text-foreground mb-4 flex items-center">

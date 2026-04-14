@@ -70,17 +70,8 @@ const Navbar = () => {
                             );
                         })}
                         
-                        <div className="flex items-center gap-2 ml-4 border-l border-primary/20 pl-4">
-                            <button
-                                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                                className="p-2.5 rounded-full hover:bg-primary/10 transition-all text-foreground hover:rotate-12"
-                                aria-label="Toggle theme"
-                            >
-                                <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                                <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                            </button>
-
-                            <div className="flex items-center space-x-2 ml-2">
+                        <div className="flex items-center gap-4 ml-6 border-l border-primary/10 pl-6">
+                            <div className="flex items-center space-x-1">
                                 <a href="https://github.com/soumyachk101" target="_blank" rel="noreferrer" className="p-2 text-muted-foreground hover:text-primary transition-colors hover:scale-110">
                                     <Github size={18} />
                                 </a>
@@ -88,6 +79,15 @@ const Navbar = () => {
                                     <Linkedin size={18} />
                                 </a>
                             </div>
+
+                            <button
+                                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                                className="relative p-2.5 rounded-xl bg-primary/5 hover:bg-primary/20 transition-all text-primary hover:rotate-12 group shadow-sm border border-primary/10"
+                                aria-label="Toggle theme"
+                            >
+                                <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 group-hover:scale-110" />
+                                <Moon className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 group-hover:scale-110" />
+                            </button>
                         </div>
                     </div>
 
@@ -95,7 +95,8 @@ const Navbar = () => {
                     <div className="md:hidden flex items-center gap-2">
                         <button
                             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                            className="p-2.5 rounded-full hover:bg-primary/10 transition-colors text-foreground"
+                            className="p-2 rounded-xl bg-primary/5 hover:bg-primary/20 transition-all text-primary border border-primary/10"
+                            aria-label="Toggle theme"
                         >
                             <Sun className="h-5 w-5 dark:hidden" />
                             <Moon className="h-5 w-5 hidden dark:block" />

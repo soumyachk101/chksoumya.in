@@ -126,63 +126,63 @@ const Contact = () => {
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6 }}
                         viewport={{ once: true }}
-                        className="space-y-6"
+                        <div className="space-y-6"
                     >
                         {/* Card 1: Contact Information */}
-                        <div className="p-8 rounded-2xl bg-[#FEEAF0]/40 border border-primary/5 shadow-lg shadow-[#FEEAF0]/50">
+                        <div className="p-8 rounded-2xl bg-muted/40 border border-primary/5 shadow-lg shadow-muted/50">
                             <h3 className="text-xl font-bold text-primary mb-6">Contact Information</h3>
                             <div className="space-y-6">
                                 <div className="flex items-center space-x-4 group">
-                                    <div className="p-3 bg-white rounded-full text-primary group-hover:bg-primary group-hover:text-white transition-all shadow-sm">
+                                    <div className="p-3 bg-card rounded-full text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all shadow-sm">
                                         <Phone size={20} />
                                     </div>
                                     <div>
-                                        <p className="text-xs text-slate-500 uppercase tracking-wide font-bold">Phone</p>
-                                        <p className="text-slate-800 font-bold">+91 9332880661</p>
+                                        <p className="text-xs text-muted-foreground uppercase tracking-wide font-bold">Phone</p>
+                                        <p className="text-foreground font-bold">+91 9332880661</p>
                                     </div>
                                 </div>
 
                                 <div className="flex items-center space-x-4 group">
-                                    <div className="p-3 bg-white rounded-full text-primary group-hover:bg-primary group-hover:text-white transition-all shadow-sm">
+                                    <div className="p-3 bg-card rounded-full text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all shadow-sm">
                                         <Mail size={20} />
                                     </div>
                                     <div>
-                                        <p className="text-xs text-slate-500 uppercase tracking-wide font-bold">Email</p>
-                                        <p className="text-slate-800 font-bold">soumyachk1@gmail.com</p>
+                                        <p className="text-xs text-muted-foreground uppercase tracking-wide font-bold">Email</p>
+                                        <p className="text-foreground font-bold">soumyachk1@gmail.com</p>
                                     </div>
                                 </div>
 
                                 <div className="flex items-center space-x-4 group">
-                                    <div className="p-3 bg-white rounded-full text-primary group-hover:bg-primary group-hover:text-white transition-all shadow-sm">
+                                    <div className="p-3 bg-card rounded-full text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all shadow-sm">
                                         <Linkedin size={20} />
                                     </div>
                                     <div>
-                                        <p className="text-xs text-slate-500 uppercase tracking-wide font-bold">LinkedIn</p>
-                                        <a href="https://www.linkedin.com/in/soumya-chakraborty-102b24399" target="_blank" rel="noreferrer" className="text-primary font-bold hover:text-dark transition-colors">View Profile</a>
+                                        <p className="text-xs text-muted-foreground uppercase tracking-wide font-bold">LinkedIn</p>
+                                        <a href="https://www.linkedin.com/in/soumya-chakraborty-102b24399" target="_blank" rel="noreferrer" className="text-primary font-bold hover:text-foreground transition-colors">View Profile</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         {/* Card 2: Promo */}
-                        <div className="p-8 rounded-2xl bg-white border border-primary/10 shadow-lg">
-                            <h3 className="text-lg font-bold text-slate-800 mb-2">Let's Create Something Amazing</h3>
-                            <p className="text-slate-600 text-sm leading-relaxed font-medium">
+                        <div className="p-8 rounded-2xl bg-card border border-primary/10 shadow-lg">
+                            <h3 className="text-lg font-bold text-foreground mb-2">Let's Create Something Amazing</h3>
+                            <p className="text-muted-foreground text-sm leading-relaxed font-medium">
                                 I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
                             </p>
                         </div>
 
                         {/* Card 3: Socials */}
-                        <div className="p-6 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-between shadow-sm">
-                            <span className="text-slate-500 text-sm font-bold">Connect with me</span>
+                        <div className="p-6 rounded-2xl bg-secondary/20 border border-primary/5 flex items-center justify-between shadow-sm">
+                            <span className="text-muted-foreground text-sm font-bold">Connect with me</span>
                             <div className="flex space-x-3">
-                                <a href="https://www.linkedin.com/in/soumya-chakraborty-102b24399" target="_blank" rel="noreferrer" className="p-2 bg-white rounded-full text-primary hover:bg-primary hover:text-white transition-all shadow-sm">
+                                <a href="https://www.linkedin.com/in/soumya-chakraborty-102b24399" target="_blank" rel="noreferrer" className="p-2 bg-card rounded-full text-primary hover:bg-primary hover:text-primary-foreground transition-all shadow-sm">
                                     <Linkedin size={18} />
                                 </a>
-                                <a href="https://github.com/soumyachk101" target="_blank" rel="noreferrer" className="p-2 bg-white rounded-full text-primary hover:bg-primary hover:text-white transition-all shadow-sm">
+                                <a href="https://github.com/soumyachk101" target="_blank" rel="noreferrer" className="p-2 bg-card rounded-full text-primary hover:bg-primary hover:text-primary-foreground transition-all shadow-sm">
                                     <Github size={18} />
                                 </a>
-                                <a href="https://www.instagram.com/soumya_chk" target="_blank" rel="noreferrer" className="p-2 bg-white rounded-full text-primary hover:bg-primary hover:text-white transition-all shadow-sm">
+                                <a href="https://www.instagram.com/soumya_chk" target="_blank" rel="noreferrer" className="p-2 bg-card rounded-full text-primary hover:bg-primary hover:text-primary-foreground transition-all shadow-sm">
                                     <Instagram size={18} />
                                 </a>
                             </div>
@@ -191,7 +191,7 @@ const Contact = () => {
                     </motion.div>
                 </div>
 
-                <footer className="mt-20 pt-8 border-t border-slate-200 text-center text-slate-500 text-sm font-bold">
+                <footer className="mt-20 pt-8 border-t border-primary/10 text-center text-muted-foreground text-sm font-bold">
                     <p>&copy; {new Date().getFullYear()} Soumya Chakraborty. All rights reserved.</p>
                 </footer>
             </div>

@@ -62,10 +62,10 @@ const Skills = () => {
                     {skillCategories.map((category, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
-                            viewport={{ once: true }}
+                            initial={{ opacity: 0, scale: 0.95, y: 30 }}
+                            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: index * 0.1 }}
+                            viewport={{ once: true, amount: 0.2 }}
                             className="bg-card p-8 rounded-2xl border border-primary/5 shadow-lg hover:shadow-xl transition-all"
                         >
                             <div className="flex items-center gap-3 mb-8">
@@ -88,7 +88,7 @@ const Skills = () => {
                                                 className="bg-gradient-to-r from-primary to-secondary h-full rounded-full relative"
                                                 initial={{ width: 0 }}
                                                 whileInView={{ width: `${skill.level}%` }}
-                                                transition={{ duration: 1, delay: 0.2 + (idx * 0.1) }}
+                                                transition={{ duration: 1.2, delay: 0.4 + (idx * 0.1) }}
                                                 viewport={{ once: true }}
                                             >
                                                 <div className="absolute inset-0 bg-white/20 animate-[shimmer_2s_infinite] w-full h-full transform -skew-x-12 origin-left"></div>
@@ -103,10 +103,10 @@ const Skills = () => {
 
                 {/* Soft Skills Section */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                    viewport={{ once: true, amount: 0.4 }}
                     className="p-10 rounded-2xl bg-secondary/30 border border-primary/5 text-center shadow-lg"
                 >
                     <h3 className="text-2xl font-bold text-foreground mb-8">Soft Skills</h3>
@@ -114,11 +114,11 @@ const Skills = () => {
                         {softSkills.map((skill, index) => (
                             <motion.span
                                 key={index}
-                                initial={{ opacity: 0, scale: 0.9 }}
+                                initial={{ opacity: 0, scale: 0.5 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
-                                transition={{ duration: 0.3, delay: index * 0.05 }}
+                                transition={{ type: "spring", stiffness: 100, delay: index * 0.05 }}
                                 viewport={{ once: true }}
-                                whileHover={{ scale: 1.05, backgroundColor: "var(--primary-light)" }}
+                                whileHover={{ scale: 1.1, backgroundColor: "var(--primary)", color: "white" }}
                                 className="px-6 py-3 rounded-full bg-card border border-primary/10 text-primary text-sm font-bold cursor-default transition-all shadow-sm"
                             >
                                 {skill}

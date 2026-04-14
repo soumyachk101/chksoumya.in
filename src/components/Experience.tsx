@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Briefcase, Calendar, ExternalLink, MapPin } from 'lucide-react';
+import { Calendar, ExternalLink, MapPin } from 'lucide-react';
 
 interface ExperienceItem {
     company: string;
