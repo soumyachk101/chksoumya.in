@@ -126,7 +126,7 @@ const Contact = () => {
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6 }}
                         viewport={{ once: true }}
-                        <div className="space-y-6"
+                        className="space-y-6"
                     >
                         {/* Card 1: Contact Information */}
                         <div className="p-8 rounded-2xl bg-muted/40 border border-primary/5 shadow-lg shadow-muted/50">
