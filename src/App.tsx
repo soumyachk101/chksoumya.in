@@ -20,7 +20,7 @@ function App() {
   }, []);
 
   return (
-    <div className="bg-slate-950 min-h-screen text-white selection:bg-indigo-500/30">
+    <div className="bg-background min-h-screen text-foreground transition-colors duration-300">
       <AnimatePresence mode='wait'>
         {isLoading && <Preloader />}
       </AnimatePresence>

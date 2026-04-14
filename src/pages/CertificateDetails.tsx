@@ -21,11 +21,11 @@ const CertificateDetails = () => {
     }
 
     return (
-        <section className="min-h-screen bg-slate-950 py-20 px-4 sm:px-6 lg:px-8">
+        <section className="min-h-screen bg-background py-20 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
                 <div className="mb-12">
-                    <Link to="/" className="inline-flex items-center text-gray-400 hover:text-white transition-colors mb-6 group">
+                    <Link to="/" className="inline-flex items-center text-muted-foreground hover:text-foreground transition-colors mb-6 group">
                         <ArrowLeft size={20} className="mr-2 group-hover:-translate-x-1 transition-transform" />
                         Back to Portfolio
                     </Link>
@@ -35,11 +35,11 @@ const CertificateDetails = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
                     >
-                        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                        <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
                             {category.label}
                         </h1>
-                        <div className="w-20 h-1.5 bg-gradient-to-r from-indigo-500 to-pink-500 rounded-full"></div>
-                        <p className="mt-4 text-gray-400 text-lg">
+                        <div className="w-20 h-1.5 bg-gradient-to-r from-primary to-secondary rounded-full"></div>
+                        <p className="mt-4 text-muted-foreground text-lg">
                             {filteredCerts.length} Certificates in this collection
                         </p>
                     </motion.div>
@@ -54,24 +54,24 @@ const CertificateDetails = () => {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.4, delay: index * 0.05 }}
-                                className="glass p-6 rounded-xl hover:bg-white/5 transition-all group border-l-4 border-l-transparent hover:border-l-indigo-500 flex flex-col h-full"
+                                className="glass p-6 rounded-xl hover:bg-card/50 transition-all group border-l-4 border-l-transparent hover:border-l-primary flex flex-col h-full"
                             >
                                 <div className="flex justify-between items-start mb-4">
-                                    <div className="p-2 bg-indigo-500/10 rounded-lg text-indigo-400 group-hover:text-pink-400 transition-colors">
+                                    <div className="p-2 bg-primary/10 rounded-lg text-primary group-hover:text-secondary transition-colors">
                                         <Award size={24} />
                                     </div>
                                 </div>
 
-                                <h3 className="text-lg font-bold text-white mb-1 group-hover:text-indigo-300 transition-colors leading-tight">
+                                <h3 className="text-lg font-bold text-foreground mb-1 group-hover:text-primary transition-colors leading-tight">
                                     {cert.title}
                                 </h3>
-                                <p className="text-gray-400 text-sm mb-4 flex-grow">{cert.issuer}</p>
+                                <p className="text-muted-foreground text-sm mb-4 flex-grow">{cert.issuer}</p>
 
                                 <a
                                     href={cert.link}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center text-sm font-medium text-indigo-400 hover:text-pink-400 transition-colors mt-auto"
+                                    className="inline-flex items-center text-sm font-medium text-primary hover:text-secondary transition-colors mt-auto"
                                 >
                                     View Certificate <ExternalLink size={14} className="ml-1" />
                                 </a>

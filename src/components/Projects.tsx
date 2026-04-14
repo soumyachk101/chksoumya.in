@@ -4,73 +4,57 @@ import { ExternalLink, Github } from 'lucide-react';
 const Projects = () => {
     const projects = [
         {
-            title: "HealthTrack+",
-            desc: "Comprehensive health monitoring and appointment booking platform.",
-            tags: ["React", "Express", "MongoDB", "Node.js"],
-            image: "/images/project-healthtrack.png",
-            github: "#",
+            title: "Neeti AI",
+            desc: "An advanced AI-powered recruitment platform featuring real-time collaborative coding, automated evaluations, and seamless video integration.",
+            tags: ["FastAPI", "React", "LiveKit", "Supabase", "AI"],
+            image: "/images/project-neeti-ai.png",
+            github: "https://github.com/soumyachk101/NEETI-AI-Final-Version",
+            live: "#"
+        },
+        {
+            title: "Phygital Trace",
+            desc: "A cutting-edge supply chain solution bridging physical assets with digital twins using blockchain and NFC technology for end-to-end authenticity.",
+            tags: ["Blockchain", "IoT", "React", "Node.js", "Solidity"],
+            image: "/images/project-phygital-trace.png",
+            github: "https://github.com/soumyachk101/phygital-trace-",
             live: "#"
         },
         {
             title: "Stream.Tv",
-            desc: "A modern video streaming platform with real-time features.",
-            tags: ["Next.js", "Socket.io", "Tailwind"],
+            desc: "A premium video streaming client with a modern UI, real-time category filtering, and a high-performance video player interface.",
+            tags: ["React", "Vite", "Tailwind", "RapidAPI"],
             image: "/images/project-streamtv.png",
-            github: "#",
+            github: "https://github.com/soumyachk101/Stream.Tv-Client",
             live: "#"
         },
         {
-            title: "Portfolio Website",
-            desc: "My personal 3D portfolio built with React, Three.js, and Framer Motion.",
-            tags: ["React", "Three.js", "Tailwind"],
-            image: "/images/project-portfolio-real.png",
-            github: "#",
-            live: "#"
-        },
-        {
-            title: "ShopEasy E-commerce",
-            desc: "Full-stack shopping platform with cart, payments, and user auth.",
-            tags: ["MERN Stack", "Redux", "Stripe"],
-            image: "/images/project-ecommerce-new.png",
-            github: "#",
-            live: "#"
-        },
-        {
-            title: "Weather Buddy",
-            desc: "Real-time weather dashboard using OpenWeatherMap API.",
-            tags: ["JS", "API", "CSS"],
-            image: "/images/project-weather-new.png",
-            github: "#",
-            live: "#"
-        },
-        {
-            title: "TaskFlow",
-            desc: "Productivity app with drag-and-drop task management.",
-            tags: ["React", "LocalStorage", "DnD"],
-            image: "/images/project-todo.png",
-            github: "#",
+            title: "HealthTrack+",
+            desc: "A comprehensive health monitoring platform for seamless medical record management and real-time biometric tracking.",
+            tags: ["React", "Express", "Node.js", "MongoDB"],
+            image: "/images/project-healthtrack.png",
+            github: "https://github.com/soumyachk101/HealthTrack-Client",
             live: "#"
         },
         {
             title: "Country Finder",
-            desc: "A tool to search for countries and view their details.",
-            tags: ["React", "API", "CSS"],
+            desc: "An interactive geographic explorer allowing users to search and discover detailed country information with a clean, responsive interface.",
+            tags: ["React", "REST Countries API", "Tailwind"],
             image: "/images/project-country.png",
-            github: "#",
+            github: "https://github.com/soumyachk101/Country_Finder",
             live: "#"
         },
         {
-            title: "StockVolatility",
-            desc: "Analyze stock market volatility with real-time data.",
-            tags: ["React", "Finance", "API"],
+            title: "Stock Volatility",
+            desc: "A financial analysis tool for monitoring market volatility and stock trends using real-time data visualisations.",
+            tags: ["React", "Finance API", "Charts.js"],
             image: "/images/project-stock.png",
-            github: "#",
+            github: "https://github.com/soumyachk101/Stock-Volatility",
             live: "#"
         }
     ];
 
     return (
-        <section id="projects" className="py-20 bg-slate-950">
+        <section id="projects" className="py-20 bg-background">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -79,9 +63,9 @@ const Projects = () => {
                     viewport={{ once: true }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">Featured Projects</h2>
-                    <div className="w-20 h-1 bg-gradient-to-r from-indigo-500 to-pink-500 mx-auto rounded-full"></div>
-                    <p className="mt-4 text-gray-400">
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Featured Projects</h2>
+                    <div className="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"></div>
+                    <p className="mt-4 text-muted-foreground font-medium">
                         A selection of things I've built.
                     </p>
                 </motion.div>
@@ -95,7 +79,7 @@ const Projects = () => {
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                             viewport={{ once: true }}
                             whileHover={{ y: -10 }}
-                            className="glass rounded-xl overflow-hidden group"
+                            className="bg-card rounded-2xl overflow-hidden group shadow-lg border border-primary/5 hover:shadow-2xl transition-all"
                         >
                             <div className="relative h-48 overflow-hidden">
                                 <img
@@ -106,22 +90,22 @@ const Projects = () => {
                                         (e.target as HTMLImageElement).src = `https://via.placeholder.com/400x300?text=${project.title}`;
                                     }}
                                 />
-                                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-4">
-                                    <a href={project.github} className="p-2 bg-white/10 rounded-full hover:bg-white/20 text-white transition-colors">
+                                <div className="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-4 backdrop-blur-[2px]">
+                                    <a href={project.github} className="p-2 bg-background/90 rounded-full hover:bg-background text-primary transition-colors">
                                         <Github size={20} />
                                     </a>
-                                    <a href={project.live} className="p-2 bg-indigo-600 rounded-full hover:bg-indigo-700 text-white transition-colors">
+                                    <a href={project.live} className="p-2 bg-primary rounded-full hover:bg-primary/80 text-primary-foreground transition-colors">
                                         <ExternalLink size={20} />
                                     </a>
                                 </div>
                             </div>
 
                             <div className="p-6">
-                                <h3 className="text-xl font-bold mb-2 text-white group-hover:text-indigo-400 transition-colors">{project.title}</h3>
-                                <p className="text-gray-400 text-sm mb-4 line-clamp-2">{project.desc}</p>
+                                <h3 className="text-xl font-bold mb-2 text-foreground group-hover:text-primary transition-colors">{project.title}</h3>
+                                <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{project.desc}</p>
                                 <div className="flex flex-wrap gap-2">
                                     {project.tags.map((tag, i) => (
-                                        <span key={i} className="text-xs px-2 py-1 rounded-md bg-indigo-900/30 text-indigo-300 border border-indigo-500/20">
+                                        <span key={i} className="text-xs px-2 py-1 rounded-md bg-secondary text-primary font-bold border border-primary/10">
                                             {tag}
                                         </span>
                                     ))}

@@ -7,9 +7,26 @@ export default {
     theme: {
         extend: {
             colors: {
-                primary: "#6366f1", // Indigo 500
-                secondary: "#ec4899", // Pink 500
-                dark: "#0f172a", // Slate 900
+                border: "hsl(var(--border))",
+                input: "hsl(var(--input))",
+                ring: "hsl(var(--ring))",
+                background: "hsl(var(--background))",
+                foreground: "hsl(var(--foreground))",
+                primary: {
+                    DEFAULT: "hsl(var(--primary))",
+                    foreground: "hsl(var(--primary-foreground))",
+                },
+                secondary: {
+                    DEFAULT: "hsl(var(--secondary))",
+                    foreground: "hsl(var(--secondary-foreground))",
+                },
+                tertiary: "#FEEAF0", // Soft Pink
+                muted: {
+                    DEFAULT: "hsl(var(--muted))",
+                    foreground: "hsl(var(--muted-foreground))",
+                },
+                mainBg: "hsl(var(--background))",
+                dark: "#0a4e4a",
             },
             fontFamily: {
                 sans: ['Inter', 'sans-serif'],

@@ -14,12 +14,15 @@
     "@react-three/fiber": "^9.5.0",
     "@types/three": "^0.182.0",
     "autoprefixer": "^10.4.23",
+    "clsx": "^2.1.1",
     "framer-motion": "^12.29.0",
     "lucide-react": "^0.563.0",
+    "next-themes": "^0.4.6",
     "postcss": "^8.5.6",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.13.0",
+    "tailwind-merge": "^3.5.0",
     "three": "^0.182.0"
   },
   "devDependencies": {
