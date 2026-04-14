@@ -62,11 +62,11 @@ const Hackathons = () => {
                     {hackathons.map((hack, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, y: 50, rotateX: 15 }}
-                            whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-                            transition={{ duration: 0.8, delay: index * 0.2 }}
-                            viewport={{ once: true, amount: 0.3 }}
-                            className="group relative"
+                            initial={{ opacity: 0, y: 40 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: index * 0.1 }}
+                            viewport={{ once: true }}
+                            className="group relative z-10"
                         >
                             {/* Card Background with Tilt effect and Glow */}
                             <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
