@@ -121,7 +121,7 @@ class Z extends InstancedMesh {
     ambientLight: AmbientLight;
     light: PointLight;
     constructor(renderer: WebGLRenderer, params: any) {
-        const pmrem = new PMREMGenerator(renderer); const envTexture = pmrem.fromScene(new RoomEnvironment(renderer)).texture; pmrem.dispose();
+        const pmrem = new PMREMGenerator(renderer); const envTexture = pmrem.fromScene(new RoomEnvironment()).texture; pmrem.dispose();
         const geometry = new SphereGeometry(1, 24, 24);
         const material = new MeshPhysicalMaterial({ envMap: envTexture, ...params.materialParams });
         super(geometry, material, params.count);

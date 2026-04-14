@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Trophy, Calendar, MapPin, ExternalLink, Zap } from 'lucide-react';
+import { Trophy, Calendar, MapPin, Zap } from 'lucide-react';
 
 interface HackathonItem {
     name: string;
