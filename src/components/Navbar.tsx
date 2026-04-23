@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Github, Linkedin, Instagram, Sun, Moon } from 'lucide-react';
-import { useTheme } from 'next-themes';
+import { Menu, X, Github, Linkedin, Instagram } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [activeSection, setActiveSection] = useState('home');
-    const { theme, setTheme } = useTheme();
 
     const navLinks = [
         { name: 'Home', href: '#home' },
@@ -39,74 +37,55 @@ const Navbar = () => {
     }, []);
 
     return (
-        <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'glass-nav py-3 shadow-md' : 'bg-transparent py-5'}`}>
+        <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-paper py-3 border-b-4 border-pencil shadow-[0_4px_0_0_#2d2d2d]' : 'bg-transparent py-5'}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center">
-                    <a href="#home" className="text-2xl font-black tracking-tighter hover:scale-105 transition-transform">
-                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">SC.</span>
+                    <a href="#home" className="text-4xl font-heading font-black tracking-tighter hover:-rotate-2 transition-transform text-pencil">
+                        SC.
                     </a>
 
                     {/* Desktop Menu */}
-                    <div className="hidden md:flex items-center space-x-1">
+                    <div className="hidden md:flex items-center space-x-2">
                         {navLinks.map((link) => {
                             const isActive = activeSection === link.href.substring(1);
                             return (
                                 <a
                                     key={link.name}
                                     href={link.href}
-                                    className={`px-4 py-2 rounded-full text-sm font-bold tracking-wide transition-all duration-300 relative group ${
-                                        isActive ? 'text-primary' : 'text-foreground/70 hover:text-foreground'
+                                    className={`px-3 py-1 text-xl font-bold transition-all duration-300 relative group ${
+                                        isActive ? 'text-accent' : 'text-pencil hover:text-accent hover:-translate-y-1'
                                     }`}
                                 >
                                     {link.name}
+                                    {/* Hand-drawn underline for active state */}
                                     {isActive && (
-                                        <motion.div 
-                                            layoutId="activeNav"
-                                            className="absolute inset-0 bg-primary/10 rounded-full -z-10"
-                                            transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                                        />
+                                        <svg className="absolute -bottom-1 left-0 w-full h-2 text-accent" viewBox="0 0 100 10" preserveAspectRatio="none">
+                                            <path d="M0,5 Q20,10 40,5 T80,5 T100,5" stroke="currentColor" strokeWidth="3" fill="none" className="path-draw" />
+                                        </svg>
                                     )}
-                                    <span className={`absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-primary rounded-full transition-all duration-300 ${isActive ? 'opacity-100' : 'opacity-0 scale-0 group-hover:opacity-100 group-hover:scale-100'}`} />
                                 </a>
                             );
                         })}
                         
-                        <div className="flex items-center gap-4 ml-6 border-l border-primary/10 pl-6">
-                            <div className="flex items-center space-x-1">
-                                <a href="https://github.com/soumyachk101" target="_blank" rel="noreferrer" className="p-2 text-muted-foreground hover:text-primary transition-colors hover:scale-110">
-                                    <Github size={18} />
+                        <div className="flex items-center gap-4 ml-4 pl-4 border-l-4 border-dashed border-muted">
+                            <div className="flex items-center space-x-2">
+                                <a href="https://github.com/soumyachk101" target="_blank" rel="noreferrer" className="p-2 border-2 border-pencil rounded-full text-pencil hover:bg-accent hover:text-white transition-all hover:rotate-6 shadow-[2px_2px_0_0_#2d2d2d] hover:shadow-[1px_1px_0_0_#2d2d2d] hover:translate-x-[1px] hover:translate-y-[1px]">
+                                    <Github size={20} strokeWidth={2.5} />
                                 </a>
-                                <a href="https://www.linkedin.com/in/soumya-chakraborty-102b24399" target="_blank" rel="noreferrer" className="p-2 text-muted-foreground hover:text-primary transition-colors hover:scale-110">
-                                    <Linkedin size={18} />
+                                <a href="https://www.linkedin.com/in/soumya-chakraborty-102b24399" target="_blank" rel="noreferrer" className="p-2 border-2 border-pencil rounded-full text-pencil hover:bg-secondary hover:text-white transition-all hover:-rotate-6 shadow-[2px_2px_0_0_#2d2d2d] hover:shadow-[1px_1px_0_0_#2d2d2d] hover:translate-x-[1px] hover:translate-y-[1px]">
+                                    <Linkedin size={20} strokeWidth={2.5} />
                                 </a>
                             </div>
-
-                            <button
-                                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                                className="relative p-2.5 rounded-xl bg-primary/5 hover:bg-primary/20 transition-all text-primary hover:rotate-12 group shadow-sm border border-primary/10"
-                                aria-label="Toggle theme"
-                            >
-                                <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 group-hover:scale-110" />
-                                <Moon className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 group-hover:scale-110" />
-                            </button>
                         </div>
                     </div>
 
                     {/* Mobile Menu Button */}
                     <div className="md:hidden flex items-center gap-2">
                         <button
-                            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                            className="p-2 rounded-xl bg-primary/5 hover:bg-primary/20 transition-all text-primary border border-primary/10"
-                            aria-label="Toggle theme"
-                        >
-                            <Sun className="h-5 w-5 dark:hidden" />
-                            <Moon className="h-5 w-5 hidden dark:block" />
-                        </button>
-                        <button
                             onClick={() => setIsOpen(!isOpen)}
-                            className="p-2 rounded-xl text-foreground hover:bg-primary/10 transition-all"
+                            className="p-2 border-2 border-pencil bg-white shadow-[2px_2px_0_0_#2d2d2d] text-pencil hover:bg-accent hover:text-white transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
                         >
-                            {isOpen ? <X size={24} /> : <Menu size={24} />}
+                            {isOpen ? <X size={24} strokeWidth={3} /> : <Menu size={24} strokeWidth={3} />}
                         </button>
                     </div>
                 </div>
@@ -116,32 +95,31 @@ const Navbar = () => {
             <AnimatePresence>
                 {isOpen && (
                     <motion.div 
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        className="md:hidden glass absolute w-[calc(100%-2rem)] left-4 top-full mt-2 rounded-2xl overflow-hidden border border-primary/10 shadow-2xl z-[100]"
+                        initial={{ opacity: 0, y: -20, rotate: -2 }}
+                        animate={{ opacity: 1, y: 0, rotate: 0 }}
+                        exit={{ opacity: 0, y: -20, rotate: 2 }}
+                        className="md:hidden absolute w-[calc(100%-2rem)] left-4 top-full mt-4 bg-post-it border-4 border-pencil border-wobbly-md shadow-[6px_6px_0_0_#2d2d2d] z-[100] p-6"
                     >
-                        <div className="p-4 space-y-1">
+                        <div className="space-y-4">
                             {navLinks.map((link) => {
                                 const isActive = activeSection === link.href.substring(1);
                                 return (
                                     <a
                                         key={link.name}
                                         href={link.href}
-                                        className={`flex items-center justify-between px-4 py-3 rounded-xl text-base font-bold transition-all ${
-                                            isActive ? 'bg-primary text-primary-foreground' : 'text-foreground/80 hover:bg-primary/10'
+                                        className={`block text-2xl font-bold transition-all border-b-2 border-dashed pb-2 ${
+                                            isActive ? 'text-accent border-accent' : 'text-pencil border-pencil/30 hover:pl-4 hover:text-secondary'
                                         }`}
                                         onClick={() => setIsOpen(false)}
                                     >
                                         {link.name}
-                                        {isActive && <div className="w-1.5 h-1.5 bg-primary-foreground rounded-full" />}
                                     </a>
                                 );
                             })}
-                            <div className="pt-4 mt-2 border-t border-primary/10 flex justify-center gap-6 pb-2">
-                                <a href="https://github.com/soumyachk101" className="text-muted-foreground hover:text-primary"><Github size={20} /></a>
-                                <a href="https://www.linkedin.com/in/soumya-chakraborty-102b24399" className="text-muted-foreground hover:text-primary"><Linkedin size={20} /></a>
-                                <a href="https://www.instagram.com/soumya_chk" className="text-muted-foreground hover:text-primary"><Instagram size={20} /></a>
+                            <div className="pt-4 flex gap-4">
+                                <a href="https://github.com/soumyachk101" className="p-3 border-2 border-pencil bg-white text-pencil hover:bg-accent hover:text-white shadow-[2px_2px_0_0_#2d2d2d]"><Github size={24} strokeWidth={2.5} /></a>
+                                <a href="https://www.linkedin.com/in/soumya-chakraborty-102b24399" className="p-3 border-2 border-pencil bg-white text-pencil hover:bg-secondary hover:text-white shadow-[2px_2px_0_0_#2d2d2d]"><Linkedin size={24} strokeWidth={2.5} /></a>
+                                <a href="https://www.instagram.com/soumya_chk" className="p-3 border-2 border-pencil bg-white text-pencil hover:bg-accent hover:text-white shadow-[2px_2px_0_0_#2d2d2d]"><Instagram size={24} strokeWidth={2.5} /></a>
                             </div>
                         </div>
                     </motion.div>

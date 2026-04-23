@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { ExternalLink, Github } from 'lucide-react';
+import { Card } from './ui/Card';
 
 const Projects = () => {
     const projects = [
@@ -50,67 +51,99 @@ const Projects = () => {
             image: "/images/project-stock.png",
             github: "https://github.com/soumyachk101/Stock-Volatility",
             live: "#"
+        },
+        {
+            title: "NexusOps",
+            desc: "A comprehensive CI/CD orchestration and infrastructure management platform for streamlining DevOps workflows and accelerating delivery.",
+            tags: ["DevOps", "Docker", "Kubernetes", "AWS", "Terraform"],
+            image: "/images/project-nexusops.png",
+            github: "https://github.com/soumyachk101/NexusOps-3.0",
+            live: "https://nexusops-sigma.vercel.app"
         }
     ];
 
     return (
-        <section id="projects" className="py-20 bg-background">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section id="projects" className="py-20 relative overflow-hidden">
+            {/* Background Doodles */}
+            <div className="absolute top-40 left-10 opacity-20 pointer-events-none">
+                <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10,60 Q30,10 60,60 T110,60" stroke="#2d2d2d" strokeWidth="3" fill="none" className="path-draw" />
+                    <circle cx="60" cy="60" r="40" stroke="#2d2d2d" strokeWidth="2" strokeDasharray="5,5" fill="none" />
+                </svg>
+            </div>
+            
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
+                    initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
+                    whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+                    transition={{ type: "spring", stiffness: 120, damping: 10 }}
                     viewport={{ once: true }}
-                    className="text-center mb-16"
+                    className="text-center mb-20 relative"
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Featured Projects</h2>
-                    <div className="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"></div>
-                    <p className="mt-4 text-muted-foreground font-medium">
+                    <h2 className="text-4xl md:text-6xl font-display font-bold mb-4 text-pencil transform rotate-1 inline-block relative">
+                        Featured Projects
+                        <svg className="absolute -bottom-4 left-0 w-full h-4" viewBox="0 0 100 20" preserveAspectRatio="none">
+                            <path d="M0,15 Q50,5 100,15 M10,10 Q50,20 90,10" stroke="#e85d04" strokeWidth="3" fill="none" className="path-draw" />
+                        </svg>
+                    </h2>
+                    <p className="mt-8 text-pencil/80 font-sans text-xl font-bold transform -rotate-1">
                         A selection of things I've built.
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                     {projects.map((project, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, y: 50, scale: 0.9 }}
-                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                            transition={{ duration: 0.6, delay: index * 0.1 }}
+                            initial={{ opacity: 0, y: 50, scale: 0.9, rotate: (index % 2 === 0 ? -8 : 8) }}
+                            whileInView={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
+                            transition={{ 
+                                type: "spring",
+                                stiffness: 100,
+                                damping: 12,
+                                delay: index * 0.1 
+                            }}
                             viewport={{ once: true, amount: 0.2 }}
-                            whileHover={{ y: -10 }}
-                            className="bg-card rounded-2xl overflow-hidden group shadow-lg border border-primary/5 hover:shadow-2xl transition-all"
                         >
-                            <div className="relative h-48 overflow-hidden">
-                                <img
-                                    src={project.image}
-                                    alt={project.title}
-                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                    onError={(e) => {
-                                        (e.target as HTMLImageElement).src = `https://via.placeholder.com/400x300?text=${project.title}`;
-                                    }}
-                                />
-                                <div className="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-4 backdrop-blur-[2px]">
-                                    <a href={project.github} className="p-2 bg-background/90 rounded-full hover:bg-background text-primary transition-colors">
-                                        <Github size={20} />
-                                    </a>
-                                    <a href={project.live} className="p-2 bg-primary rounded-full hover:bg-primary/80 text-primary-foreground transition-colors">
-                                        <ExternalLink size={20} />
-                                    </a>
+                            <Card 
+                                decoration={index % 3 === 0 ? 'tack' : index % 2 === 0 ? 'tape' : 'none'}
+                                className={`h-full flex flex-col ${index % 2 === 0 ? '-rotate-1' : 'rotate-1'} hover:rotate-0 transition-transform duration-300 p-4`}
+                            >
+                                <div className="relative h-48 mb-6 border-2 border-pencil border-wobbly overflow-hidden group">
+                                    <img
+                                        src={project.image}
+                                        alt={project.title}
+                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                        onError={(e) => {
+                                            (e.target as HTMLImageElement).src = `https://via.placeholder.com/400x300?text=${project.title}`;
+                                        }}
+                                    />
+                                    <div className="absolute inset-0 bg-pencil/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-6 backdrop-blur-[2px]">
+                                        <a href={project.github} className="p-3 bg-paper border-2 border-pencil rounded-full hover:bg-accent hover:-translate-y-1 transition-all shadow-hard">
+                                            <Github size={24} className="text-pencil" strokeWidth={2.5} />
+                                        </a>
+                                        <a href={project.live} className="p-3 bg-paper border-2 border-pencil rounded-full hover:bg-secondary hover:-translate-y-1 transition-all shadow-hard">
+                                            <ExternalLink size={24} className="text-pencil" strokeWidth={2.5} />
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div className="p-6">
-                                <h3 className="text-xl font-bold mb-2 text-foreground group-hover:text-primary transition-colors">{project.title}</h3>
-                                <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{project.desc}</p>
-                                <div className="flex flex-wrap gap-2">
-                                    {project.tags.map((tag, i) => (
-                                        <span key={i} className="text-xs px-2 py-1 rounded-md bg-secondary text-primary font-bold border border-primary/10">
-                                            {tag}
-                                        </span>
-                                    ))}
+                                <div className="flex-1 flex flex-col px-2">
+                                    <h3 className="text-2xl font-display font-bold mb-3 text-pencil inline-block border-b-2 border-pencil border-wobbly pb-1 self-start">
+                                        {project.title}
+                                    </h3>
+                                    <p className="text-pencil/80 text-lg font-sans mb-6 flex-1 leading-relaxed">
+                                        {project.desc}
+                                    </p>
+                                    <div className="flex flex-wrap gap-2 mt-auto pt-4">
+                                        {project.tags.map((tag, i) => (
+                                            <span key={i} className="text-sm px-3 py-1 bg-white border-2 border-pencil border-wobbly shadow-[2px_2px_0px_0px_#2d2d2d] text-pencil font-bold">
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
+                            </Card>
                         </motion.div>
                     ))}
                 </div>

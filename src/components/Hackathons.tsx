@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Trophy, Calendar, MapPin, Zap } from 'lucide-react';
+import { Card } from './ui/Card';
 
 interface HackathonItem {
     name: string;
@@ -37,10 +38,19 @@ const Hackathons = () => {
     ];
 
     return (
-        <section id="hackathons" className="py-24 relative bg-background overflow-hidden">
+        <section id="hackathons" className="py-24 relative overflow-hidden">
             {/* Background Accents */}
-            <div className="absolute top-0 left-1/4 w-72 h-72 bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
-            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary/10 rounded-full blur-[120px] pointer-events-none"></div>
+            <div className="absolute top-20 left-10 opacity-20 pointer-events-none">
+                <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50,10 L90,90 L10,90 Z" stroke="#2d2d2d" strokeWidth="3" fill="none" strokeLinejoin="round" className="path-draw" />
+                </svg>
+            </div>
+            
+            <div className="absolute bottom-20 right-10 opacity-20 pointer-events-none">
+                <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10,60 Q30,10 60,60 T110,60" stroke="#2d2d2d" strokeWidth="3" fill="none" className="path-draw" />
+                </svg>
+            </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <motion.div
@@ -48,14 +58,18 @@ const Hackathons = () => {
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.6 }}
                     viewport={{ once: true }}
-                    className="text-center mb-20"
+                    className="text-center mb-20 relative"
                 >
-                    <div className="inline-flex items-center justify-center p-2 mb-4 bg-primary/10 rounded-xl text-primary mb-6">
-                        <Trophy size={24} className="mr-2" />
-                        <span className="text-sm font-black tracking-widest uppercase">Competitions</span>
+                    <div className="inline-flex items-center justify-center p-2 mb-4 border-2 border-pencil border-wobbly text-pencil mb-6 transform -rotate-2">
+                        <Trophy size={24} className="mr-2" strokeWidth={2.5} />
+                        <span className="text-lg font-sans font-bold tracking-widest uppercase">Competitions</span>
                     </div>
-                    <h2 className="text-4xl md:text-6xl font-black mb-4 text-foreground tracking-tight">Hackathons</h2>
-                    <div className="w-24 h-2 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"></div>
+                    <h2 className="text-4xl md:text-6xl font-display font-bold mb-4 text-pencil tracking-tight transform rotate-1 inline-block relative block">
+                        Hackathons
+                        <svg className="absolute -bottom-4 left-0 w-full h-4" viewBox="0 0 100 20" preserveAspectRatio="none">
+                            <path d="M0,10 Q50,20 100,10 M10,15 Q50,5 90,15" stroke="#e85d04" strokeWidth="3" fill="none" className="path-draw" />
+                        </svg>
+                    </h2>
                 </motion.div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
@@ -68,56 +82,56 @@ const Hackathons = () => {
                             viewport={{ once: true }}
                             className="group relative z-10"
                         >
-                            {/* Card Background with Tilt effect and Glow */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
-                            
-                            <div className="h-full bg-card/60 backdrop-blur-xl border border-primary/10 rounded-3xl p-8 md:p-10 shadow-lg hover:shadow-2xl hover:border-primary/30 transition-all duration-300">
+                            <Card 
+                                decoration={index % 2 === 0 ? 'tape' : 'tack'}
+                                className={`h-full flex flex-col ${index % 2 === 0 ? '-rotate-1' : 'rotate-1'} hover:rotate-0 transition-all duration-300 p-8 md:p-10`}
+                            >
                                 <div className="flex flex-col md:flex-row md:items-start justify-between mb-8 gap-6">
-                                    <div className="space-y-2">
+                                    <div className="space-y-4">
                                         <div className="flex items-center gap-2">
-                                            <Zap size={20} className="text-secondary fill-secondary/20" />
-                                            <span className="text-primary font-black text-sm tracking-widest uppercase">{hack.organizer}</span>
+                                            <Zap size={20} className="text-accent" strokeWidth={2.5} />
+                                            <span className="text-pencil font-sans font-bold text-lg tracking-widest uppercase">{hack.organizer}</span>
                                         </div>
-                                        <h3 className="text-2xl md:text-3xl font-black text-foreground group-hover:text-primary transition-colors">{hack.name}</h3>
-                                        <div className="text-muted-foreground flex items-center gap-4 text-sm font-bold">
+                                        <h3 className="text-3xl md:text-4xl font-display font-bold text-pencil inline-block border-b-2 border-pencil border-wobbly pb-1">{hack.name}</h3>
+                                        <div className="text-pencil/80 flex flex-wrap items-center gap-4 text-lg font-sans font-bold mt-2">
                                             <div className="flex items-center gap-1.5 font-bold">
-                                                <Calendar size={14} className="text-primary" />
+                                                <Calendar size={18} className="text-pencil" strokeWidth={2.5} />
                                                 {hack.date}
                                             </div>
                                             <div className="flex items-center gap-1.5 uppercase tracking-wider">
-                                                <MapPin size={14} className="text-primary" />
+                                                <MapPin size={18} className="text-pencil" strokeWidth={2.5} />
                                                 {hack.location}
                                             </div>
                                         </div>
                                     </div>
 
                                     {hack.achievement && (
-                                        <div className="px-5 py-2.5 bg-primary text-primary-foreground rounded-2xl font-black text-xs tracking-tighter shadow-lg shadow-primary/20 rotate-3 group-hover:rotate-0 transition-transform">
+                                        <div className="px-5 py-2.5 bg-accent text-white rounded-md font-sans font-bold text-sm tracking-widest uppercase border-2 border-pencil border-wobbly shadow-hard rotate-3 group-hover:rotate-0 transition-transform">
                                             {hack.achievement}
                                         </div>
                                     )}
                                 </div>
 
-                                <p className="text-muted-foreground leading-relaxed text-lg mb-8 font-medium">
+                                <p className="text-pencil/90 font-sans leading-relaxed text-xl mb-8 font-medium flex-1">
                                     {hack.desc}
                                 </p>
 
-                                <div className="flex flex-wrap gap-2 mb-8">
+                                <div className="flex flex-wrap gap-2 mb-8 mt-auto">
                                     {hack.tags.map((tag, i) => (
-                                        <span key={i} className="px-4 py-1.5 bg-secondary/20 text-primary rounded-full text-xs font-black border border-primary/5 hover:bg-primary hover:text-white transition-colors cursor-default">
+                                        <span key={i} className="px-4 py-1.5 bg-white text-pencil border-2 border-pencil border-wobbly shadow-[2px_2px_0px_0px_#2d2d2d] font-sans font-bold hover:bg-secondary hover:text-paper transition-colors cursor-default">
                                             {tag}
                                         </span>
                                     ))}
                                 </div>
 
                                 <motion.div 
-                                    className="pt-6 border-t border-primary/5 flex items-center justify-between"
+                                    className="pt-6 border-t-2 border-pencil border-wobbly-alt flex items-center justify-between"
                                     whileHover={{ x: 5 }}
                                 >
-                                    <span className="text-foreground font-black text-sm uppercase tracking-widest">{hack.role}</span>
-                                    <Trophy size={20} className="text-primary opacity-50 group-hover:opacity-100 transition-opacity" />
+                                    <span className="text-pencil font-sans font-bold text-lg uppercase tracking-widest">{hack.role}</span>
+                                    <Trophy size={24} className="text-pencil" strokeWidth={2.5} />
                                 </motion.div>
-                            </div>
+                            </Card>
                         </motion.div>
                     ))}
                 </div>

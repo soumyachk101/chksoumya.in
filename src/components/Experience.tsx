@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Calendar, ExternalLink, MapPin } from 'lucide-react';
+import { Card } from './ui/Card';
 
 interface ExperienceItem {
     company: string;
@@ -50,23 +51,27 @@ const Experience = () => {
     ];
 
     return (
-        <section id="experience" className="py-20 relative bg-background/60">
+        <section id="experience" className="py-20 relative overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                     viewport={{ once: true }}
-                    className="text-center mb-20"
+                    className="text-center mb-20 relative"
                 >
-                    <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">Journey</h2>
-                    <div className="w-24 h-1.5 bg-primary mx-auto rounded-full"></div>
-                    <p className="mt-4 text-muted-foreground font-medium">My professional and academic evolution</p>
+                    <h2 className="text-4xl md:text-6xl font-display font-bold mb-4 text-pencil transform rotate-1 inline-block relative">
+                        Journey
+                        <svg className="absolute -bottom-4 left-0 w-full h-4" viewBox="0 0 100 20" preserveAspectRatio="none">
+                            <path d="M0,15 Q50,5 100,15 M10,10 Q50,20 90,10" stroke="#e85d04" strokeWidth="3" fill="none" className="path-draw" />
+                        </svg>
+                    </h2>
+                    <p className="mt-8 text-pencil/80 font-sans text-xl font-bold transform -rotate-1">My professional and academic evolution</p>
                 </motion.div>
 
                 <div className="relative">
                     {/* Vertical Line */}
-                    <div className="absolute left-1/2 -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-primary via-secondary to-transparent hidden md:block opacity-30"></div>
+                    <div className="absolute left-1/2 -translate-x-1/2 h-full w-1 border-l-4 border-dashed border-pencil hidden md:block opacity-40"></div>
 
                     <div className="space-y-12">
                         {experiences.map((exp, index) => (
@@ -81,49 +86,58 @@ const Experience = () => {
                                 }`}
                             >
                                 {/* Content Card */}
-                                <div className="md:w-5/12 bg-card p-6 rounded-xl hover:bg-secondary/10 transition-all border-l-4 border-l-primary relative shadow-md">
-                                    <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full mb-3 uppercase tracking-wider">
-                                        {exp.type}
-                                    </span>
-                                    <h3 className="text-xl font-bold text-foreground mb-1">{exp.role}</h3>
-                                    <p className="text-primary font-semibold mb-2">{exp.company}</p>
-                                    
-                                    <div className="flex items-center text-sm text-muted-foreground mb-3 space-x-3">
-                                        <div className="flex items-center">
-                                            <Calendar size={14} className="mr-1.5" />
-                                            {exp.date}
+                                <div className="md:w-5/12 w-full relative">
+                                    <Card 
+                                        decoration={index % 2 === 0 ? 'tape' : 'tack'}
+                                        className={`${index % 2 === 0 ? 'rotate-1' : '-rotate-1'} hover:rotate-0 transition-transform`}
+                                    >
+                                        <span className="inline-block px-3 py-1 bg-white border-2 border-pencil border-wobbly text-pencil text-sm font-bold mb-3 uppercase tracking-wider shadow-[2px_2px_0px_0px_#2d2d2d]">
+                                            {exp.type}
+                                        </span>
+                                        <h3 className="text-2xl font-display font-bold text-pencil mb-1">{exp.role}</h3>
+                                        <p className="text-accent font-sans font-bold text-xl mb-2">{exp.company}</p>
+                                        
+                                        <div className="flex items-center text-lg text-pencil/80 font-sans font-bold mb-4 space-x-4">
+                                            <div className="flex items-center">
+                                                <Calendar size={18} className="mr-1.5" strokeWidth={2.5} />
+                                                {exp.date}
+                                            </div>
+                                            <div className="flex items-center">
+                                                <MapPin size={18} className="mr-1.5" strokeWidth={2.5} />
+                                                {exp.location}
+                                            </div>
                                         </div>
-                                        <div className="flex items-center">
-                                            <MapPin size={14} className="mr-1.5" />
-                                            {exp.location}
-                                        </div>
+                                        
+                                        <p className="text-pencil/90 font-sans leading-relaxed text-lg mb-6 font-medium">
+                                            {exp.desc}
+                                        </p>
+
+                                        {exp.certificate && (
+                                            <a
+                                                href={exp.certificate}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex items-center text-sm font-sans font-bold text-pencil hover:text-paper bg-white border-2 border-pencil border-wobbly px-4 py-2 hover:bg-pencil transition-all shadow-[2px_2px_0px_0px_#2d2d2d]"
+                                            >
+                                                View Certificate <ExternalLink size={16} className="ml-2" strokeWidth={2.5} />
+                                            </a>
+                                        )}
+                                    </Card>
+
+                                    {/* Mobile/Tablet Arrow Connector - Drawn look */}
+                                    <div className={`hidden md:block absolute top-1/2 -translate-y-1/2 ${
+                                        index % 2 === 0 ? '-left-8' : '-right-8'
+                                    }`}>
+                                        <svg width="32" height="12" viewBox="0 0 32 12" fill="none" className={index % 2 === 0 ? "scale-x-[-1]" : ""}>
+                                            <path d="M0,6 L30,6 M25,2 L30,6 L25,10" stroke="#2d2d2d" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="path-draw" />
+                                        </svg>
                                     </div>
-                                    
-                                    <p className="text-muted-foreground leading-relaxed text-sm mb-4">
-                                        {exp.desc}
-                                    </p>
-
-                                    {exp.certificate && (
-                                        <a
-                                            href={exp.certificate}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="inline-flex items-center text-xs font-bold text-primary hover:text-primary-foreground transition-all border border-primary/30 px-4 py-2 rounded-full hover:bg-primary"
-                                        >
-                                            View Certificate <ExternalLink size={12} className="ml-1" />
-                                        </a>
-                                    )}
-
-                                    {/* Mobile/Tablet Arrow Connector */}
-                                    <div className={`hidden md:block absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-card border-t border-r border-primary/20 rotate-45 ${
-                                        index % 2 === 0 ? '-left-2' : '-right-2'
-                                    }`}></div>
                                 </div>
 
                                 {/* Dot on the timeline */}
-                                <div className="relative z-10 my-4 md:my-0">
-                                    <div className="w-10 h-10 bg-background border-4 border-primary rounded-full flex items-center justify-center shadow-lg shadow-primary/20 transition-transform hover:scale-125">
-                                        <div className="w-2.5 h-2.5 bg-primary rounded-full"></div>
+                                <div className="relative z-10 my-6 md:my-0">
+                                    <div className="w-8 h-8 bg-paper border-4 border-pencil border-wobbly flex items-center justify-center shadow-hard transition-transform hover:scale-110 rotate-12">
+                                        <div className="w-3 h-3 bg-accent border-2 border-pencil rounded-full"></div>
                                     </div>
                                 </div>
 

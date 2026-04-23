@@ -1,60 +1,66 @@
 import { motion } from 'framer-motion';
 import { MapPin } from 'lucide-react';
+import { Card } from './ui/Card';
 
 const About = () => {
     return (
-        <section id="about" className="py-20 relative bg-background overflow-hidden">
-            {/* Background Glow */}
-            <div className="absolute top-1/2 left-0 -translate-y-1/2 w-96 h-96 bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
-
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <section id="about" className="py-24 relative bg-background overflow-hidden">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, y: 20, rotate: -2 }}
+                    whileInView={{ opacity: 1, y: 0, rotate: -2 }}
                     transition={{ duration: 0.6 }}
                     viewport={{ once: true }}
-                    className="text-center mb-16"
+                    className="text-center mb-16 inline-block w-full"
                 >
-                    <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">About Me</h2>
-                    <div className="w-24 h-1.5 bg-primary mx-auto rounded-full"></div>
+                    <h2 className="text-5xl md:text-6xl font-heading font-black mb-4 text-pencil relative inline-block">
+                        About Me
+                        <svg className="absolute -bottom-2 left-0 w-full h-4 text-secondary" viewBox="0 0 100 10" preserveAspectRatio="none">
+                            <path d="M0,5 Q50,10 100,5" stroke="currentColor" strokeWidth="4" fill="none" strokeDasharray="5,5" />
+                        </svg>
+                    </h2>
                 </motion.div>
 
-                    <div className="lg:col-span-2 max-w-3xl mx-auto space-y-8">
-                        {/* Bio Card */}
-                        <motion.div 
-                            initial={{ opacity: 0, x: -50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8, ease: "easeOut" }}
-                            viewport={{ once: true, amount: 0.3 }}
-                            className="p-10 rounded-2xl border border-primary/10 bg-card/60 backdrop-blur-md hover:bg-card/80 transition-all shadow-xl"
-                        >
-                            <h3 className="text-2xl font-bold text-primary mb-6 flex items-center">
-                                <span className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center mr-3 text-sm text-primary">01</span>
+                <div className="space-y-12">
+                    {/* Bio Card */}
+                    <motion.div 
+                        initial={{ opacity: 0, x: -20, rotate: 2 }}
+                        whileInView={{ opacity: 1, x: 0, rotate: 1 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        viewport={{ once: true, amount: 0.3 }}
+                    >
+                        <Card decoration="tape" className="bg-white">
+                            <h3 className="text-3xl font-heading font-bold text-accent mb-6 flex items-center">
+                                <span className="w-10 h-10 rounded-full border-2 border-pencil flex items-center justify-center mr-4 text-xl text-pencil bg-post-it border-wobbly shadow-hard-sm transform -rotate-6">1</span>
                                 Creative & Detail-Oriented
                             </h3>
-                            <p className="text-muted-foreground leading-relaxed text-lg">
+                            <p className="text-pencil leading-relaxed text-xl md:text-2xl font-sans">
                                 I'm a passionate 3rd Year B.Tech CSE Student. I love exploring the intersection of design and technology, creating user-centric web applications that not only look great but function seamlessly. My journey is driven by curiosity and a constant desire to learn new technologies.
                             </p>
-                        </motion.div>
-    
-                        {/* Location Card */}
-                        <motion.div 
-                            initial={{ opacity: 0, x: 50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-                            viewport={{ once: true, amount: 0.3 }}
-                            className="p-8 rounded-2xl border border-secondary/20 bg-secondary/40 backdrop-blur-md hover:bg-secondary/60 transition-all shadow-lg"
-                        >
-                            <h3 className="text-xl font-bold text-foreground mb-4 flex items-center">
-                                <span className="w-8 h-8 rounded-lg bg-secondary/20 flex items-center justify-center mr-3 text-sm text-primary">02</span>
+                        </Card>
+                    </motion.div>
+
+                    {/* Location Card */}
+                    <motion.div 
+                        initial={{ opacity: 0, x: 20, rotate: -2 }}
+                        whileInView={{ opacity: 1, x: 0, rotate: -1 }}
+                        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                    >
+                        <Card decoration="tack" variant="post-it" className="ml-0 md:ml-12 border-wobbly-md">
+                            <h3 className="text-3xl font-heading font-bold text-pencil mb-4 flex items-center">
+                                <span className="w-10 h-10 rounded-full border-2 border-pencil flex items-center justify-center mr-4 text-xl text-pencil bg-white border-wobbly-alt shadow-hard-sm transform rotate-6">2</span>
                                 Location
                             </h3>
-                            <div className="flex items-center text-muted-foreground">
-                                <MapPin className="text-primary mr-3" size={24} />
-                                <span className="text-lg font-medium">Kolkata, India</span>
+                            <div className="flex items-center text-pencil">
+                                <div className="p-2 border-2 border-pencil rounded-full border-wobbly bg-white mr-4 shadow-hard-sm">
+                                    <MapPin className="text-accent" size={28} strokeWidth={2.5} />
+                                </div>
+                                <span className="text-2xl font-bold font-sans">Kolkata, India</span>
                             </div>
-                        </motion.div>
-                    </div>
+                        </Card>
+                    </motion.div>
+                </div>
             </div>
         </section>
     );
