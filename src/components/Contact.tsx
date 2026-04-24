@@ -1,36 +1,8 @@
-import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, Send, Loader2, Linkedin, Github, Instagram } from 'lucide-react';
+import { Mail, Phone, Linkedin, Github, Instagram } from 'lucide-react';
 import { Card } from './ui/Card';
-import { Button } from './ui/Button';
 
 const Contact = () => {
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        message: ''
-    });
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [submitted, setSubmitted] = useState(false);
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setIsSubmitting(true);
-
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500));
-
-        setIsSubmitting(false);
-        setSubmitted(true);
-        setFormData({ name: '', email: '', message: '' });
-
-        setTimeout(() => setSubmitted(false), 3000);
-    };
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
-    };
-
     return (
         <section id="contact" className="py-20 relative overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -50,85 +22,11 @@ const Contact = () => {
                     <p className="mt-8 text-pencil/80 font-sans text-xl font-bold transform rotate-1">Have a question or want to work together?</p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                    {/* Contact Form */}
+                <div className="max-w-4xl mx-auto">
+                    {/* Info Cards */}
                     <motion.div
-                        initial={{ opacity: 0, x: -30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.6 }}
-                        viewport={{ once: true }}
-                    >
-                        <Card decoration="tape" className="transform rotate-1 hover:rotate-0 transition-transform">
-                            <form onSubmit={handleSubmit} className="space-y-6">
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                    <div>
-                                        <label htmlFor="name" className="block text-sm font-sans font-bold text-pencil mb-2">Your Name</label>
-                                        <input
-                                            type="text"
-                                            id="name"
-                                            name="name"
-                                            value={formData.name}
-                                            onChange={handleChange}
-                                            placeholder="John Doe"
-                                            className="w-full bg-paper border-2 border-pencil border-wobbly px-4 py-3 outline-none focus:bg-white transition-all text-pencil font-sans font-bold shadow-[2px_2px_0px_0px_#2d2d2d]"
-                                            required
-                                        />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="email" className="block text-sm font-sans font-bold text-pencil mb-2">Your Email</label>
-                                        <input
-                                            type="email"
-                                            id="email"
-                                            name="email"
-                                            value={formData.email}
-                                            onChange={handleChange}
-                                            placeholder="john@example.com"
-                                            className="w-full bg-paper border-2 border-pencil border-wobbly px-4 py-3 outline-none focus:bg-white transition-all text-pencil font-sans font-bold shadow-[2px_2px_0px_0px_#2d2d2d]"
-                                            required
-                                        />
-                                    </div>
-                                </div>
-                                <div>
-                                    <label htmlFor="message" className="block text-sm font-sans font-bold text-pencil mb-2">Your Message</label>
-                                    <textarea
-                                        id="message"
-                                        name="message"
-                                        value={formData.message}
-                                        onChange={handleChange}
-                                        rows={4}
-                                        placeholder="Tell me about your project..."
-                                        className="w-full bg-paper border-2 border-pencil border-wobbly px-4 py-3 outline-none focus:bg-white transition-all resize-none text-pencil font-sans font-bold shadow-[2px_2px_0px_0px_#2d2d2d]"
-                                        required
-                                    ></textarea>
-                                </div>
-                                
-                                <Button 
-                                    type="submit" 
-                                    disabled={isSubmitting}
-                                    className="w-full flex justify-center items-center gap-2"
-                                >
-                                    {isSubmitting ? (
-                                        <>
-                                            <Loader2 size={20} className="animate-spin" strokeWidth={2.5} />
-                                            <span>Sending...</span>
-                                        </>
-                                    ) : submitted ? (
-                                        <span>Message Sent!</span>
-                                    ) : (
-                                        <>
-                                            <span>Send Message</span>
-                                            <Send size={18} strokeWidth={2.5} />
-                                        </>
-                                    )}
-                                </Button>
-                            </form>
-                        </Card>
-                    </motion.div>
-
-                    {/* Right Column: Info Cards */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
                         viewport={{ once: true }}
                         className="space-y-8"
@@ -136,7 +34,7 @@ const Contact = () => {
                         {/* Card 1: Contact Information */}
                         <Card decoration="tack" className="transform -rotate-1 hover:rotate-0 transition-transform">
                             <h3 className="text-2xl font-display font-bold text-pencil mb-6 inline-block border-b-2 border-pencil border-dashed pb-1">Contact Information</h3>
-                            <div className="space-y-6">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 <div className="flex items-center space-x-4 group">
                                     <div className="p-3 bg-white border-2 border-pencil border-wobbly text-pencil group-hover:bg-pencil group-hover:text-paper transition-all shadow-hard transform -rotate-3 group-hover:rotate-0">
                                         <Phone size={20} strokeWidth={2.5} />
