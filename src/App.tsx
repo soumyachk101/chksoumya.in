@@ -14,7 +14,7 @@ function App() {
     // We can check if it's the first visit session or just simple timeout
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 2800);
 
     return () => clearTimeout(timer);
   }, []);

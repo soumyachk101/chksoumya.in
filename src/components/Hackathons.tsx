@@ -17,22 +17,21 @@ const Hackathons = () => {
     const hackathons: HackathonItem[] = [
         {
             name: "HACKTROPICA 2K26",
-            organizer: "University Level Hackathon",
+            organizer: "Asansol Engineering College",
             role: "Full Stack Developer",
-            achievement: "Finalist / Participant",
             date: "2026",
             location: "On-site",
-            desc: "Developed an innovative solution during a high-intensity 24-hour coding marathon, focusing on scalability and user impact.",
+            desc: "Developed an innovative solution during a high-intensity 36-hour coding marathon, focusing on scalability and user impact.",
             tags: ["React", "Node.js", "Innovation", "Problem Solving"]
         },
         {
             name: "CODE FOR CHANGE 2.0",
-            organizer: "Social Impact Hackathon",
+            organizer: "NSHM College",
             role: "Backend & Lead",
             achievement: "Winner / Honorable Mention",
             date: "2025",
             location: "Kolkata, India",
-            desc: "Collaborated with a dynamic team to build a digital platform aimed at driving social change through technology.",
+            desc: "Collaborated with a dynamic team during a 24-hour hackathon to build a digital platform aimed at driving social change through technology.",
             tags: ["Python", "Sustainability", "Community", "Leadership"]
         }
     ];
