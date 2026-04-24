@@ -9,15 +9,15 @@ const Projects = () => {
             desc: "An advanced AI-powered recruitment platform featuring real-time collaborative coding, automated evaluations, and seamless video integration.",
             tags: ["FastAPI", "React", "LiveKit", "Supabase", "AI"],
             image: "/images/project-neeti-ai.png",
-            github: "https://github.com/soumyachk101/NEETI-AI-Final-Version",
-            live: "#"
+            github: "https://github.com/soumyachk101/Neeti-AI",
+            live: "https://neetiai.vercel.app/"
         },
         {
             title: "Phygital Trace",
             desc: "A cutting-edge supply chain solution bridging physical assets with digital twins using blockchain and NFC technology for end-to-end authenticity.",
             tags: ["Blockchain", "IoT", "React", "Node.js", "Solidity"],
             image: "/images/project-phygital-trace.png",
-            github: "https://github.com/soumyachk101/phygital-trace-",
+            github: "https://github.com/soumyachk101/Phygital-trace-done",
             live: "#"
         },
         {
@@ -34,7 +34,7 @@ const Projects = () => {
             tags: ["React", "Express", "Node.js", "MongoDB"],
             image: "/images/project-healthtrack.png",
             github: "https://github.com/soumyachk101/HealthTrack-Client",
-            live: "#"
+            live: "https://www.healthtrack.store/"
         },
         {
             title: "Country Finder",
@@ -42,7 +42,7 @@ const Projects = () => {
             tags: ["React", "REST Countries API", "Tailwind"],
             image: "/images/project-country.png",
             github: "https://github.com/soumyachk101/Country_Finder",
-            live: "#"
+            live: "https://wcountryfinder.netlify.app/"
         },
         {
             title: "Stock Volatility",
