@@ -1,0 +1,4 @@
+{
+  "/certificates/[categoryId]/page": "app/certificates/[categoryId]/page.js",
+  "/page": "app/page.js"
+}
