@@ -118,7 +118,7 @@ const Projects = () => {
                                             (e.target as HTMLImageElement).src = `https://via.placeholder.com/400x300?text=${project.title}`;
                                         }}
                                     />
-                                    <div className="absolute inset-0 bg-pencil/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-6 backdrop-blur-[2px]">
+                                    <div className="absolute inset-0 bg-pencil/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:flex items-center justify-center space-x-6 backdrop-blur-[2px]">
                                         <a href={project.github} className="p-3 bg-paper border-2 border-pencil rounded-full hover:bg-accent hover:-translate-y-1 transition-all shadow-hard">
                                             <Github size={24} className="text-pencil" strokeWidth={2.5} />
                                         </a>
@@ -141,6 +141,30 @@ const Projects = () => {
                                                 {tag}
                                             </span>
                                         ))}
+                                    </div>
+
+                                    {/* Mobile Links - Visible only on small screens */}
+                                    <div className="flex gap-4 mt-6 md:hidden">
+                                        <a 
+                                            href={project.github} 
+                                            target="_blank" 
+                                            rel="noopener noreferrer"
+                                            className="flex-1 py-3 bg-white border-2 border-pencil flex items-center justify-center gap-2 font-sans font-bold text-pencil shadow-[3px_3px_0px_0px_#2d2d2d] active:shadow-none active:translate-x-[2px] active:translate-y-[2px] transition-all"
+                                        >
+                                            <Github size={18} strokeWidth={2.5} />
+                                            <span>GitHub</span>
+                                        </a>
+                                        {project.live !== "#" && (
+                                            <a 
+                                                href={project.live} 
+                                                target="_blank" 
+                                                rel="noopener noreferrer"
+                                                className="flex-1 py-3 bg-accent text-white border-2 border-pencil flex items-center justify-center gap-2 font-sans font-bold shadow-[3px_3px_0px_0px_#2d2d2d] active:shadow-none active:translate-x-[2px] active:translate-y-[2px] transition-all"
+                                            >
+                                                <ExternalLink size={18} strokeWidth={2.5} />
+                                                <span>Live</span>
+                                            </a>
+                                        )}
                                     </div>
                                 </div>
                             </Card>

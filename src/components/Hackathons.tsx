@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Trophy, Calendar, MapPin, Zap } from 'lucide-react';
+import { Trophy, Calendar, MapPin, Zap, Github, ExternalLink } from 'lucide-react';
 import { Card } from './ui/Card';
 
 interface HackathonItem {
@@ -11,6 +11,8 @@ interface HackathonItem {
     location: string;
     desc: string;
     tags: string[];
+    github?: string;
+    live?: string;
 }
 
 const Hackathons = () => {
@@ -21,18 +23,21 @@ const Hackathons = () => {
             role: "Full Stack Developer",
             date: "2026",
             location: "On-site",
-            desc: "Developed an innovative solution during a high-intensity 36-hour coding marathon, focusing on scalability and user impact.",
-            tags: ["React", "Node.js", "Innovation", "Problem Solving"]
+            desc: "Developed 'Phygital Trace', a blockchain-powered supply chain solution, during a high-intensity 36-hour coding marathon focused on innovation and scalability.",
+            tags: ["Next.js", "Solidity", "Base L2", "FastAPI", "Gemini AI", "IPFS", "React Native"],
+            github: "https://github.com/soumyachk101/Phygital-trace-done"
         },
         {
             name: "CODE FOR CHANGE 2.0",
             organizer: "NSHM College",
             role: "Backend & Lead",
             achievement: "Winner / Honorable Mention",
-            date: "2025",
+            date: "2026",
             location: "Kolkata, India",
-            desc: "Collaborated with a dynamic team during a 24-hour hackathon to build a digital platform aimed at driving social change through technology.",
-            tags: ["Python", "Sustainability", "Community", "Leadership"]
+            desc: "Collaborated to build 'Neeti AI', an AI-powered recruitment platform, during a 24-hour hackathon aimed at driving social change through technology.",
+            tags: ["FastAPI", "React", "LiveKit", "Supabase", "AI", "Tailwind"],
+            github: "https://github.com/soumyachk101/Neeti-AI",
+            live: "https://neetiai.vercel.app/"
         }
     ];
 
@@ -121,6 +126,31 @@ const Hackathons = () => {
                                             {tag}
                                         </span>
                                     ))}
+                                </div>
+
+                                <div className="flex flex-wrap gap-4 mb-8">
+                                    {hack.github && (
+                                        <a 
+                                            href={hack.github} 
+                                            target="_blank" 
+                                            rel="noopener noreferrer"
+                                            className="px-4 py-2 bg-white text-pencil border-2 border-pencil border-wobbly flex items-center gap-2 font-sans font-bold shadow-[3px_3px_0px_0px_#2d2d2d] hover:bg-pencil hover:text-paper transition-all"
+                                        >
+                                            <Github size={18} strokeWidth={2.5} />
+                                            <span>GitHub</span>
+                                        </a>
+                                    )}
+                                    {hack.live && (
+                                        <a 
+                                            href={hack.live} 
+                                            target="_blank" 
+                                            rel="noopener noreferrer"
+                                            className="px-4 py-2 bg-accent text-white border-2 border-pencil border-wobbly flex items-center gap-2 font-sans font-bold shadow-[3px_3px_0px_0px_#2d2d2d] hover:rotate-2 transition-all"
+                                        >
+                                            <ExternalLink size={18} strokeWidth={2.5} />
+                                            <span>Live Demo</span>
+                                        </a>
+                                    )}
                                 </div>
 
                                 <motion.div 
