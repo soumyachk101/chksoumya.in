@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
+import { Analytics } from '@vercel/analytics/react';
 import Home from './pages/Home';
 import CertificateDetails from './pages/CertificateDetails';
 import Preloader from './components/Preloader';
@@ -33,6 +34,7 @@ function App() {
           </Routes>
         </AnimatePresence>
       )}
+      <Analytics />
     </div>
   );
 }
