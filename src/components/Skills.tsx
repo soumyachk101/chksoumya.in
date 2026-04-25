@@ -23,6 +23,7 @@ const Skills = () => {
             skills: [
                 { name: "React.js", level: 92, icon: <Globe size={18} strokeWidth={2.5} /> },
                 { name: "Next.js", level: 85, icon: <Globe size={18} strokeWidth={2.5} /> },
+                { name: "Node.js", level: 88, icon: <Terminal size={18} strokeWidth={2.5} /> },
                 { name: "Tailwind CSS", level: 95, icon: <PenTool size={18} strokeWidth={2.5} /> },
                 { name: "Framer Motion", level: 88, icon: <Layout size={18} strokeWidth={2.5} /> },
                 { name: "Three.js (Basics)", level: 75, icon: <Cpu size={18} strokeWidth={2.5} /> }

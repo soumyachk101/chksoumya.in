@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { ExternalLink, Github } from 'lucide-react';
 import { Card } from './ui/Card';
 
@@ -110,13 +111,12 @@ const Projects = () => {
                                 className={`h-full flex flex-col ${index % 2 === 0 ? '-rotate-1' : 'rotate-1'} hover:rotate-0 transition-transform duration-300 p-4`}
                             >
                                 <div className="relative h-48 mb-6 border-2 border-pencil border-wobbly overflow-hidden group">
-                                    <img
+                                    <Image
                                         src={project.image}
                                         alt={project.title}
-                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                        onError={(e) => {
-                                            (e.target as HTMLImageElement).src = `https://via.placeholder.com/400x300?text=${project.title}`;
-                                        }}
+                                        fill
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                        className="object-cover transition-transform duration-500 group-hover:scale-110"
                                     />
                                     <div className="absolute inset-0 bg-pencil/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:flex items-center justify-center space-x-6 backdrop-blur-[2px]">
                                         <a href={project.github} className="p-3 bg-paper border-2 border-pencil rounded-full hover:bg-accent hover:-translate-y-1 transition-all shadow-hard">

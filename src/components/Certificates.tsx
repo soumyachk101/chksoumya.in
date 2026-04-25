@@ -1,5 +1,7 @@
+"use client";
+
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { ArrowRight, Brain, Code2, Database, Cloud, Shield, Award } from 'lucide-react';
 import { categories, certificates } from '../data/certificates';
 import { Card } from './ui/Card';
@@ -45,7 +47,7 @@ const Certificates = () => {
                         const rotClass = index % 3 === 0 ? '-rotate-1' : index % 3 === 1 ? 'rotate-1' : '-rotate-2';
 
                         return (
-                            <Link to={`/certificates/${cat.id}`} key={cat.id} className="block group">
+                            <Link href={`/certificates/${cat.id}`} key={cat.id} className="block group">
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
