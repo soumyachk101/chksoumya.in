@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Mail, Phone, Linkedin, Github, Instagram } from 'lucide-react';
+import { Mail, Phone, Github, Instagram, MessageCircle } from 'lucide-react';
 import { Card } from './ui/Card';
 
 const Contact = () => {
@@ -41,7 +41,7 @@ const Contact = () => {
                                     </div>
                                     <div>
                                         <p className="text-xs text-accent uppercase tracking-wide font-bold mb-1">Phone</p>
-                                        <p className="text-pencil font-display font-bold text-lg">+91 9332880661</p>
+                                        <p className="text-pencil font-display font-bold text-lg">+91 8145850111</p>
                                     </div>
                                 </div>
 
@@ -57,11 +57,11 @@ const Contact = () => {
 
                                 <div className="flex items-center space-x-4 group">
                                     <div className="p-3 bg-white border-2 border-pencil border-wobbly text-pencil group-hover:bg-pencil group-hover:text-paper transition-all shadow-hard transform -rotate-2 group-hover:rotate-0">
-                                        <Linkedin size={20} strokeWidth={2.5} />
+                                        <MessageCircle size={20} strokeWidth={2.5} />
                                     </div>
                                     <div>
-                                        <p className="text-xs text-accent uppercase tracking-wide font-bold mb-1">LinkedIn</p>
-                                        <a href="https://www.linkedin.com/in/soumya-chakraborty-102b24399" target="_blank" rel="noreferrer" className="text-pencil font-display font-bold text-lg hover:text-accent transition-colors underline decoration-wavy">View Profile</a>
+                                        <p className="text-xs text-accent uppercase tracking-wide font-bold mb-1">WhatsApp</p>
+                                        <a href="https://wa.me/qr/PAVVG4QPZUJXF1" target="_blank" rel="noreferrer" className="text-pencil font-display font-bold text-lg hover:text-accent transition-colors underline decoration-wavy">Chat Now</a>
                                     </div>
                                 </div>
                             </div>
@@ -80,8 +80,8 @@ const Contact = () => {
                             <Card className="transform -rotate-2 hover:rotate-0 transition-transform flex flex-col justify-between">
                                 <span className="text-pencil text-lg font-display font-bold mb-4">Connect with me</span>
                                 <div className="flex space-x-4">
-                                    <a href="https://www.linkedin.com/in/soumya-chakraborty-102b24399" target="_blank" rel="noreferrer" className="p-3 bg-white border-2 border-pencil border-wobbly text-pencil hover:bg-pencil hover:text-paper transition-all shadow-hard transform hover:scale-110">
-                                        <Linkedin size={20} strokeWidth={2.5} />
+                                    <a href="https://wa.me/qr/PAVVG4QPZUJXF1" target="_blank" rel="noreferrer" className="p-3 bg-white border-2 border-pencil border-wobbly text-pencil hover:bg-pencil hover:text-paper transition-all shadow-hard transform hover:scale-110 rotate-6">
+                                        <MessageCircle size={20} strokeWidth={2.5} />
                                     </a>
                                     <a href="https://github.com/soumyachk101" target="_blank" rel="noreferrer" className="p-3 bg-white border-2 border-pencil border-wobbly text-pencil hover:bg-pencil hover:text-paper transition-all shadow-hard transform hover:scale-110 rotate-3">
                                         <Github size={20} strokeWidth={2.5} />

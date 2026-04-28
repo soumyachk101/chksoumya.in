@@ -41,7 +41,7 @@ const jsonLd = {
   "jobTitle": "Full Stack Developer",
   "sameAs": [
     "https://github.com/soumyachk101",
-    "https://www.linkedin.com/in/soumya-chakraborty-102b24399",
+    "https://wa.me/qr/PAVVG4QPZUJXF1",
     "https://www.instagram.com/soumya_chk"
   ]
 };
