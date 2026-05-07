@@ -20,6 +20,8 @@ export const certificates = [
     { title: "AI Workflow: ML & NLP", issuer: "IBM", category: "ai", date: "2025", link: "/certificates/AI Workflow_ Machine Learning, Visual Recognition and NLP By IBM.pdf" },
     { title: "Computer Vision Intro", issuer: "U. of Colorado", category: "ai", date: "2024", link: "/certificates/Introduction to Computer Vision by University of Colorado.pdf" },
     { title: "Deep Learning for CV", issuer: "U. of Colorado", category: "ai", date: "2024", link: "/certificates/Deep Learning for Computer Vision By University Of Colorado Boulder.pdf" },
+    { title: "AI & ML Engineering", issuer: "Microsoft", category: "ai", date: "2025", link: "/certificates/Microsoft AI & ML__Engineering.pdf" },
+
 
 
     // Gen AI (5)
@@ -40,7 +42,9 @@ export const certificates = [
     { title: "IT & AWS Cloud", issuer: "AWS", category: "cloud", date: "2024", link: "/certificates/Introduction to Information Technology and AWS.pdf" },
     { title: "Intro to IT & AWS", issuer: "AWS", category: "cloud", date: "2024", link: "/certificates/Introduction to Information Technology and AWS_Cloud.pdf" },
     { title: "Technical Support Fundamentals", issuer: "Google", category: "cloud", date: "2024", link: "/certificates/Technical Support Fundamentals By Google.pdf" },
+    { title: "Technical Support Fundamentals II", issuer: "Google", category: "cloud", date: "2024", link: "/certificates/Technical Support Fundamentals By Google (2).pdf" },
     { title: "Git and GitHub", issuer: "IBM", category: "cloud", date: "2024", link: "/certificates/Getting Started with Git and GitHub by IBM.pdf" },
+
 
 
     // Programming (9)
@@ -56,6 +60,8 @@ export const certificates = [
     { title: "Programming for Everybody", issuer: "U. of Michigan", category: "dev", date: "2024", link: "/certificates/Programming for Everybody by University of Michigan.pdf" },
     { title: "Crash Course On Python", issuer: "Google", category: "dev", date: "2024", link: "/certificates/Crash Course On Python By Google.pdf" },
     { title: "Python for Data Science", issuer: "IBM", category: "dev", date: "2024", link: "/certificates/Python for Data Science, AI & Development By IBM.pdf" },
+    { title: "Python Development", issuer: "Microsoft", category: "dev", date: "2025", link: "/certificates/Microsoft Python Development.pdf" },
+
 
 
     // Data Analytics (misc)
