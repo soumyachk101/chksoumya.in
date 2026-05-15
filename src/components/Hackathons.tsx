@@ -38,6 +38,16 @@ const Hackathons = () => {
             tags: ["FastAPI", "React", "LiveKit", "Supabase", "AI", "Tailwind"],
             github: "https://github.com/soumyachk101/Neeti-AI",
             live: "https://neetiai.vercel.app/"
+        },
+        {
+            name: "TEKATHON 2K26",
+            organizer: "Techno International College",
+            role: "Full Stack Developer",
+            date: "2026",
+            location: "Kolkata, India",
+            desc: "Built a Multimodal RAG Assistant — an AI-powered retrieval-augmented generation system capable of processing text, images, and documents to deliver intelligent, context-aware responses.",
+            tags: ["React", "Node.js", "RAG", "AI", "LLM", "Vector DB"],
+            live: "https://rusk-web.vercel.app/"
         }
     ];
 
