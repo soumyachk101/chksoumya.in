@@ -47,6 +47,7 @@ const Hackathons = () => {
             location: "Kolkata, India",
             desc: "Built a Multimodal RAG Assistant — an AI-powered retrieval-augmented generation system capable of processing text, images, and documents to deliver intelligent, context-aware responses.",
             tags: ["React", "Node.js", "RAG", "AI", "LLM", "Vector DB"],
+            github: "https://github.com/soumyachk101/RUSK-Multimodal-RAG-Assistant",
             live: "https://rusk-web.vercel.app/"
         }
     ];
