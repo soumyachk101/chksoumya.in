@@ -6,6 +6,14 @@ import { Card } from './ui/Card';
 const Projects = () => {
     const projects = [
         {
+            title: "Cortex",
+            desc: "An AI-powered personal finance & productivity platform featuring natural language transaction tracking, custom Pomodoro focus timers, and a botanical organic design system.",
+            tags: ["Next.js", "Supabase", "Gemini API", "Tailwind", "Groq"],
+            image: "/images/project-cortex.png",
+            github: "https://github.com/soumyachk101/Cortex",
+            live: "https://cortexgo.vercel.app"
+        },
+        {
             title: "Neeti AI",
             desc: "An advanced AI-powered recruitment platform featuring real-time collaborative coding, automated evaluations, and seamless video integration.",
             tags: ["FastAPI", "React", "LiveKit", "Supabase", "AI"],
