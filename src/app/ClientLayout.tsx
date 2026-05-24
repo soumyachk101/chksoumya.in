@@ -30,10 +30,14 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
             <AnimatePresence mode='wait'>
               <motion.div
                 key={pathname}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
+                initial={{ opacity: 0, scale: 0.97 }}
+                animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
+                transition={{ 
+                    duration: 1.0, 
+                    ease: [0.16, 1, 0.3, 1], // Ultra smooth easeOut
+                    delay: 0.05
+                }}
               >
                 {children}
               </motion.div>
