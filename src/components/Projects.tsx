@@ -6,6 +6,14 @@ import { Card } from './ui/Card';
 const Projects = () => {
     const projects = [
         {
+            title: "DRISHTI AI",
+            desc: "See every attack path before they do. AI-powered network risk intelligence. Discover attack paths, score financial blast radius, and ship AI-generated remediation — from one scan to a board-ready report in minutes.",
+            tags: ["React", "FastAPI", "Tailwind", "Groq", "Spline", "AI"],
+            image: "/images/project-drishti.png",
+            github: "https://github.com/soumyachk101/Drishti-Security",
+            live: "https://drishtisecurity.vercel.app/"
+        },
+        {
             title: "Cortex",
             desc: "An AI-powered personal finance & productivity platform featuring natural language transaction tracking, custom Pomodoro focus timers, and a botanical organic design system.",
             tags: ["Next.js", "Supabase", "Gemini API", "Tailwind", "Groq"],
