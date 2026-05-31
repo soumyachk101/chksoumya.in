@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     siteName: 'Soumya Chakraborty Portfolio',
     images: [
       {
-        url: 'https://chksoumya.in/og-image.png',
+        url: 'https://chksoumya.in/images/Profile%20Photo.jpg',
         width: 1200,
         height: 630,
         alt: 'Soumya Chakraborty - Full Stack Developer',
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Soumya Chakraborty | Full Stack Developer',
     description: 'Soumya Chakraborty is a CS undergrad and Full Stack Developer with 2 years of experience building modern web apps using React, Next.js, Node.js, and Python.',
-    images: ['https://chksoumya.in/og-image.png'],
+    images: ['https://chksoumya.in/images/Profile%20Photo.jpg'],
     site: '@soumya_chk',
   },
   robots: {
@@ -39,8 +39,8 @@ export const metadata: Metadata = {
     canonical: 'https://chksoumya.in/',
   },
   icons: {
-    icon: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
+    icon: '/images/Profile%20Photo.jpg',
+    apple: '/images/Profile%20Photo.jpg',
   },
 };
 

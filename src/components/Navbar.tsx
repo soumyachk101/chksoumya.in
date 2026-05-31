@@ -75,7 +75,9 @@ const Navbar = () => {
                                 <a href="https://wa.me/qr/PAVVG4QPZUJXF1" target="_blank" rel="noreferrer" aria-label="WhatsApp" className="p-2 border-2 border-pencil rounded-full text-pencil hover:bg-secondary hover:text-white transition-all hover:-rotate-6 shadow-[2px_2px_0_0_#2d2d2d] hover:shadow-[1px_1px_0_0_#2d2d2d] hover:translate-x-[1px] hover:translate-y-[1px]">
                                     <MessageCircle size={20} strokeWidth={2.5} />
                                 </a>
-
+                                <a href="https://www.instagram.com/soumya_chk" target="_blank" rel="noreferrer" aria-label="Instagram" className="p-2 border-2 border-pencil rounded-full text-pencil hover:bg-accent hover:text-white transition-all hover:rotate-6 shadow-[2px_2px_0_0_#2d2d2d] hover:shadow-[1px_1px_0_0_#2d2d2d] hover:translate-x-[1px] hover:translate-y-[1px]">
+                                    <Instagram size={20} strokeWidth={2.5} />
+                                </a>
                             </div>
                         </div>
                     </div>
