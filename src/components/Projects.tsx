@@ -82,7 +82,7 @@ const Projects = () => {
     return (
         <section id="projects" className="py-20 relative overflow-hidden">
             {/* Background Doodles */}
-            <div className="absolute top-40 left-10 opacity-20 pointer-events-none">
+            <div className="absolute top-40 left-10 opacity-20 pointer-events-none" aria-hidden="true">
                 <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M10,60 Q30,10 60,60 T110,60" stroke="#2d2d2d" strokeWidth="3" fill="none" className="path-draw" />
                     <circle cx="60" cy="60" r="40" stroke="#2d2d2d" strokeWidth="2" strokeDasharray="5,5" fill="none" />

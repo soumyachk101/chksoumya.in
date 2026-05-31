@@ -6,7 +6,7 @@ const Hero = () => {
     return (
         <section id="home" className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-background pt-20">
             {/* Hand-drawn Decorative Elements */}
-            <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+            <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none" aria-hidden="true">
                 <svg className="absolute top-20 right-10 w-32 h-32 text-muted hidden md:block" viewBox="0 0 100 100" fill="none">
                     <path d="M10,50 Q50,10 90,50 T50,90 T10,50" stroke="currentColor" strokeWidth="2" strokeDasharray="5,5" />
                 </svg>
@@ -35,7 +35,7 @@ const Hero = () => {
                     <span>Chakraborty</span>
                     
                     {/* Scribbled underline */}
-                    <svg className="absolute -bottom-4 left-0 w-full h-6 text-secondary hidden md:block" viewBox="0 0 300 20" preserveAspectRatio="none">
+                    <svg className="absolute -bottom-4 left-0 w-full h-6 text-secondary hidden md:block" viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true">
                         <path d="M5,10 Q100,20 150,5 T295,15" fill="none" stroke="currentColor" strokeWidth="4" />
                     </svg>
                 </motion.h1>

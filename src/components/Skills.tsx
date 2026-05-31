@@ -51,14 +51,14 @@ const Skills = () => {
     return (
         <section id="skills" className="py-20 relative overflow-hidden">
             {/* Scribble background decoration */}
-            <div className="absolute top-20 right-10 opacity-20 pointer-events-none">
+            <div className="absolute top-20 right-10 opacity-20 pointer-events-none" aria-hidden="true">
                 <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M20,100 Q60,20 100,100 T180,100" stroke="#2d2d2d" strokeWidth="3" fill="none" className="path-draw" />
                     <path d="M20,120 Q60,40 100,120 T180,120" stroke="#2d2d2d" strokeWidth="2" fill="none" className="path-draw" />
                 </svg>
             </div>
-            
-            <div className="absolute bottom-20 left-10 opacity-20 pointer-events-none">
+
+            <div className="absolute bottom-20 left-10 opacity-20 pointer-events-none" aria-hidden="true">
                  <svg width="150" height="150" viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M10,10 L140,140 M140,10 L10,140" stroke="#2d2d2d" strokeWidth="4" fill="none" className="path-draw" />
                 </svg>

@@ -1,0 +1,16 @@
+{
+  "name": "Soumya Chakraborty Portfolio",
+  "short_name": "SC Portfolio",
+  "description": "Full Stack Developer & Software Engineer - Personal Portfolio",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fdf6e3",
+  "theme_color": "#e85d04",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}

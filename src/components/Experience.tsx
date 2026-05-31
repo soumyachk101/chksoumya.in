@@ -137,7 +137,7 @@ const Experience = () => {
                                     <div className={`hidden md:block absolute top-1/2 -translate-y-1/2 ${
                                         index % 2 === 0 ? '-left-8' : '-right-8'
                                     }`}>
-                                        <svg width="32" height="12" viewBox="0 0 32 12" fill="none" className={index % 2 === 0 ? "scale-x-[-1]" : ""}>
+                                        <svg width="32" height="12" viewBox="0 0 32 12" fill="none" className={index % 2 === 0 ? "scale-x-[-1]" : ""} aria-hidden="true">
                                             <path d="M0,6 L30,6 M25,2 L30,6 L25,10" stroke="#2d2d2d" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="path-draw" />
                                         </svg>
                                     </div>

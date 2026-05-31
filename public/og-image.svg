@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#fdf6e3"/>
+  <rect x="40" y="40" width="1120" height="550" fill="none" stroke="#2d2d2d" stroke-width="4" rx="8"/>
+  <text x="100" y="220" font-family="Georgia, serif" font-size="72" font-weight="bold" fill="#2d2d2d">Soumya Chakraborty</text>
+  <line x1="100" y1="250" x2="700" y2="250" stroke="#e85d04" stroke-width="4" stroke-dasharray="8,4"/>
+  <text x="100" y="320" font-family="Arial, sans-serif" font-size="42" fill="#e85d04" font-weight="bold">Full Stack Developer</text>
+  <text x="100" y="400" font-family="Arial, sans-serif" font-size="28" fill="#666">React | Next.js | Node.js | Python</text>
+  <text x="100" y="480" font-family="Arial, sans-serif" font-size="24" fill="#888">CS Undergrad | 2+ Years Experience</text>
+  <circle cx="1020" cy="315" r="120" fill="none" stroke="#e85d04" stroke-width="3" stroke-dasharray="6,4"/>
+  <text x="1020" y="325" font-family="Georgia, serif" font-size="80" fill="#2d2d2d" text-anchor="middle" font-weight="bold">SC</text>
+</svg>

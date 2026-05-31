@@ -55,13 +55,13 @@ const Hackathons = () => {
     return (
         <section id="hackathons" className="py-24 relative overflow-hidden">
             {/* Background Accents */}
-            <div className="absolute top-20 left-10 opacity-20 pointer-events-none">
+            <div className="absolute top-20 left-10 opacity-20 pointer-events-none" aria-hidden="true">
                 <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M50,10 L90,90 L10,90 Z" stroke="#2d2d2d" strokeWidth="3" fill="none" strokeLinejoin="round" className="path-draw" />
                 </svg>
             </div>
-            
-            <div className="absolute bottom-20 right-10 opacity-20 pointer-events-none">
+
+            <div className="absolute bottom-20 right-10 opacity-20 pointer-events-none" aria-hidden="true">
                 <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M10,60 Q30,10 60,60 T110,60" stroke="#2d2d2d" strokeWidth="3" fill="none" className="path-draw" />
                 </svg>

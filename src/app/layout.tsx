@@ -15,11 +15,21 @@ export const metadata: Metadata = {
     title: 'Soumya Chakraborty | Full Stack Developer',
     description: 'Soumya Chakraborty is a CS undergrad and Full Stack Developer with 2 years of experience building modern web apps using React, Next.js, Node.js, and Python.',
     siteName: 'Soumya Chakraborty Portfolio',
+    images: [
+      {
+        url: 'https://chksoumya.in/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Soumya Chakraborty - Full Stack Developer',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Soumya Chakraborty | Full Stack Developer',
     description: 'Soumya Chakraborty is a CS undergrad and Full Stack Developer with 2 years of experience building modern web apps using React, Next.js, Node.js, and Python.',
+    images: ['https://chksoumya.in/og-image.png'],
+    site: '@soumya_chk',
   },
   robots: {
     index: true,
@@ -29,8 +39,9 @@ export const metadata: Metadata = {
     canonical: 'https://chksoumya.in/',
   },
   icons: {
-    icon: "/images/Profile%20Photo.jpg",
-  }
+    icon: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
 };
 
 const jsonLd = {
@@ -38,7 +49,24 @@ const jsonLd = {
   "@type": "Person",
   "name": "Soumya Chakraborty",
   "url": "https://chksoumya.in/",
+  "image": "https://chksoumya.in/images/Profile%20Photo.jpg",
+  "description": "CS undergrad and Full Stack Developer with 2 years of experience building modern web apps using React, Next.js, Node.js, and Python.",
   "jobTitle": "Full Stack Developer",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Kolkata",
+    "addressRegion": "West Bengal",
+    "addressCountry": "IN"
+  },
+  "alumniOf": {
+    "@type": "CollegeOrUniversity",
+    "name": "B.Tech Computer Science & Engineering"
+  },
+  "knowsAbout": [
+    "React", "Next.js", "Node.js", "Python", "TypeScript",
+    "JavaScript", "Tailwind CSS", "FastAPI", "MongoDB",
+    "PostgreSQL", "AWS", "Docker", "Git"
+  ],
   "sameAs": [
     "https://github.com/soumyachk101",
     "https://wa.me/qr/PAVVG4QPZUJXF1",
@@ -57,6 +85,8 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&family=Patrick+Hand&display=swap" rel="stylesheet" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#e85d04" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

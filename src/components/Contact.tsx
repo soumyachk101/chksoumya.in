@@ -80,13 +80,13 @@ const Contact = () => {
                             <Card className="transform -rotate-2 hover:rotate-0 transition-transform flex flex-col justify-between">
                                 <span className="text-pencil text-lg font-display font-bold mb-4">Connect with me</span>
                                 <div className="flex space-x-4">
-                                    <a href="https://wa.me/qr/PAVVG4QPZUJXF1" target="_blank" rel="noreferrer" className="p-3 bg-white border-2 border-pencil border-wobbly text-pencil hover:bg-pencil hover:text-paper transition-all shadow-hard transform hover:scale-110 rotate-6">
+                                    <a href="https://wa.me/qr/PAVVG4QPZUJXF1" target="_blank" rel="noreferrer" aria-label="WhatsApp" className="p-3 bg-white border-2 border-pencil border-wobbly text-pencil hover:bg-pencil hover:text-paper transition-all shadow-hard transform hover:scale-110 rotate-6">
                                         <MessageCircle size={20} strokeWidth={2.5} />
                                     </a>
-                                    <a href="https://github.com/soumyachk101" target="_blank" rel="noreferrer" className="p-3 bg-white border-2 border-pencil border-wobbly text-pencil hover:bg-pencil hover:text-paper transition-all shadow-hard transform hover:scale-110 rotate-3">
+                                    <a href="https://github.com/soumyachk101" target="_blank" rel="noreferrer" aria-label="GitHub" className="p-3 bg-white border-2 border-pencil border-wobbly text-pencil hover:bg-pencil hover:text-paper transition-all shadow-hard transform hover:scale-110 rotate-3">
                                         <Github size={20} strokeWidth={2.5} />
                                     </a>
-                                    <a href="https://www.instagram.com/soumya_chk" target="_blank" rel="noreferrer" className="p-3 bg-white border-2 border-pencil border-wobbly text-pencil hover:bg-pencil hover:text-paper transition-all shadow-hard transform hover:scale-110 -rotate-3">
+                                    <a href="https://www.instagram.com/soumya_chk" target="_blank" rel="noreferrer" aria-label="Instagram" className="p-3 bg-white border-2 border-pencil border-wobbly text-pencil hover:bg-pencil hover:text-paper transition-all shadow-hard transform hover:scale-110 -rotate-3">
                                         <Instagram size={20} strokeWidth={2.5} />
                                     </a>
                                 </div>
@@ -96,7 +96,7 @@ const Contact = () => {
                 </div>
 
                 <footer className="mt-24 pt-8 text-center">
-                    <svg className="w-full h-8 mb-8" viewBox="0 0 100 10" preserveAspectRatio="none">
+                    <svg className="w-full h-8 mb-8" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true">
                         <path d="M0,5 Q50,-5 100,5 M0,7 Q50,17 100,7" stroke="#2d2d2d" strokeWidth="1" strokeDasharray="4 4" fill="none" className="path-draw" />
                     </svg>
                     <p className="text-pencil font-sans font-bold">&copy; {new Date().getFullYear()} Soumya Chakraborty. Handcrafted with pixels and paper.</p>
