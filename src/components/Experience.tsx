@@ -15,6 +15,15 @@ interface ExperienceItem {
 const Experience = () => {
     const experiences: ExperienceItem[] = [
         {
+            company: "EduSkills Academy",
+            role: "Python Full Stack Developer Intern",
+            type: "Internship",
+            desc: "Completed a 10-week program building scalable web applications with Python, Django, SQL, and frontend technologies.",
+            date: "2026",
+            location: "Remote",
+            certificate: "/certificates/Soumya  Chakraborty_Certificate.pdf"
+        },
+        {
             company: "Codec Technologies Pvt. Ltd.",
             role: "MERN Stack Developer Intern",
             type: "Internship",

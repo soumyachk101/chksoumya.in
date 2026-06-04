@@ -47,7 +47,9 @@ export const certificates = [
 
 
 
-    // Programming (9)
+    // Programming (11)
+    { title: "Python Full Stack Internship", issuer: "EduSkills", category: "dev", date: "2026", link: "/certificates/Soumya  Chakraborty_Certificate.pdf" },
+    { title: "MERN Stack Developer Intern", issuer: "Codec Technologies", category: "dev", date: "2026", link: "/certificates/MERN Stack Developer Intern.pdf" },
     { title: "Programming in Python", issuer: "Meta", category: "dev", date: "2024", link: "/certificates/Programming in Python By META.pdf" },
     { title: "Programming with JavaScript", issuer: "Meta", category: "dev", date: "2024", link: "/certificates/Programming with JavaScript By META.pdf" },
     { title: "Android Mobile App Dev", issuer: "Meta", category: "dev", date: "2024", link: "/certificates/Introduction to Android Mobile Application By META.pdf" },

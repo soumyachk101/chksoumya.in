@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: 'Soumya Chakraborty Portfolio',
       images: [
         {
-          url: 'https://chksoumya.in/images/Profile%20Photo.jpg',
+          url: 'https://chksoumya.in/og-image.png',
           width: 1200,
           height: 630,
           alt: `${category.label} Certificates - Soumya Chakraborty`,
@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: 'summary_large_image',
       title,
       description,
-      images: ['https://chksoumya.in/images/Profile%20Photo.jpg'],
+      images: ['https://chksoumya.in/og-image.png'],
     },
     alternates: {
       canonical: url,
