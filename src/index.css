@@ -11,11 +11,11 @@
     /* Paper Texture */
     background-image: radial-gradient(#e5e0d8 1px, transparent 1px);
     background-size: 24px 24px;
-    font-family: 'Patrick Hand', cursive;
+    font-family: var(--font-patrick-hand), 'Patrick Hand', cursive;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Kalam', cursive;
+    font-family: var(--font-kalam), 'Kalam', cursive;
     font-weight: 700;
   }
 }

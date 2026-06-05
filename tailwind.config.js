@@ -18,8 +18,8 @@ export default {
                 "post-it": "#fff9c4"
             },
             fontFamily: {
-                sans: ['Patrick Hand', 'cursive'],
-                heading: ['Kalam', 'cursive'],
+                sans: ['var(--font-patrick-hand)', 'Patrick Hand', 'cursive'],
+                heading: ['var(--font-kalam)', 'Kalam', 'cursive'],
             },
             boxShadow: {
                 'hard': '4px 4px 0px 0px #2d2d2d',

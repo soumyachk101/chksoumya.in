@@ -31,8 +31,7 @@ const Contact = () => {
 
             setStatus('success');
             form.reset();
-        } catch (err) {
-            console.error("Forminit submission exception", err);
+        } catch {
             setStatus('error');
             setErrorMsg("Could not connect to submission server. Check network connection.");
         }

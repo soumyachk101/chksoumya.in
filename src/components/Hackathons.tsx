@@ -77,7 +77,7 @@ const Hackathons = () => {
                 });
             }
         } catch (e) {
-            console.warn("AudioContext fail", e);
+            // Silently handle AudioContext failures
         }
     };
 

@@ -1,6 +1,21 @@
 import type { Metadata } from "next";
+import { Kalam, Patrick_Hand } from 'next/font/google';
 import "../index.css";
 import ClientLayout from "./ClientLayout";
+
+const kalam = Kalam({
+  weight: '700',
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-kalam',
+});
+
+const patrickHand = Patrick_Hand({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-patrick-hand',
+});
 
 export const metadata: Metadata = {
   title: 'Soumya Chakraborty | Full Stack Developer & Software Engineer',
@@ -80,16 +95,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={`${kalam.variable} ${patrickHand.variable}`}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          rel="preload"
-          as="style"
-          href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&family=Patrick+Hand&display=swap"
-        />
-        <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&family=Patrick+Hand&display=swap" rel="stylesheet" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#e85d04" />
         <script

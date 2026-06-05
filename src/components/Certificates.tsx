@@ -104,7 +104,7 @@ const Certificates = () => {
                 });
             }
         } catch (e) {
-            console.warn("AudioContext fail", e);
+            // Silently handle AudioContext failures
         }
     };
 
