@@ -441,7 +441,7 @@ export function VolatilityChart({ ticker }) {
                 <div className="relative py-8 px-4 md:px-8 bg-[#f5ebe0]/40 border-4 border-pencil border-wobbly rounded-2xl shadow-hard-lg">
                     
                     {/* Top folder tabs */}
-                    <div className="flex overflow-x-auto gap-2 pb-6 scrollbar-none max-w-full select-none justify-start border-b-2 border-dashed border-pencil/20">
+                    <div className="flex overflow-x-auto gap-2 pb-4 scrollbar-thin max-w-full select-none justify-start border-b-2 border-dashed border-pencil/20">
                         {projects.map((project, idx) => {
                             const isActive = idx === activeIndex;
                             return (
@@ -476,7 +476,7 @@ export function VolatilityChart({ ticker }) {
                         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
                             
                             {/* File Tree Directory (Left) */}
-                            <div className="md:col-span-3 border-b-2 md:border-b-0 md:border-r-2 border-dashed border-pencil/20 pb-6 md:pb-0 md:pr-6 flex flex-col gap-4">
+                            <div className="hidden md:flex md:col-span-3 border-r-2 border-dashed border-pencil/20 pr-6 flex-col gap-4">
                                 <div>
                                     <span className="text-[10px] uppercase font-sans font-black text-pencil/30 block mb-2 tracking-wider">Workspace Tree</span>
                                     <div className="space-y-2.5 font-mono text-sm font-bold text-pencil">
@@ -527,7 +527,7 @@ export function VolatilityChart({ ticker }) {
                             </div>
 
                             {/* Code Canvas Area (Right) */}
-                            <div className="md:col-span-9 flex flex-col justify-between min-h-[360px]">
+                            <div className="col-span-12 md:col-span-9 flex flex-col justify-between min-h-[360px]">
                                 
                                 <div className="flex-1">
                                     {/* Workspace Tabs Header */}
@@ -638,12 +638,12 @@ export function VolatilityChart({ ticker }) {
                                             <span className="font-bold text-accent">Summary:</span> {currentProject.desc}
                                         </p>
                                     </div>
-                                    <div className="flex gap-3 flex-shrink-0">
+                                    <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
                                         <a 
                                             href={currentProject.github}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="px-4 py-2.5 bg-white hover:bg-pencil text-pencil hover:text-paper border-2 border-pencil border-wobbly flex items-center gap-2 font-sans font-bold text-sm shadow-hard-sm active:shadow-none active:translate-x-[2px] active:translate-y-[2px] transition-all cursor-pointer"
+                                            className="flex-1 sm:flex-initial px-4 py-2.5 bg-white hover:bg-pencil text-pencil hover:text-paper border-2 border-pencil border-wobbly flex items-center justify-center gap-2 font-sans font-bold text-sm shadow-hard-sm active:shadow-none active:translate-x-[2px] active:translate-y-[2px] transition-all cursor-pointer"
                                         >
                                             <Github size={16} strokeWidth={2.5} />
                                             <span>Repository</span>
@@ -653,7 +653,7 @@ export function VolatilityChart({ ticker }) {
                                                 href={currentProject.live}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="px-4 py-2.5 bg-accent hover:bg-pencil text-paper hover:text-paper border-2 border-pencil border-wobbly flex items-center gap-2 font-sans font-bold text-sm shadow-hard-sm hover:shadow-hard-sm active:shadow-none active:translate-x-[2px] active:translate-y-[2px] transition-all cursor-pointer"
+                                                className="flex-1 sm:flex-initial px-4 py-2.5 bg-accent hover:bg-pencil text-paper hover:text-paper border-2 border-pencil border-wobbly flex items-center justify-center gap-2 font-sans font-bold text-sm shadow-hard-sm active:shadow-none active:translate-x-[2px] active:translate-y-[2px] transition-all cursor-pointer"
                                             >
                                                 <ExternalLink size={16} strokeWidth={2.5} />
                                                 <span>Live Demo</span>
