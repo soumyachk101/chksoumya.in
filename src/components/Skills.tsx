@@ -18,13 +18,35 @@ interface Skill {
     doodle: string;
 }
 
+interface SoftSkillInfo {
+    name: string;
+    description: string;
+    statName: string;
+    statValue: string;
+    bg: string;
+    border: string;
+    text: string;
+}
+
 const Skills = () => {
-    // State to track selected skill
+    // State to track selected technical skill
     const [activeSkill, setActiveSkill] = useState<Skill | null>(null);
     // Key-modifier state to reset sticker positions
     const [resetCounter, setResetCounter] = useState(0);
-    // Reference to outer boundaries for sticker dragging
+    // Reference to outer boundaries for technical sticker dragging
     const sandboxRef = useRef<HTMLDivElement>(null);
+
+    // RPG Character Sheet state for soft skills
+    const [characterSheet, setCharacterSheet] = useState<{
+        superpower: SoftSkillInfo | null;
+        buff: SoftSkillInfo | null;
+        trait: SoftSkillInfo | null;
+    }>({
+        superpower: null,
+        buff: null,
+        trait: null
+    });
+    const [activeSlot, setActiveSlot] = useState<'superpower' | 'buff' | 'trait'>('superpower');
 
     const categories = [
         { id: 'languages', title: 'Programming Languages', icon: <Code2 className="text-pencil" size={28} strokeWidth={2.5} /> },
@@ -215,15 +237,123 @@ const Skills = () => {
         }
     ];
 
-    const softSkills = [
-        "Communication", "Problem Solving", "Team Collaboration",
-        "Time Management", "Adaptability", "Critical Thinking",
-        "Attention to Detail", "Empathy", "Creativity"
+    const softSkillsData: SoftSkillInfo[] = [
+        {
+            name: "Communication",
+            statName: "Meeting Efficiency",
+            statValue: "+40%",
+            description: "Translates developer jargon into clear, actionable human speak.",
+            bg: "bg-[#fef9c3]", // yellow
+            border: "border-[#eab308]",
+            text: "text-[#854d0e]"
+        },
+        {
+            name: "Problem Solving",
+            statName: "Debugging Speed",
+            statValue: "+60%",
+            description: "Finds missing brackets and logical errors with near-telepathic speed.",
+            bg: "bg-[#ccfbf1]", // teal
+            border: "border-[#14b8a6]",
+            text: "text-[#115e59]"
+        },
+        {
+            name: "Team Collaboration",
+            statName: "PR Review Speed",
+            statValue: "+35%",
+            description: "Improves team sync and accelerates code reviews with positive feedback.",
+            bg: "bg-[#dbeafe]", // blue
+            border: "border-[#3b82f6]",
+            text: "text-[#1e3a8a]"
+        },
+        {
+            name: "Time Management",
+            statName: "Deadline Safety",
+            statValue: "+50%",
+            description: "Effectively juggles features to ship production-ready code on schedule.",
+            bg: "bg-[#dcfce7]", // green
+            border: "border-[#22c55e]",
+            text: "text-[#14532d]"
+        },
+        {
+            name: "Adaptability",
+            statName: "Stack Luck",
+            statValue: "+45%",
+            description: "Transitions between React frontends and Python backends seamlessly.",
+            bg: "bg-[#f3e8ff]", // purple
+            border: "border-[#a855f7]",
+            text: "text-[#581c87]"
+        },
+        {
+            name: "Critical Thinking",
+            statName: "Overengineering Block",
+            statValue: "+30%",
+            description: "Keeps code simple, modular, and optimized instead of writing bloated logic.",
+            bg: "bg-[#ffedd5]", // orange
+            border: "border-[#f97316]",
+            text: "text-[#7c2d12]"
+        },
+        {
+            name: "Attention to Detail",
+            statName: "Bug Immunity",
+            statValue: "+80%",
+            description: "Spots double spaces, typo alerts, and edge cases before QA does.",
+            bg: "bg-[#e0f2fe]", // sky blue
+            border: "border-[#0ea5e9]",
+            text: "text-[#0369a1]"
+        },
+        {
+            name: "Empathy",
+            statName: "UX Accessibility",
+            statValue: "+50%",
+            description: "Views products from a user perspective to build highly intuitive interfaces.",
+            bg: "bg-[#fdf2f8]", // pink
+            border: "border-[#f472b6]",
+            text: "text-[#9d174d]"
+        },
+        {
+            name: "Creativity",
+            statName: "UI Wow Factor",
+            statValue: "+75%",
+            description: "Transforms standard static templates into interactive, delightful web experiences.",
+            bg: "bg-[#fef3c7]", // amber
+            border: "border-[#f59e0b]",
+            text: "text-[#78350f]"
+        }
     ];
 
     const handleTidyUp = () => {
         setResetCounter(prev => prev + 1);
         setActiveSkill(null);
+    };
+
+    const handleAssignSkill = (skill: SoftSkillInfo) => {
+        setCharacterSheet(prev => {
+            // Remove skill from any other slot first to avoid duplicates
+            const cleanSheet = { ...prev };
+            if (cleanSheet.superpower?.name === skill.name) cleanSheet.superpower = null;
+            if (cleanSheet.buff?.name === skill.name) cleanSheet.buff = null;
+            if (cleanSheet.trait?.name === skill.name) cleanSheet.trait = null;
+            
+            // Assign to active slot
+            cleanSheet[activeSlot] = skill;
+            return cleanSheet;
+        });
+
+        // Auto-advance active slot to next empty slot for convenience
+        setActiveSlot(current => {
+            if (current === 'superpower') return 'buff';
+            if (current === 'buff') return 'trait';
+            return 'superpower';
+        });
+    };
+
+    const handleClearSlots = () => {
+        setCharacterSheet({
+            superpower: null,
+            buff: null,
+            trait: null
+        });
+        setActiveSlot('superpower');
     };
 
     return (
@@ -414,33 +544,163 @@ const Skills = () => {
                     </div>
                 </div>
 
-                {/* Soft Skills Section */}
+                {/* RPG Soft Skills Section */}
                 <motion.div
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
-                    viewport={{ once: true, amount: 0.4 }}
-                    className="max-w-4xl mx-auto"
+                    viewport={{ once: true, amount: 0.2 }}
+                    className="max-w-5xl mx-auto mt-28"
                 >
-                    <Card decoration="tack" variant="post-it" className="-rotate-1 hover:rotate-0 p-8 md:p-12 relative">
-                        <h3 className="text-3xl font-display font-bold text-pencil mb-10 text-center relative inline-block left-1/2 -translate-x-1/2">
-                            Soft Skills
-                            <div className="absolute -bottom-2 left-0 w-full h-1 bg-pencil rotate-1"></div>
+                    <Card decoration="tack" variant="post-it" className="rotate-1 hover:rotate-0 p-6 md:p-10 relative bg-[#fff9c4]">
+                        <h3 className="text-3xl md:text-4xl font-display font-bold text-pencil mb-2 text-center">
+                            🛡️ Dev Character Status
                         </h3>
-                        <div className="flex flex-wrap justify-center gap-4">
-                            {softSkills.map((skill, index) => (
-                                <motion.span
-                                    key={index}
-                                    initial={{ opacity: 0, scale: 0.5 }}
-                                    whileInView={{ opacity: 1, scale: 1 }}
-                                    transition={{ type: "spring", stiffness: 200, delay: index * 0.05 }}
-                                    viewport={{ once: true }}
-                                    whileHover={{ scale: 1.05, rotate: index % 2 === 0 ? 3 : -3 }}
-                                    className="px-6 py-3 bg-white border-2 border-pencil border-wobbly shadow-hard text-pencil text-lg font-sans font-bold cursor-default hover:bg-secondary hover:text-paper transition-colors"
-                                >
-                                    {skill}
-                                </motion.span>
-                            ))}
+                        <p className="text-center text-sm font-sans font-bold text-pencil/60 mb-8 italic">
+                            Equip my soft skill superpowers into the status slots to calculate my stats!
+                        </p>
+                        
+                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                            {/* Superpowers Pool */}
+                            <div className="lg:col-span-7 bg-white border-2 border-pencil border-dashed p-6 rounded-md min-h-[280px] flex flex-wrap gap-3 justify-center items-center content-center relative">
+                                <div className="absolute top-1.5 left-2 text-[10px] text-pencil/30 font-mono">superpowers_pool.bin</div>
+                                
+                                {softSkillsData.map((skill) => {
+                                    // Check if this skill is currently slotted
+                                    const isSlotted = characterSheet.superpower?.name === skill.name ||
+                                                      characterSheet.buff?.name === skill.name ||
+                                                      characterSheet.trait?.name === skill.name;
+                                    
+                                    return (
+                                        <motion.button
+                                            key={skill.name}
+                                            whileHover={{ scale: isSlotted ? 1 : 1.08 }}
+                                            whileTap={{ scale: isSlotted ? 1 : 0.95 }}
+                                            onClick={() => !isSlotted && handleAssignSkill(skill)}
+                                            className={`px-4 py-2 border-2 ${skill.bg} ${skill.border} ${skill.text} border-wobbly-sm shadow-hard-sm cursor-pointer text-lg font-sans font-bold flex items-center gap-1.5 select-none transition-all ${isSlotted ? 'opacity-20 pointer-events-none filter grayscale' : ''}`}
+                                        >
+                                            <span>{skill.name}</span>
+                                        </motion.button>
+                                    );
+                                })}
+                            </div>
+
+                            {/* RPG Character Stats Sheet */}
+                            <div className="lg:col-span-5 bg-white border-2 border-pencil border-wobbly p-6 rounded-md shadow-hard-lg relative">
+                                <div className="flex items-center gap-4 mb-6">
+                                    {/* Cute hand-drawn geek avatar */}
+                                    <div className="w-16 h-16 bg-[#e5e0d8] border-2 border-pencil border-wobbly rounded-full flex items-center justify-center relative overflow-hidden flex-shrink-0">
+                                        <svg viewBox="0 0 100 100" className="w-12 h-12 stroke-pencil stroke-[4] fill-none">
+                                            {/* Hair/cap */}
+                                            <path d="M 20 35 C 30 18, 70 18, 80 35" />
+                                            {/* Glasses frames */}
+                                            <circle cx="35" cy="48" r="8" />
+                                            <circle cx="65" cy="48" r="8" />
+                                            <line x1="43" y1="48" x2="57" y2="48" />
+                                            {/* Eyes inside glasses */}
+                                            <circle cx="35" cy="48" r="1.5" fill="currentColor" />
+                                            <circle cx="65" cy="48" r="1.5" fill="currentColor" />
+                                            {/* Nose */}
+                                            <path d="M 50 48 L 50 56 Q 47 58 50 60" />
+                                            {/* Smile */}
+                                            <path d="M 40 68 Q 50 78 60 68" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 className="text-xl font-display font-bold text-pencil">Soumya Chakraborty</h4>
+                                        <p className="text-xs font-mono text-pencil/50">Level 20 Full Stack Dev</p>
+                                    </div>
+                                </div>
+
+                                {/* Slot select buttons */}
+                                <div className="space-y-4 mb-6">
+                                    {/* Superpower Slot */}
+                                    <button 
+                                        onClick={() => setActiveSlot('superpower')}
+                                        className={`w-full p-3 border-2 border-pencil border-dashed rounded-md flex items-center justify-between text-left transition-all ${activeSlot === 'superpower' ? 'border-solid ring-2 ring-accent bg-accent/5' : 'bg-muted/10 hover:bg-muted/20'}`}
+                                    >
+                                        <div>
+                                            <span className="text-[10px] uppercase font-bold text-pencil/40 block">🧠 Active Superpower</span>
+                                            <span className="text-base font-sans font-bold text-pencil">
+                                                {characterSheet.superpower ? characterSheet.superpower.name : "[ Empty Slot - Tap to Equip ]"}
+                                            </span>
+                                        </div>
+                                        {characterSheet.superpower && (
+                                            <span className="text-xs font-mono bg-accent/10 text-accent font-bold px-2 py-0.5 rounded border border-accent border-dashed">
+                                                {characterSheet.superpower.statValue} {characterSheet.superpower.statName}
+                                            </span>
+                                        )}
+                                    </button>
+
+                                    {/* Buff Slot */}
+                                    <button 
+                                        onClick={() => setActiveSlot('buff')}
+                                        className={`w-full p-3 border-2 border-pencil border-dashed rounded-md flex items-center justify-between text-left transition-all ${activeSlot === 'buff' ? 'border-solid ring-2 ring-accent bg-accent/5' : 'bg-muted/10 hover:bg-muted/20'}`}
+                                    >
+                                        <div>
+                                            <span className="text-[10px] uppercase font-bold text-pencil/40 block">🤝 Team Synergy Buff</span>
+                                            <span className="text-base font-sans font-bold text-pencil">
+                                                {characterSheet.buff ? characterSheet.buff.name : "[ Empty Slot - Tap to Equip ]"}
+                                            </span>
+                                        </div>
+                                        {characterSheet.buff && (
+                                            <span className="text-xs font-mono bg-secondary/10 text-secondary font-bold px-2 py-0.5 rounded border border-secondary border-dashed">
+                                                {characterSheet.buff.statValue} {characterSheet.buff.statName}
+                                            </span>
+                                        )}
+                                    </button>
+
+                                    {/* Trait Slot */}
+                                    <button 
+                                        onClick={() => setActiveSlot('trait')}
+                                        className={`w-full p-3 border-2 border-pencil border-dashed rounded-md flex items-center justify-between text-left transition-all ${activeSlot === 'trait' ? 'border-solid ring-2 ring-accent bg-accent/5' : 'bg-muted/10 hover:bg-muted/20'}`}
+                                    >
+                                        <div>
+                                            <span className="text-[10px] uppercase font-bold text-pencil/40 block">⚡ Passive Trait</span>
+                                            <span className="text-base font-sans font-bold text-pencil">
+                                                {characterSheet.trait ? characterSheet.trait.name : "[ Empty Slot - Tap to Equip ]"}
+                                            </span>
+                                        </div>
+                                        {characterSheet.trait && (
+                                            <span className="text-xs font-mono bg-[#854d0e]/10 text-[#854d0e] font-bold px-2 py-0.5 rounded border border-[#854d0e] border-dashed">
+                                                {characterSheet.trait.statValue} {characterSheet.trait.statName}
+                                            </span>
+                                        )}
+                                    </button>
+                                </div>
+
+                                {/* Active Stats descriptions */}
+                                <div className="p-4 bg-muted/20 border-2 border-pencil border-dashed rounded-md min-h-[120px] flex flex-col justify-center">
+                                    {characterSheet.superpower || characterSheet.buff || characterSheet.trait ? (
+                                        <div className="space-y-3 font-sans text-sm font-bold text-pencil">
+                                            <h5 className="font-display text-base border-b border-pencil/20 pb-1">Slotted Superpower Effects:</h5>
+                                            {characterSheet.superpower && (
+                                                <p className="leading-snug">🧠 <span className="text-accent">{characterSheet.superpower.name}</span>: {characterSheet.superpower.description}</p>
+                                            )}
+                                            {characterSheet.buff && (
+                                                <p className="leading-snug">🤝 <span className="text-secondary">{characterSheet.buff.name}</span>: {characterSheet.buff.description}</p>
+                                            )}
+                                            {characterSheet.trait && (
+                                                <p className="leading-snug">⚡ <span className="text-[#854d0e]">{characterSheet.trait.name}</span>: {characterSheet.trait.description}</p>
+                                            )}
+                                        </div>
+                                    ) : (
+                                        <p className="text-center font-sans text-sm text-pencil/50 italic font-bold">
+                                            Select a slot above, then tap a soft skill from the pool to equip it.
+                                        </p>
+                                    )}
+                                </div>
+
+                                {/* Reset Equipped button */}
+                                {(characterSheet.superpower || characterSheet.buff || characterSheet.trait) && (
+                                    <button 
+                                        onClick={handleClearSlots}
+                                        className="w-full mt-4 py-2 text-xs font-sans font-bold text-pencil/50 hover:text-accent transition-colors"
+                                    >
+                                        Reset Equipped Superpowers
+                                    </button>
+                                )}
+                            </div>
                         </div>
                     </Card>
                 </motion.div>
@@ -450,4 +710,3 @@ const Skills = () => {
 };
 
 export default Skills;
-
