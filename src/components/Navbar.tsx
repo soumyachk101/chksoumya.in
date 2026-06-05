@@ -45,7 +45,7 @@ const Navbar = () => {
                     </a>
 
                     {/* Desktop Menu */}
-                    <div className="hidden md:flex items-center space-x-2">
+                    <div className="hidden lg:flex items-center space-x-2">
                         {navLinks.map((link) => {
                             const isActive = activeSection === link.href.substring(1);
                             return (
@@ -83,7 +83,7 @@ const Navbar = () => {
                     </div>
 
                     {/* Mobile Menu Button */}
-                    <div className="md:hidden flex items-center gap-2">
+                    <div className="lg:hidden flex items-center gap-2">
                         <button
                             onClick={() => setIsOpen(!isOpen)}
                             className="p-2 border-2 border-pencil bg-white shadow-[2px_2px_0_0_#2d2d2d] text-pencil hover:bg-accent hover:text-white transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
@@ -101,7 +101,7 @@ const Navbar = () => {
                         initial={{ opacity: 0, y: -20, rotate: -2 }}
                         animate={{ opacity: 1, y: 0, rotate: 0 }}
                         exit={{ opacity: 0, y: -20, rotate: 2 }}
-                        className="md:hidden absolute w-[calc(100%-2rem)] left-4 top-full mt-4 bg-post-it border-4 border-pencil border-wobbly-md shadow-[6px_6px_0_0_#2d2d2d] z-[100] p-6"
+                        className="lg:hidden absolute w-[calc(100%-2rem)] left-4 top-full mt-4 bg-post-it border-4 border-pencil border-wobbly-md shadow-[6px_6px_0_0_#2d2d2d] z-[100] p-6"
                     >
                         <div className="space-y-4">
                             {navLinks.map((link) => {

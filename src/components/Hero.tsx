@@ -99,7 +99,7 @@ const Hero = () => {
                     </span>
                 </motion.div>
 
-                <h1 className="text-6xl md:text-8xl font-heading font-black mb-8 tracking-tight text-pencil relative inline-block select-none">
+                <h1 className="text-4xl xs:text-5xl sm:text-7xl md:text-8xl font-heading font-black mb-8 tracking-tight text-pencil relative inline-block select-none">
                     <span className="block mb-2">
                         Hi, I'm{" "}
                         {firstName.map((char, index) => (
@@ -148,7 +148,7 @@ const Hero = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
-                    className="text-2xl md:text-3xl text-pencil mb-12 max-w-3xl mx-auto font-sans leading-relaxed pointer-events-none"
+                    className="text-lg sm:text-2xl md:text-3xl text-pencil mb-12 max-w-3xl mx-auto font-sans leading-relaxed pointer-events-none"
                 >
                     A 3rd Year B.Tech CSE Student and <span className="font-bold border-b-4 border-accent border-dashed">Full Stack Developer</span> creating intuitive, high-performance digital experiences.
                 </motion.p>
