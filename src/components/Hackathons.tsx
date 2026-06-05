@@ -162,7 +162,7 @@ const Hackathons = () => {
                     
                     {/* LEFT COLUMN: Pinned Wanted Posters (5 Columns) */}
                     <div className="lg:col-span-5 flex flex-col gap-6 w-full">
-                        <div className="bg-[#e7d7c1] border-4 border-pencil border-wobbly rounded-2xl p-6 shadow-hard-lg relative flex-1 flex flex-col justify-around min-h-[420px] select-none">
+                        <div className="bg-[#e7d7c1] border-4 border-pencil border-wobbly rounded-2xl p-4 sm:p-6 shadow-hard-lg relative flex-1 flex flex-col justify-around lg:min-h-[420px] select-none overflow-hidden">
                             
                             {/* Board cork effect */}
                             <div className="absolute inset-0 opacity-[0.06] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#2d2d2d 2px, transparent 2px)', backgroundSize: '12px 12px' }} />
@@ -172,7 +172,7 @@ const Hackathons = () => {
                                 Pinned Wanted Bounties
                             </h3>
 
-                            <div className="flex flex-col gap-5 justify-center flex-1">
+                            <div className="flex flex-row overflow-x-auto gap-5 pb-4 pt-4 lg:pt-0 lg:pb-0 lg:flex-col lg:justify-center flex-1 w-full scrollbar-thin scroll-smooth snap-x snap-mandatory">
                                 {hackathons.map((hack, idx) => {
                                     const isSelected = selectedQuest === idx;
                                     const rotation = idx % 2 === 0 ? '-rotate-2' : 'rotate-2';
@@ -186,7 +186,7 @@ const Hackathons = () => {
                                                 setSelectedQuest(idx);
                                                 playSound('select');
                                             }}
-                                            className={`relative p-5 border-2 border-pencil border-wobbly bg-amber-50 cursor-pointer shadow-hard transition-all duration-300 ${isSelected ? 'ring-4 ring-offset-2 ring-accent scale-[1.02] rotate-0 z-20' : `${rotation} opacity-85 hover:opacity-100`}`}
+                                            className={`relative p-5 border-2 border-pencil border-wobbly bg-amber-50 cursor-pointer shadow-hard transition-all duration-300 w-[280px] sm:w-[320px] lg:w-full shrink-0 snap-center ${isSelected ? 'ring-4 ring-offset-2 ring-accent scale-[1.02] rotate-0 z-20' : `${rotation} opacity-85 hover:opacity-100`}`}
                                         >
                                             {/* Styled Red Pushpin */}
                                             <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 w-7 h-7 bg-red-600 border-2 border-pencil rounded-full flex items-center justify-center shadow-hard z-30 select-none">
@@ -229,7 +229,7 @@ const Hackathons = () => {
 
                     {/* RIGHT COLUMN: Parchment Scroll Quest Logs (7 Columns) */}
                     <div className="lg:col-span-7 flex flex-col h-full w-full">
-                        <div className="relative flex-1 bg-white border-4 border-pencil border-wobbly-alt rounded-3xl p-6 md:p-8 shadow-hard-lg flex flex-col justify-between min-h-[500px] select-text">
+                        <div className="relative flex-1 bg-white border-4 border-pencil border-wobbly-alt rounded-3xl p-4 sm:p-6 md:p-8 shadow-hard-lg flex flex-col justify-between min-h-[450px] sm:min-h-[500px] select-text">
                             
                             {/* Masking tape on top center */}
                             <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-32 h-8 bg-pencil/15 backdrop-blur-sm rotate-1 z-10" />
@@ -300,7 +300,7 @@ const Hackathons = () => {
 
                                 {/* Action Items (Loot Claim Buttons) */}
                                 <div className="border-t-2 border-dashed border-pencil/20 pt-6 flex flex-wrap justify-between items-center gap-4">
-                                    <div className="flex gap-4 w-full sm:w-auto">
+                                    <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
                                         {activeItem.github && (
                                             <a 
                                                 href={activeItem.github} 
