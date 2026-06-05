@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { ExternalLink, Github, Terminal as TerminalIcon, FileCode, Cpu, Play, Terminal, Info } from 'lucide-react';
@@ -27,6 +27,7 @@ const Projects = () => {
     const [activeTab, setActiveTab] = useState<'code' | 'json' | 'terminal'>('code');
     const [terminalLines, setTerminalLines] = useState<string[]>([]);
     const [isTerminalRunning, setIsTerminalRunning] = useState(false);
+    const terminalTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const projects: Project[] = [
         {
@@ -349,12 +350,25 @@ export function VolatilityChart({ ticker }) {
 
     const currentProject = projects[activeIndex];
 
-    // Reset tab when project changes
+    // Reset tab and clear pending timers when project changes
     useEffect(() => {
+        if (terminalTimeoutRef.current) {
+            clearTimeout(terminalTimeoutRef.current);
+            terminalTimeoutRef.current = null;
+        }
         setActiveTab('code');
         setTerminalLines([]);
         setIsTerminalRunning(false);
     }, [activeIndex]);
+
+    // Also clear timers on component unmount
+    useEffect(() => {
+        return () => {
+            if (terminalTimeoutRef.current) {
+                clearTimeout(terminalTimeoutRef.current);
+            }
+        };
+    }, []);
 
     const highlightCode = (codeText: string) => {
         return codeText.split('\n').map((line, lineIdx) => {
@@ -387,13 +401,13 @@ export function VolatilityChart({ ticker }) {
             if (currentLine < logs.length) {
                 setTerminalLines(prev => [...prev, logs[currentLine]]);
                 currentLine++;
-                setTimeout(printLine, 600);
+                terminalTimeoutRef.current = setTimeout(printLine, 600);
             } else {
                 setTerminalLines(prev => [
                     ...prev, 
                     `\r[SUCCESS] Redirecting to live simulation...`
                 ]);
-                setTimeout(() => {
+                terminalTimeoutRef.current = setTimeout(() => {
                     setIsTerminalRunning(false);
                     if (currentProject.live !== "#") {
                         window.open(currentProject.live, '_blank', 'noopener,noreferrer');
@@ -578,11 +592,11 @@ export function VolatilityChart({ ticker }) {
                                                     <div className="flex-1 space-y-1.5 overflow-y-auto mb-4 min-h-[140px]">
                                                         {terminalLines.map((line, idx) => (
                                                             <div key={idx} className="leading-relaxed">
-                                                                {line.startsWith("soumya@") ? (
+                                                                {line && line.startsWith("soumya@") ? (
                                                                     <span className="text-blue-400">{line}</span>
-                                                                ) : line.startsWith("[ALERT]") ? (
+                                                                ) : line && line.startsWith("[ALERT]") ? (
                                                                     <span className="text-red-400">{line}</span>
-                                                                ) : line.startsWith("[SUCCESS]") ? (
+                                                                ) : line && line.startsWith("[SUCCESS]") ? (
                                                                     <span className="text-yellow-400 font-bold">{line}</span>
                                                                 ) : (
                                                                     <span>{line}</span>
