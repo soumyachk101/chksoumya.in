@@ -1,10 +1,35 @@
+"use client";
+
+import { useRef } from 'react';
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { Button } from "./ui/Button";
 
 const Hero = () => {
+    const heroRef = useRef<HTMLDivElement>(null);
+
+    const firstName = Array.from("Soumya");
+    const lastName = Array.from("Chakraborty");
+
+    // Draggable letter hover/spring variants
+    const letterVariants = {
+        hover: {
+            scale: 1.2,
+            rotate: [0, -5, 5, 0],
+            color: "#e85d04",
+            transition: { duration: 0.3 }
+        },
+        tap: {
+            scale: 0.95
+        }
+    };
+
     return (
-        <section id="home" className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-background pt-20">
+        <section 
+            id="home" 
+            ref={heroRef}
+            className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-background pt-20 select-none"
+        >
             {/* Hand-drawn Decorative Elements */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none" aria-hidden="true">
                 <svg className="absolute top-20 right-10 w-32 h-32 text-muted hidden md:block" viewBox="0 0 100 100" fill="none">
@@ -13,6 +38,55 @@ const Hero = () => {
                 <div className="absolute bottom-20 left-20 w-16 h-16 border-4 border-accent border-wobbly rounded-full opacity-50 animate-[bounce_3s_infinite] hidden md:block"></div>
             </div>
 
+            {/* Draggable Background Toys */}
+            <motion.div
+                drag
+                dragConstraints={heroRef}
+                dragElastic={0.25}
+                whileDrag={{ scale: 1.3, rotate: 20 }}
+                className="absolute cursor-grab active:cursor-grabbing text-3xl p-3 bg-[#fff9c4] border-2 border-pencil border-wobbly rounded-full shadow-hard-sm hidden md:block z-20"
+                style={{ top: "22%", left: "8%", rotate: "-12deg" }}
+                title="Toss me!"
+            >
+                ✏️
+            </motion.div>
+
+            <motion.div
+                drag
+                dragConstraints={heroRef}
+                dragElastic={0.25}
+                whileDrag={{ scale: 1.3, rotate: -25 }}
+                className="absolute cursor-grab active:cursor-grabbing text-3xl p-3 bg-white border-2 border-pencil border-wobbly rounded-full shadow-hard-sm hidden md:block z-20"
+                style={{ top: "18%", right: "12%", rotate: "15deg" }}
+                title="Fly me!"
+            >
+                ✈️
+            </motion.div>
+
+            <motion.div
+                drag
+                dragConstraints={heroRef}
+                dragElastic={0.25}
+                whileDrag={{ scale: 1.3, rotate: 18 }}
+                className="absolute cursor-grab active:cursor-grabbing text-3xl p-3 bg-[#ffe4e6] border-2 border-pencil border-wobbly rounded-full shadow-hard-sm hidden md:block z-20"
+                style={{ bottom: "25%", right: "8%", rotate: "-8deg" }}
+                title="Boost me!"
+            >
+                ☕
+            </motion.div>
+
+            <motion.div
+                drag
+                dragConstraints={heroRef}
+                dragElastic={0.25}
+                whileDrag={{ scale: 1.3, rotate: -15 }}
+                className="absolute cursor-grab active:cursor-grabbing text-3xl p-3 bg-[#e0f2fe] border-2 border-pencil border-wobbly rounded-full shadow-hard-sm hidden md:block z-20"
+                style={{ bottom: "18%", left: "12%", rotate: "10deg" }}
+                title="Clip me!"
+            >
+                📎
+            </motion.div>
+
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9, rotate: -5 }}
@@ -20,31 +94,61 @@ const Hero = () => {
                     transition={{ duration: 0.8 }}
                     className="mb-8 inline-block"
                 >
-                    <span className="inline-block px-6 py-2 bg-post-it border-2 border-pencil border-wobbly-sm shadow-hard-sm text-pencil text-lg font-bold tracking-wide transform hover:rotate-2 transition-transform">
+                    <span className="inline-block px-6 py-2 bg-post-it border-2 border-pencil border-wobbly-sm shadow-hard-sm text-pencil text-lg font-bold tracking-wide transform hover:rotate-2 transition-transform cursor-pointer">
                         Available for Full Stack Opportunities
                     </span>
                 </motion.div>
 
-                <motion.h1 
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                    className="text-6xl md:text-8xl font-heading font-black mb-8 tracking-tight text-pencil relative inline-block"
-                >
-                    Hi, I'm <span className="text-accent inline-block hover:-translate-y-2 transition-transform cursor-pointer">Soumya</span> <br className="hidden md:block" />
-                    <span>Chakraborty</span>
+                <h1 className="text-6xl md:text-8xl font-heading font-black mb-8 tracking-tight text-pencil relative inline-block select-none">
+                    <span className="block mb-2">
+                        Hi, I'm{" "}
+                        {firstName.map((char, index) => (
+                            <motion.span
+                                key={`fn-${index}`}
+                                drag
+                                dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
+                                dragElastic={0.65}
+                                dragTransition={{ bounceStiffness: 600, bounceDamping: 15 }}
+                                variants={letterVariants}
+                                whileHover="hover"
+                                whileTap="tap"
+                                whileDrag={{ scale: 1.3, rotate: 12, color: "#e85d04" }}
+                                className="inline-block cursor-grab active:cursor-grabbing text-accent select-none"
+                            >
+                                {char}
+                            </motion.span>
+                        ))}
+                    </span>
+                    <span className="block">
+                        {lastName.map((char, index) => (
+                            <motion.span
+                                key={`ln-${index}`}
+                                drag
+                                dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
+                                dragElastic={0.65}
+                                dragTransition={{ bounceStiffness: 600, bounceDamping: 15 }}
+                                variants={letterVariants}
+                                whileHover="hover"
+                                whileTap="tap"
+                                whileDrag={{ scale: 1.3, rotate: 12, color: "#14b8a6" }}
+                                className="inline-block cursor-grab active:cursor-grabbing select-none"
+                            >
+                                {char}
+                            </motion.span>
+                        ))}
+                    </span>
                     
                     {/* Scribbled underline */}
                     <svg className="absolute -bottom-4 left-0 w-full h-6 text-secondary hidden md:block" viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true">
                         <path d="M5,10 Q100,20 150,5 T295,15" fill="none" stroke="currentColor" strokeWidth="4" />
                     </svg>
-                </motion.h1>
+                </h1>
 
                 <motion.p
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
-                    className="text-2xl md:text-3xl text-pencil mb-12 max-w-3xl mx-auto font-sans leading-relaxed"
+                    className="text-2xl md:text-3xl text-pencil mb-12 max-w-3xl mx-auto font-sans leading-relaxed pointer-events-none"
                 >
                     A 3rd Year B.Tech CSE Student and <span className="font-bold border-b-4 border-accent border-dashed">Full Stack Developer</span> creating intuitive, high-performance digital experiences.
                 </motion.p>
