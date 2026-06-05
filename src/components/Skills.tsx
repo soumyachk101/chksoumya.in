@@ -396,8 +396,8 @@ const Skills = () => {
                         <div className="flex items-start gap-1.5 text-xs text-pencil font-sans leading-tight">
                             <Info size={14} className="flex-shrink-0" strokeWidth={2.5} />
                             <div>
-                                <p className="font-bold mb-0.5">Sticker Sandbox!</p>
-                                <p>Toss stickers around or click one to draw details.</p>
+                                <p className="font-bold mb-0.5">Sticker Board!</p>
+                                <p>Click a skill sticker to inspect details.</p>
                             </div>
                         </div>
                     </div>
@@ -425,14 +425,9 @@ const Skills = () => {
                                             return (
                                                 <motion.div
                                                     key={skill.name}
-                                                    drag
-                                                    dragConstraints={sandboxRef}
-                                                    dragElastic={0.12}
-                                                    dragTransition={{ bounceStiffness: 500, bounceDamping: 20 }}
-                                                    whileDrag={{ scale: 1.25, rotate: 6, zIndex: 100, boxShadow: "8px 8px 0px 0px #2d2d2d" }}
                                                     whileHover={{ scale: 1.08, rotate: tilt * 1.5, zIndex: 20 }}
                                                     onTap={() => setActiveSkill(skill)}
-                                                    className={`px-4 py-2 border-2 ${skill.bg} ${skill.border} ${skill.text} border-wobbly-sm shadow-hard-sm cursor-grab active:cursor-grabbing text-lg font-sans font-bold flex items-center gap-1.5 select-none transition-shadow ${isActive ? 'ring-4 ring-offset-2 ring-accent' : ''}`}
+                                                    className={`px-4 py-2 border-2 ${skill.bg} ${skill.border} ${skill.text} border-wobbly-sm shadow-hard-sm cursor-pointer text-lg font-sans font-bold flex items-center gap-1.5 select-none transition-shadow ${isActive ? 'ring-4 ring-offset-2 ring-accent' : ''}`}
                                                     style={{ rotate: tilt }}
                                                 >
                                                     {skill.icon}
@@ -534,7 +529,7 @@ const Skills = () => {
                                         <Sparkles size={40} className="text-accent mb-4 animate-bounce" strokeWidth={2.5} />
                                         <h4 className="text-2xl font-display font-bold text-pencil mb-3">Inspect My Stats!</h4>
                                         <p className="text-pencil font-sans leading-relaxed text-lg">
-                                            ✏️ Grab a skill sticker from the board, drag it around, or tap it to display real-time SVGs, stats, and commentary in this notebook.
+                                            ✏️ Select a skill sticker from the board to display real-time SVGs, stats, and commentary in this notebook.
                                         </p>
                                     </div>
                                 )}

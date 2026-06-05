@@ -61,7 +61,9 @@ const About = () => {
 
     // Auto scroll chat
     useEffect(() => {
-        chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+        if (chatLogs.length > 1 || isTyping) {
+            chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+        }
     }, [chatLogs, isTyping]);
 
     // Level up animations
