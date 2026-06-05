@@ -22,6 +22,73 @@ interface HackathonItem {
 }
 
 const Hackathons = () => {
+    const playSound = (type: 'insert' | 'boot' | 'button' | 'select' | 'dpad') => {
+        if (typeof window === 'undefined') return;
+        const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+        if (!AudioContextClass) return;
+
+        try {
+            const ctx = new AudioContextClass();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+
+            const now = ctx.currentTime;
+
+            if (type === 'button') {
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(880, now);
+                gain.gain.setValueAtTime(0.04, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+                osc.start(now);
+                osc.stop(now + 0.08);
+            } else if (type === 'dpad') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(350, now);
+                gain.gain.setValueAtTime(0.03, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
+                osc.start(now);
+                osc.stop(now + 0.05);
+            } else if (type === 'select') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(440, now);
+                gain.gain.setValueAtTime(0.05, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+                osc.start(now);
+                osc.stop(now + 0.08);
+            } else if (type === 'insert') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(220, now);
+                osc.frequency.exponentialRampToValueAtTime(80, now + 0.12);
+                gain.gain.setValueAtTime(0.06, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.12);
+                osc.start(now);
+                osc.stop(now + 0.12);
+            } else if (type === 'boot') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(523.25, now); // C5
+                gain.gain.setValueAtTime(0.04, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+                osc.start(now);
+                osc.stop(now + 0.08);
+
+                const osc2 = ctx.createOscillator();
+                const gain2 = ctx.createGain();
+                osc2.connect(gain2);
+                gain2.connect(ctx.destination);
+                osc2.type = 'sine';
+                osc2.frequency.setValueAtTime(1046.50, now + 0.1); // C6
+                gain2.gain.setValueAtTime(0.03, now + 0.1);
+                gain2.gain.exponentialRampToValueAtTime(0.005, now + 0.4);
+                osc2.start(now + 0.1);
+                osc2.stop(now + 0.4);
+            }
+        } catch (error) {
+            console.warn("AudioContext failed", error);
+        }
+    };
+
     const [selectedCartridge, setSelectedCartridge] = useState(0);
     const [insertedCartridge, setInsertedCartridge] = useState<number | null>(0);
     const [isBooting, setIsBooting] = useState(false);
@@ -81,6 +148,7 @@ const Hackathons = () => {
     const handleCartridgeClick = (idx: number) => {
         if (insertedCartridge === idx || isBooting) return;
         
+        playSound('insert');
         setIsBooting(true);
         setScreenMsg(null);
         setInsertedCartridge(null); // Eject first
@@ -91,6 +159,7 @@ const Hackathons = () => {
         bootTimerRef.current = setTimeout(() => {
             setInsertedCartridge(idx);
             setSelectedCartridge(idx);
+            playSound('boot');
             
             // Screen boot flow finishes after 1.4s
             bootTimerRef.current = setTimeout(() => {
@@ -101,6 +170,14 @@ const Hackathons = () => {
 
     const handleButtonPress = (btn: string) => {
         setActiveButton(btn);
+        
+        if (btn === 'A' || btn === 'B') {
+            playSound('button');
+        } else if (btn === 'SELECT') {
+            playSound('select');
+        } else {
+            playSound('dpad');
+        }
         
         let message = "";
         switch (btn) {
@@ -417,6 +494,7 @@ const Hackathons = () => {
                                                 href={activeItem.github} 
                                                 target="_blank" 
                                                 rel="noopener noreferrer" 
+                                                onClick={() => playSound('select')}
                                                 className="w-10 h-5 bg-white border-2 border-pencil flex items-center justify-center rounded text-[9px] font-mono font-black shadow-hard-sm active:translate-x-[1px] active:translate-y-[1px]"
                                                 title="View Repository"
                                             >
@@ -428,6 +506,7 @@ const Hackathons = () => {
                                                 href={activeItem.live} 
                                                 target="_blank" 
                                                 rel="noopener noreferrer" 
+                                                onClick={() => playSound('select')}
                                                 className="w-10 h-5 bg-accent text-white border-2 border-pencil flex items-center justify-center rounded text-[9px] font-mono font-black shadow-hard-sm active:translate-x-[1px] active:translate-y-[1px]"
                                                 title="Run Demo"
                                             >
