@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const count = certificates.filter(c => c.category === categoryId).length;
   const title = `${category.label} Certificates | Soumya Chakraborty`;
-  const description = `Browse ${count} professional certificates in ${category.label} earned by Soumya Chakraborty. Includes certifications from IBM, Google, Microsoft, Meta, NVIDIA, and more.`;
+  const description = `Browse ${count} professional certificates in ${category.label} earned by Soumya Chakraborty. Includes certifications from IBM, Google, Microsoft, Meta, NVIDIA, HackerRank, AWS, and more.`;
   const url = `https://chksoumya.in/certificates/${categoryId}`;
 
   return {

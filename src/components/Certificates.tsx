@@ -2,19 +2,21 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, Brain, Code2, Database, Cloud, Shield, Award } from 'lucide-react';
+import { ArrowRight, Globe, Database, Layers, Infinity, Cpu, GraduationCap, Award, Code2, Cloud } from 'lucide-react';
 import { categories, certificates } from '../data/certificates';
 import { Card } from './ui/Card';
 
 const Certificates = () => {
     const getCategoryIcon = (id: string) => {
         switch (id) {
-            case 'ai': return <Brain size={28} className="text-pencil" strokeWidth={2.5} />;
-            case 'gen-ai': return <Brain size={28} className="text-accent" strokeWidth={2.5} />;
-            case 'cyber': return <Shield size={28} className="text-pencil" strokeWidth={2.5} />;
-            case 'cloud': return <Cloud size={28} className="text-accent" strokeWidth={2.5} />;
-            case 'dev': return <Code2 size={28} className="text-pencil" strokeWidth={2.5} />;
-            case 'data': return <Database size={28} className="text-accent" strokeWidth={2.5} />;
+            case 'google': return <Globe size={28} className="text-pencil" strokeWidth={2.5} />;
+            case 'ibm': return <Database size={28} className="text-accent" strokeWidth={2.5} />;
+            case 'microsoft': return <Layers size={28} className="text-pencil" strokeWidth={2.5} />;
+            case 'meta': return <Infinity size={28} className="text-accent" strokeWidth={2.5} />;
+            case 'nvidia': return <Cpu size={28} className="text-pencil" strokeWidth={2.5} />;
+            case 'hackerrank': return <Code2 size={28} className="text-pencil" strokeWidth={2.5} />;
+            case 'aws': return <Cloud size={28} className="text-accent" strokeWidth={2.5} />;
+            case 'universities': return <GraduationCap size={28} className="text-pencil" strokeWidth={2.5} />;
             default: return <Award size={28} className="text-pencil" strokeWidth={2.5} />;
         }
     };

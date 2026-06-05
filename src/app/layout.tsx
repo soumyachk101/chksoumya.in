@@ -5,7 +5,7 @@ import ClientLayout from "./ClientLayout";
 export const metadata: Metadata = {
   title: 'Soumya Chakraborty | Full Stack Developer & Software Engineer',
   description: 'Soumya Chakraborty is a CS undergrad and Full Stack Developer with 2 years of experience building modern web apps using React, Next.js, Node.js, and Python.',
-  keywords: ['Soumya Chakraborty', 'Full Stack Developer', 'React Developer', 'Node.js Developer', 'Next.js Developer', 'Python', 'Portfolio', 'Software Engineer India'],
+  keywords: ['Soumya Chakraborty', 'Full Stack Developer', 'React Developer', 'Node.js Developer', 'Next.js Developer', 'Python', 'Portfolio', 'Software Engineer India', 'AWS Certified', 'HackerRank Certified', 'Technical Certifications'],
   authors: [{ name: 'Soumya Chakraborty' }],
   creator: 'Soumya Chakraborty',
   openGraph: {
