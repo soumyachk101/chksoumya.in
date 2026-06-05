@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar, ExternalLink, MapPin, Sparkles, Trophy, ShieldAlert, CheckCircle2 } from 'lucide-react';
+import { Calendar, ExternalLink, MapPin, Sparkles } from 'lucide-react';
 import { Card } from './ui/Card';
 
 interface ExperienceItem {
@@ -14,14 +14,15 @@ interface ExperienceItem {
     location: string;
     certificate?: string;
     xpGained: string[];
+    landmark: string;
+    doodle: string;
     coords: { x: number; y: number };
 }
 
 const Experience = () => {
     const [activeQuest, setActiveQuest] = useState(0);
-    const [solvedQuests, setSolvedQuests] = useState<number[]>([]);
-    const [isCombatActive, setIsCombatActive] = useState(false);
-    const [combatStage, setCombatStage] = useState<'intro' | 'solved'>('intro');
+    const [chestOpened, setChestOpened] = useState(false);
+    const [lootSparkles, setLootSparkles] = useState<{ id: number; x: number; y: number }[]>([]);
 
     const experiences: ExperienceItem[] = [
         {
@@ -33,7 +34,9 @@ const Experience = () => {
             location: "Remote",
             certificate: "/certificates/Soumya  Chakraborty_Certificate.pdf",
             xpGained: ["Python", "Django", "SQL", "HTML5", "CSS3", "REST APIs"],
-            coords: { x: 10, y: 40 }
+            landmark: "The Python Jungle",
+            doodle: "🐍",
+            coords: { x: 20, y: 35 }
         },
         {
             company: "Codec Technologies Pvt. Ltd.",
@@ -44,7 +47,9 @@ const Experience = () => {
             location: "Remote",
             certificate: "/certificates/MERN Stack Developer Intern.pdf",
             xpGained: ["MongoDB", "Express.js", "React.js", "Node.js", "JavaScript"],
-            coords: { x: 25, y: 70 }
+            landmark: "The MERN Oasis",
+            doodle: "🌴",
+            coords: { x: 35, y: 70 }
         },
         {
             company: "AWS",
@@ -54,7 +59,9 @@ const Experience = () => {
             date: "2025",
             location: "Remote",
             xpGained: ["AWS EC2", "AWS S3", "Cloud Computing", "Media Workflows"],
-            coords: { x: 42, y: 25 }
+            landmark: "The Cloud Fortress",
+            doodle: "🏰",
+            coords: { x: 50, y: 20 }
         },
         {
             company: "AICTE",
@@ -65,7 +72,9 @@ const Experience = () => {
             location: "Remote",
             certificate: "/certificates/Data Analytics Process Automation Virtual Internship By AICTE.pdf",
             xpGained: ["Data Analytics", "Process Automation", "Python", "Pandas", "Reporting"],
-            coords: { x: 58, y: 75 }
+            landmark: "The Data Plains",
+            doodle: "🌾",
+            coords: { x: 65, y: 75 }
         },
         {
             company: "IBM SkillsBuild",
@@ -76,7 +85,9 @@ const Experience = () => {
             location: "Remote",
             certificate: "/certificates/Data Analytics & Business Intelligence Lab_ Explore, Analyze & Build Real-World Solutions By IBM Skill Build.pdf",
             xpGained: ["Data Analytics", "Business Intelligence", "Charts.js", "SQL", "IBM SkillsBuild"],
-            coords: { x: 74, y: 35 }
+            landmark: "The Analytical Tower",
+            doodle: "🗼",
+            coords: { x: 80, y: 35 }
         },
         {
             company: "CodeAlpha",
@@ -86,69 +97,31 @@ const Experience = () => {
             date: "2024",
             location: "Remote",
             xpGained: ["Python Programming", "Algorithms", "Data Structures", "Scripting"],
-            coords: { x: 90, y: 60 }
+            landmark: "The Algorithm Dungeon",
+            doodle: "🕳️",
+            coords: { x: 92, y: 62 }
         }
     ];
 
-    const combatEncounters = [
-        {
-            name: "Syntax Python Serpent",
-            problem: "an Indentation Error outbreak",
-            action: "Format Indents (cast Black Magic)",
-            solvedMsg: "Syntax Serpent formatted! Gained +100 XP!"
-        },
-        {
-            name: "MERN Mutator",
-            problem: "infinite state re-renders",
-            action: "Add dependency array (cast Hook Ward)",
-            solvedMsg: "MERN Mutator stabilized! Gained +100 XP!"
-        },
-        {
-            name: "AWS Congestion Slime",
-            problem: "S3 Bucket Access Denied exception",
-            action: "Attach IAM policy (cast Access Seal)",
-            solvedMsg: "AWS Slime bypassed! Gained +100 XP!"
-        },
-        {
-            name: "Data Anomaly Wraith",
-            problem: "Null values in analytical models",
-            action: "Drop NaN values (cast Cleanse script)",
-            solvedMsg: "Data Anomaly Wraith banished! Gained +100 XP!"
-        },
-        {
-            name: "BI Report Specter",
-            problem: "untethered charts metrics",
-            action: "Recalculate JOINs (cast Query Pierce)",
-            solvedMsg: "Report Specter aligned! Gained +100 XP!"
-        },
-        {
-            name: "Algorithmic Minotaur",
-            problem: "an Infinite Recursion loop",
-            action: "Define Base Case (cast Stack Break)",
-            solvedMsg: "Algorithmic Minotaur defeated! Gained +100 XP!"
-        }
-    ];
+    // Reset chest when activeQuest changes
+    useEffect(() => {
+        setChestOpened(false);
+        setLootSparkles([]);
+    }, [activeQuest]);
 
-    const handleMilestoneClick = (idx: number) => {
-        setActiveQuest(idx);
-        if (!solvedQuests.includes(idx)) {
-            setIsCombatActive(true);
-            setCombatStage('intro');
-        } else {
-            setIsCombatActive(false);
-        }
-    };
-
-    const handleSolveCombat = () => {
-        setCombatStage('solved');
-        setSolvedQuests(prev => [...prev, activeQuest]);
-        setTimeout(() => {
-            setIsCombatActive(false);
-        }, 1200);
+    const openChest = () => {
+        setChestOpened(true);
+        // Spawn 12 sparkles throwing outwards
+        const sparks = Array.from({ length: 12 }).map((_, i) => ({
+            id: Math.random(),
+            x: Math.random() * 100 - 50,
+            y: Math.random() * -100 - 30
+        }));
+        setLootSparkles(sparks);
+        setTimeout(() => setLootSparkles([]), 900);
     };
 
     const currentQuest = experiences[activeQuest];
-    const currentCombat = combatEncounters[activeQuest];
 
     return (
         <section id="experience" className="py-20 relative overflow-hidden bg-background">
@@ -169,230 +142,241 @@ const Experience = () => {
                         </svg>
                     </h2>
                     <p className="mt-8 text-pencil/80 font-sans text-xl font-bold transform -rotate-1">
-                        🗺️ Click the milestones on the quest map to solve anomalies and inspect epic loot!
+                        🗺️ Click landmarks on the Realm Map to review entries and inspect quest chests!
                     </p>
                 </div>
 
-                {/* Quest Trail Map */}
-                <div className="relative mb-16 select-none bg-[#fffdf5] border-4 border-pencil border-wobbly p-6 rounded-2xl min-h-[280px] md:min-h-[360px] shadow-hard overflow-hidden">
-                    <div className="absolute top-1.5 left-2 text-[10px] text-pencil/30 font-mono">quest_map_coordinates.db</div>
+                {/* Double-page Sketchbook Journal */}
+                <div className="relative bg-[#f5ebe0]/40 border-4 border-pencil border-wobbly rounded-2xl p-4 md:p-8 shadow-hard select-none min-h-[500px]">
                     
-                    {/* Doodles on map */}
-                    <div className="absolute left-[5%] top-[12%] text-2xl opacity-15">🌲</div>
-                    <div className="absolute right-[8%] top-[15%] text-2xl opacity-15">⛰️</div>
-                    <div className="absolute left-[38%] bottom-[8%] text-2xl opacity-15">🌲</div>
-                    <div className="absolute right-[35%] top-[10%] text-2xl opacity-15">⛵</div>
-                    <div className="absolute left-[50%] top-[40%] text-xl opacity-10">👾</div>
+                    {/* Ring binder in the center for desktop screens */}
+                    <div className="absolute left-1/2 top-0 bottom-0 w-1 border-l-2 border-dashed border-pencil/30 hidden md:block -translate-x-1/2 z-10" />
+                    <div className="absolute left-1/2 top-0 bottom-0 w-8 flex flex-col justify-around items-center hidden md:flex -translate-x-1/2 z-20 pointer-events-none">
+                        {[...Array(6)].map((_, i) => (
+                            <div key={i} className="w-5 h-5 border-4 border-pencil rounded-full bg-paper rotate-45 border-wobbly shadow-hard-sm" />
+                        ))}
+                    </div>
 
-                    {/* Dotted path curve connecting milestones */}
-                    <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ minHeight: '280px' }}>
-                        <path 
-                            d="M 10% 40% Q 17.5% 65% 25% 70% Q 33.5% 45% 42% 25% Q 50% 60% 58% 75% Q 66% 50% 74% 35% Q 82% 52.5% 90% 60%" 
-                            stroke="#2d2d2d" 
-                            strokeWidth="3.5" 
-                            strokeDasharray="6 6" 
-                            fill="none" 
-                        />
-                    </svg>
-
-                    {/* Animated Wizard Avatar gliding along path */}
-                    <motion.div 
-                        animate={{ 
-                            left: `${currentQuest.coords.x}%`, 
-                            top: `${currentQuest.coords.y}%` 
-                        }}
-                        transition={{ type: "spring", stiffness: 90, damping: 14 }}
-                        className="absolute w-12 h-12 bg-accent border-2 border-pencil rounded-full flex items-center justify-center -ml-6 -mt-6 z-30 shadow-hard transform rotate-6 select-none pointer-events-none text-2xl"
-                    >
-                        🧙‍♂️
-                    </motion.div>
-
-                    {/* Map Nodes */}
-                    {experiences.map((exp, idx) => {
-                        const isActive = idx === activeQuest;
-                        const isSolved = solvedQuests.includes(idx);
-                        return (
-                            <div 
-                                key={idx} 
-                                className="absolute -ml-7 -mt-7 flex flex-col items-center z-25"
-                                style={{ left: `${exp.coords.x}%`, top: `${exp.coords.y}%` }}
-                            >
-                                <motion.button
-                                    whileHover={{ scale: 1.15 }}
-                                    whileTap={{ scale: 0.9 }}
-                                    onClick={() => handleMilestoneClick(idx)}
-                                    className={`w-12 h-12 rounded-full flex items-center justify-center font-display font-black border-2 border-pencil cursor-pointer relative shadow-hard-sm text-sm ${isActive ? 'bg-accent text-white scale-110 border-solid rotate-6' : isSolved ? 'bg-green-100 text-green-700 border-solid' : 'bg-paper text-pencil border-dashed hover:rotate-3'}`}
-                                >
-                                    <span>Q{idx + 1}</span>
-                                    {/* Small check icon if solved */}
-                                    {isSolved && (
-                                        <span className="absolute -top-1 -right-1 bg-green-500 text-white rounded-full p-0.5 border border-pencil text-[8px]">
-                                            ✓
-                                        </span>
-                                    )}
-                                </motion.button>
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
+                        
+                        {/* LEFT PAGE: Realm Quest Map (6 Columns) */}
+                        <div className="md:col-span-6 flex flex-col justify-between p-2 relative min-h-[300px] md:min-h-[400px]">
+                            <div className="absolute top-1 left-2 text-[10px] text-pencil/30 font-mono">realm_quest_map.db</div>
+                            
+                            {/* Visual Adventure Map Container */}
+                            <div className="relative border-2 border-pencil border-dashed rounded-xl bg-[#fffdf5] w-full flex-1 min-h-[280px] overflow-hidden shadow-inner flex items-center justify-center">
                                 
-                                {/* Hover label */}
-                                <div className="absolute top-14 bg-white border-2 border-pencil px-2 py-0.5 rounded shadow-hard-sm text-[10px] font-sans font-bold whitespace-nowrap pointer-events-none opacity-80 scale-90 md:scale-100">
-                                    {exp.company.split(' ')[0]}
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
+                                {/* Background landmarks doodles */}
+                                <div className="absolute left-[5%] bottom-[5%] text-2xl opacity-15">🌲</div>
+                                <div className="absolute right-[5%] bottom-[8%] text-2xl opacity-15">🌲</div>
+                                <div className="absolute left-[8%] top-[10%] text-2xl opacity-15">⛰️</div>
+                                <div className="absolute right-[40%] top-[40%] text-2xl opacity-15">⛵</div>
+                                
+                                {/* Dotted lines connector */}
+                                <svg className="absolute inset-0 w-full h-full pointer-events-none">
+                                    <path 
+                                        d="M 20% 35% Q 27.5% 55% 35% 70% Q 42.5% 45% 50% 20% Q 57.5% 50% 65% 75% Q 72.5% 55% 80% 35% Q 86% 50% 92% 62%" 
+                                        stroke="#2d2d2d" 
+                                        strokeWidth="3.5" 
+                                        strokeDasharray="6 6" 
+                                        fill="none" 
+                                    />
+                                </svg>
 
-                {/* Diary Quest Log Page */}
-                <div className="relative max-w-4xl mx-auto min-h-[400px]">
-                    <AnimatePresence mode="wait">
-                        {isCombatActive ? (
-                            /* RPG Combat Encounter Screen Overlay */
-                            <motion.div
-                                key="combat"
-                                initial={{ opacity: 0, scale: 0.95, rotate: -1 }}
-                                animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                                exit={{ opacity: 0, scale: 0.95, rotate: 1 }}
-                                transition={{ duration: 0.3 }}
-                                className="absolute inset-0 z-40"
-                            >
-                                <Card 
-                                    decoration="tack"
-                                    className="bg-red-50/95 border-2 border-red-500 border-wobbly shadow-hard-lg p-8 flex flex-col items-center justify-center text-center min-h-[400px]"
+                                {/* Traveling Character Sticker */}
+                                <motion.div 
+                                    animate={{ 
+                                        left: `${currentQuest.coords.x}%`, 
+                                        top: `${currentQuest.coords.y}%` 
+                                    }}
+                                    transition={{ type: "spring", stiffness: 85, damping: 13 }}
+                                    className="absolute w-12 h-12 bg-accent border-2 border-pencil rounded-full flex items-center justify-center -ml-6 -mt-6 z-30 shadow-hard transform rotate-6 select-none pointer-events-none text-2xl"
                                 >
-                                    {combatStage === 'intro' ? (
-                                        <>
-                                            <div className="w-20 h-20 bg-red-100 border-2 border-red-500 border-wobbly rounded-full flex items-center justify-center text-red-500 mb-6 shadow-hard-sm animate-bounce">
-                                                <ShieldAlert size={40} strokeWidth={2.5} />
-                                            </div>
-                                            <h3 className="text-3xl font-display font-black text-red-600 mb-2 uppercase tracking-wide">
-                                                👾 Encounter: {currentCombat.name}
-                                            </h3>
-                                            <p className="text-pencil font-sans font-bold text-lg md:text-xl max-w-lg mb-8 leading-relaxed">
-                                                Your deployment is blocked by <span className="underline decoration-wavy decoration-red-500">{currentCombat.problem}</span>! Clear it to claim loot.
-                                            </p>
-                                            
-                                            <button 
-                                                onClick={handleSolveCombat}
-                                                className="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-sans font-black text-base border-2 border-pencil shadow-hard hover:shadow-[1px_1px_0_0_#2d2d2d] hover:translate-x-[2px] hover:translate-y-[2px] transition-all cursor-pointer flex items-center gap-2"
-                                            >
-                                                ✨ {currentCombat.action}
-                                            </button>
-                                        </>
-                                    ) : (
-                                        <motion.div 
-                                            initial={{ scale: 0.8 }}
-                                            animate={{ scale: 1 }}
-                                            className="flex flex-col items-center"
+                                    🧙‍♂️
+                                </motion.div>
+
+                                {/* Landmarks list */}
+                                {experiences.map((exp, idx) => {
+                                    const isActive = idx === activeQuest;
+                                    return (
+                                        <div 
+                                            key={idx}
+                                            className="absolute -ml-7 -mt-7 flex flex-col items-center z-20 group"
+                                            style={{ left: `${exp.coords.x}%`, top: `${exp.coords.y}%` }}
                                         >
-                                            <div className="w-20 h-20 bg-green-100 border-2 border-green-500 border-wobbly rounded-full flex items-center justify-center text-green-600 mb-6 shadow-hard-sm animate-pulse">
-                                                <CheckCircle2 size={40} strokeWidth={2.5} />
+                                            <motion.button
+                                                whileHover={{ scale: 1.15 }}
+                                                whileTap={{ scale: 0.9 }}
+                                                onClick={() => setActiveQuest(idx)}
+                                                className={`w-12 h-12 rounded-full flex flex-col items-center justify-center font-display font-black border-2 border-pencil cursor-pointer relative shadow-hard-sm ${isActive ? 'bg-accent text-white scale-110 border-solid rotate-6' : 'bg-white text-pencil border-dashed hover:rotate-3'}`}
+                                            >
+                                                <span className="text-sm">{exp.doodle}</span>
+                                            </motion.button>
+                                            
+                                            {/* Landmark Label */}
+                                            <div className="absolute top-14 bg-white border-2 border-pencil px-1.5 py-0.5 rounded shadow-hard-sm text-[9px] font-sans font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none text-pencil">
+                                                {exp.landmark}
                                             </div>
-                                            <h3 className="text-3xl font-display font-black text-green-600 mb-2 uppercase tracking-wide">
-                                                🎉 Victory!
-                                            </h3>
-                                            <p className="text-pencil font-sans font-black text-lg md:text-xl leading-relaxed">
-                                                {currentCombat.solvedMsg}
-                                            </p>
-                                        </motion.div>
-                                    )}
-                                </Card>
-                            </motion.div>
-                        ) : (
-                            /* Standard Diary Quest Entry Log */
-                            <motion.div
-                                key={activeQuest}
-                                initial={{ opacity: 0, scale: 0.96, rotate: -1 }}
-                                animate={{ opacity: 1, scale: 1, rotate: 1 }}
-                                exit={{ opacity: 0, scale: 0.96, rotate: 1 }}
-                                transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                                className="w-full"
-                            >
-                                <Card 
-                                    decoration="tape"
-                                    className="bg-[#fffdf5] border-2 border-pencil border-wobbly shadow-hard-lg p-6 md:p-10 relative flex flex-col min-h-[400px]"
+                                        </div>
+                                    );
+                                })}
+                            </div>
+
+                            {/* Legend indicator */}
+                            <div className="text-center font-display font-bold text-sm text-pencil/50 pt-2 italic">
+                                Page 1: Map of the Virtual Realm
+                            </div>
+                        </div>
+
+                        {/* RIGHT PAGE: Quest Journal Entry (6 Columns) */}
+                        <div className="md:col-span-6 flex flex-col justify-between p-2 min-h-[400px]">
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={activeQuest}
+                                    initial={{ opacity: 0, x: 20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: -20 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="flex flex-col justify-between h-full space-y-6"
                                 >
-                                    {/* RPG Header info */}
-                                    <div className="flex flex-col md:flex-row md:items-start justify-between border-b-2 border-dashed border-pencil/20 pb-6 mb-6 gap-4">
-                                        <div className="space-y-2">
+                                    {/* Quest stats */}
+                                    <div className="space-y-4">
+                                        <div>
                                             <div className="flex items-center gap-2">
-                                                <Sparkles size={18} className="text-accent" strokeWidth={2.5} />
-                                                <span className="text-accent font-sans font-black text-sm uppercase tracking-widest bg-accent/5 px-2 py-0.5 rounded border border-accent border-dashed">
-                                                    Quest Complete: {currentQuest.type}
+                                                <Sparkles size={16} className="text-accent animate-pulse" />
+                                                <span className="text-accent font-sans font-black text-xs uppercase tracking-widest bg-accent/5 px-2 py-0.5 rounded border border-accent border-dashed">
+                                                    Quest Log: {currentQuest.type}
                                                 </span>
                                             </div>
-                                            <h3 className="text-3xl font-display font-black text-pencil mt-2">
+                                            <h3 className="text-3xl font-display font-black text-pencil mt-2 leading-tight">
                                                 {currentQuest.role}
                                             </h3>
-                                            <p className="text-xl font-display font-bold text-secondary">
+                                            <p className="text-lg font-display font-bold text-secondary">
                                                 @{currentQuest.company}
                                             </p>
                                         </div>
-                                        <div className="text-pencil flex flex-wrap gap-4 text-base font-sans font-bold md:text-right md:flex-col md:gap-1">
-                                            <div className="flex items-center md:justify-end gap-1.5">
-                                                <Calendar size={16} strokeWidth={2.5} />
+
+                                        <div className="flex flex-wrap gap-4 text-xs font-sans font-bold text-pencil/60">
+                                            <div className="flex items-center gap-1">
+                                                <Calendar size={14} />
                                                 <span>Timeline: {currentQuest.date}</span>
                                             </div>
-                                            <div className="flex items-center md:justify-end gap-1.5 uppercase tracking-wider">
-                                                <MapPin size={16} strokeWidth={2.5} />
-                                                <span>Location: {currentQuest.location}</span>
+                                            <div className="flex items-center gap-1 uppercase">
+                                                <MapPin size={14} />
+                                                <span>{currentQuest.location}</span>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    {/* Quest Log (Desc) */}
-                                    <div className="flex-1 mb-8">
-                                        <h4 className="text-lg uppercase font-sans font-extrabold text-pencil/40 mb-3 block tracking-wider">Quest Log</h4>
-                                        <p className="text-pencil font-sans text-lg md:text-xl leading-relaxed font-medium">
+                                        <p className="text-pencil font-sans text-base leading-relaxed font-medium">
                                             {currentQuest.desc}
                                         </p>
-                                    </div>
 
-                                    {/* Loot & XP gained */}
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t-2 border-dashed border-pencil/20 mt-auto">
-                                        {/* XP Gained list */}
+                                        {/* Technology XP Tags */}
                                         <div className="space-y-2">
-                                            <span className="text-[10px] uppercase font-sans font-black text-pencil/40 block tracking-wider">Gained XP (Technologies)</span>
-                                            <div className="flex flex-wrap gap-2">
+                                            <span className="text-[10px] uppercase font-sans font-black text-pencil/40 block tracking-wider">XP Gained (Tech Stack)</span>
+                                            <div className="flex flex-wrap gap-1.5">
                                                 {currentQuest.xpGained.map((tag, idx) => (
                                                     <span 
                                                         key={idx} 
-                                                        className="px-2.5 py-1 bg-white border-2 border-pencil border-wobbly-sm shadow-hard-sm text-pencil font-sans font-bold text-xs select-none hover:-translate-y-0.5 transition-transform"
-                                                        style={{ rotate: idx % 2 === 0 ? '-2deg' : '2deg' }}
+                                                        className="px-2 py-0.5 bg-white border-2 border-pencil border-wobbly-sm shadow-hard-sm text-pencil font-sans font-bold text-xs select-none"
+                                                        style={{ rotate: idx % 2 === 0 ? '-1.5deg' : '1.5deg' }}
                                                     >
                                                         {tag}
                                                     </span>
                                                 ))}
                                             </div>
                                         </div>
+                                    </div>
 
-                                        {/* Epic Loot (Certificate) */}
-                                        <div className="flex flex-col justify-end items-start md:items-end">
-                                            {currentQuest.certificate ? (
-                                                <div className="w-full sm:w-auto">
-                                                    <span className="text-[10px] uppercase font-sans font-black text-pencil/40 block tracking-wider mb-2 md:text-right">Epic Loot Claimed</span>
-                                                    <a 
-                                                        href={currentQuest.certificate}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-accent hover:bg-pencil text-paper hover:text-paper border-2 border-pencil border-wobbly font-sans font-extrabold text-base shadow-hard active:shadow-none active:translate-x-[4px] active:translate-y-[4px] transition-all cursor-pointer w-full sm:w-auto"
+                                    {/* Interactive Quest Loot Chest */}
+                                    <div className="pt-4 border-t border-dashed border-pencil/20 flex flex-col items-center">
+                                        <span className="text-[10px] uppercase font-sans font-black text-pencil/40 block tracking-wider mb-2">Quest Loot Inspector</span>
+                                        
+                                        <div className="relative">
+                                            {/* Particle Glow elements */}
+                                            <AnimatePresence>
+                                                {lootSparkles.map((spark) => (
+                                                    <motion.div
+                                                        key={spark.id}
+                                                        initial={{ x: 0, y: 0, scale: 0, opacity: 1 }}
+                                                        animate={{ 
+                                                            x: spark.x,
+                                                            y: spark.y,
+                                                            scale: [1, 1.3, 0.4],
+                                                            opacity: 0
+                                                        }}
+                                                        exit={{ opacity: 0 }}
+                                                        transition={{ duration: 0.9, ease: "easeOut" }}
+                                                        className="absolute left-[38px] top-[20px] text-lg pointer-events-none z-30"
                                                     >
-                                                        View Scroll (Certificate)
-                                                        <ExternalLink size={16} strokeWidth={2.5} />
-                                                    </a>
-                                                </div>
+                                                        ✨
+                                                    </motion.div>
+                                                ))}
+                                            </AnimatePresence>
+
+                                            {/* Box Button */}
+                                            {!chestOpened ? (
+                                                <button 
+                                                    onClick={openChest}
+                                                    className="w-24 h-20 text-5xl flex items-center justify-center filter drop-shadow hover:scale-110 active:scale-95 transition-transform cursor-pointer"
+                                                    title="Click to unlock certificate loot!"
+                                                >
+                                                    🧰
+                                                </button>
                                             ) : (
-                                                <div>
-                                                    <span className="text-[10px] uppercase font-sans font-black text-pencil/40 block tracking-wider mb-2 md:text-right">Epic Loot Status</span>
-                                                    <div className="px-4 py-2 border-2 border-dashed border-pencil/30 text-pencil/40 font-sans font-bold text-sm rounded">
-                                                        No Certificate Item Discovered
-                                                    </div>
+                                                <div className="w-24 h-20 text-5xl flex items-center justify-center filter drop-shadow animate-[pulse_1.5s_infinite]">
+                                                    🔓
                                                 </div>
                                             )}
                                         </div>
+
+                                        <AnimatePresence mode="wait">
+                                            {!chestOpened ? (
+                                                <motion.p 
+                                                    key="closed-tip"
+                                                    initial={{ opacity: 0 }}
+                                                    animate={{ opacity: 1 }}
+                                                    exit={{ opacity: 0 }}
+                                                    className="text-xs font-sans font-extrabold text-accent text-center mt-2 animate-pulse"
+                                                >
+                                                    [ Click Chest to Unlock Certificate Scroll ]
+                                                </motion.p>
+                                            ) : (
+                                                <motion.div 
+                                                    key="open-loot"
+                                                    initial={{ opacity: 0, y: 10 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    className="w-full flex justify-center mt-3"
+                                                >
+                                                    {currentQuest.certificate ? (
+                                                        <a 
+                                                            href={currentQuest.certificate}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="inline-flex items-center justify-center gap-2 px-5 py-2 bg-accent hover:bg-pencil text-paper hover:text-paper border-2 border-pencil border-wobbly font-sans font-black text-xs shadow-hard active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer w-full sm:w-auto"
+                                                        >
+                                                            <span>Read Scroll (Certificate)</span>
+                                                            <ExternalLink size={14} />
+                                                        </a>
+                                                    ) : (
+                                                        <div className="text-xs font-sans font-bold text-pencil/50 italic py-2">
+                                                            No physical loot discovered for this quest.
+                                                        </div>
+                                                    )}
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
                                     </div>
-                                </Card>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+                                    
+                                    {/* page sub indicator */}
+                                    <div className="text-center font-display font-bold text-sm text-pencil/50 pt-2 border-t border-dashed border-pencil/10 italic">
+                                        Page 2: Active Quest Log Record
+                                    </div>
+                                </motion.div>
+                            </AnimatePresence>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </section>

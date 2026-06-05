@@ -2,8 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
-import { MapPin, Sparkles, RefreshCw, Send, CheckCircle } from 'lucide-react';
+import { MapPin, Sparkles, RefreshCw, Send } from 'lucide-react';
 import { Card } from './ui/Card';
 
 interface Particle {
@@ -18,7 +17,6 @@ interface ChatMessage {
 }
 
 const About = () => {
-    const [isFlipped, setIsFlipped] = useState(false);
     const [level, setLevel] = useState(20);
     const [focusStat, setFocusStat] = useState(94);
     const [speedStat, setSpeedStat] = useState(88);
@@ -200,130 +198,94 @@ const About = () => {
                 {/* Desk grid */}
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
                     
-                    {/* WIDGET 1: Polaroid / RPG Stats sheet (5 Columns) */}
-                    <div className="md:col-span-5 h-[480px] perspective-[1000px] select-none">
-                        <motion.div 
-                            className="relative w-full h-full duration-700 transform-style-3d cursor-pointer"
-                            animate={{ rotateY: isFlipped ? 180 : 0 }}
-                            onClick={() => setIsFlipped(!isFlipped)}
+                    {/* WIDGET 1: RPG Stats sheet (5 Columns) */}
+                    <div className="md:col-span-5 h-[480px] select-none">
+                        <Card 
+                            decoration="tack" 
+                            className="bg-amber-50 border-2 border-pencil border-wobbly p-6 shadow-hard-lg h-full flex flex-col justify-between text-pencil relative"
                         >
-                            {/* FRONT PAGE: Polaroid Picture */}
-                            <div className="absolute inset-0 w-full h-full backface-hidden">
-                                <Card decoration="tape" className="bg-white border-2 border-pencil border-wobbly p-6 shadow-hard-lg flex flex-col items-center h-full justify-between rotate-2 hover:rotate-0 transition-transform">
-                                    <div className="relative w-full h-80 border-2 border-pencil border-wobbly overflow-hidden bg-muted">
-                                        <Image
-                                            src="/images/Profile Photo.jpg"
-                                            alt="Soumya Chakraborty"
-                                            fill
-                                            priority
-                                            className="object-cover object-center"
-                                        />
-                                    </div>
-                                    <div className="text-center border-t border-dashed border-pencil/20 pt-4 w-full">
-                                        <h3 className="text-2xl font-display font-bold text-pencil leading-none mb-1">Soumya Chakraborty</h3>
-                                        <p className="text-sm font-sans font-bold text-pencil/50 italic">Kolkata, Class of 2027 • Tap to Inspect Stats</p>
-                                    </div>
-                                </Card>
-                            </div>
-
-                            {/* BACK PAGE: RPG Stats Inspector Sheet */}
-                            <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180">
-                                <Card 
-                                    decoration="tack" 
-                                    className="bg-amber-50 border-2 border-pencil border-wobbly p-6 shadow-hard-lg h-full flex flex-col justify-between text-pencil relative"
-                                    onClick={(e) => e.stopPropagation()} // Prevent flip back on stats click
-                                >
-                                    <div className="absolute top-1 right-2 text-[8px] font-mono opacity-30">dev_status_inspector.sh</div>
-                                    
-                                    {/* Level Up Particle Burst */}
-                                    <AnimatePresence>
-                                        {sparkles.map((sparkle) => (
-                                            <motion.div
-                                                key={sparkle.id}
-                                                initial={{ x: 0, y: 0, scale: 0, opacity: 1 }}
-                                                animate={{ 
-                                                    x: Math.cos((sparkle.angle * Math.PI) / 180) * sparkle.distance,
-                                                    y: Math.sin((sparkle.angle * Math.PI) / 180) * sparkle.distance,
-                                                    scale: [1, 1.2, 0.5],
-                                                    opacity: 0
-                                                }}
-                                                exit={{ opacity: 0 }}
-                                                transition={{ duration: 0.8, ease: "easeOut" }}
-                                                className="absolute left-1/2 top-[120px] text-lg pointer-events-none z-30"
-                                            >
-                                                ⭐
-                                            </motion.div>
-                                        ))}
-                                    </AnimatePresence>
-
-                                    {/* Stats Header */}
-                                    <div className="border-b-2 border-dashed border-pencil/20 pb-4">
-                                        <div className="flex items-center justify-between">
-                                            <div>
-                                                <h3 className="text-2xl font-display font-black leading-none">Soumya Chakraborty</h3>
-                                                <span className="text-xs font-mono text-pencil/50 uppercase tracking-widest mt-1.5 block">Class: Fullstack Wizard</span>
-                                            </div>
-                                            <button 
-                                                onClick={triggerLevelUp}
-                                                className="px-3 py-1.5 bg-accent hover:bg-pencil text-paper font-sans font-black text-xs uppercase border-2 border-pencil shadow-hard-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer flex items-center gap-1 shrink-0"
-                                            >
-                                                <span>Level Up</span>
-                                                <Sparkles size={12} className="animate-pulse" />
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    {/* Core Stats */}
-                                    <div className="space-y-4 my-4">
-                                        <div className="flex justify-between items-center text-sm font-sans font-bold">
-                                            <span className="uppercase tracking-wide">Wizard Level:</span>
-                                            <span className="font-mono text-base text-accent">Lvl {level}</span>
-                                        </div>
-                                        <div className="flex justify-between items-center text-sm font-sans font-bold">
-                                            <span className="uppercase tracking-wide">Mana Points:</span>
-                                            <span className="font-mono text-base text-secondary">95 / 100</span>
-                                        </div>
-
-                                        {/* Focus Slider */}
-                                        <div className="space-y-1">
-                                            <div className="flex justify-between items-baseline text-xs font-sans font-bold">
-                                                <span>FOCUS CAPABILITY</span>
-                                                <span className="font-mono">{focusStat}%</span>
-                                            </div>
-                                            <div className="h-3 bg-white border border-pencil rounded overflow-hidden p-0.5">
-                                                <div className="h-full bg-accent rounded" style={{ width: `${focusStat}%` }} />
-                                            </div>
-                                        </div>
-
-                                        {/* Speed Slider */}
-                                        <div className="space-y-1">
-                                            <div className="flex justify-between items-baseline text-xs font-sans font-bold">
-                                                <span>CODING SPEED BUFF</span>
-                                                <span className="font-mono">{speedStat}%</span>
-                                            </div>
-                                            <div className="h-3 bg-white border border-pencil rounded overflow-hidden p-0.5">
-                                                <div className="h-full bg-green-500 rounded" style={{ width: `${speedStat}%` }} />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* Equipped Items list */}
-                                    <div className="bg-white/50 border border-pencil border-dashed rounded p-3 text-xs space-y-1">
-                                        <div className="font-bold border-b border-pencil/20 pb-1 mb-1 uppercase tracking-widest text-[10px] text-pencil/50">Equipped Inventory</div>
-                                        <div>🛡️ Mechanical Blue-Switch Keyboard (+15% WPM)</div>
-                                        <div>🎧 Synthwave/Lofi Beats (+10% Focus Duration)</div>
-                                        <div>🛡️ VS Code Dark Mode (+20% Bug Immunity)</div>
-                                    </div>
-
-                                    <button 
-                                        onClick={() => setIsFlipped(false)}
-                                        className="w-full text-center text-xs text-pencil/40 hover:text-accent font-sans font-bold mt-2"
+                            <div className="absolute top-1 right-2 text-[8px] font-mono opacity-30">dev_status_inspector.sh</div>
+                            
+                            {/* Level Up Particle Burst */}
+                            <AnimatePresence>
+                                {sparkles.map((sparkle) => (
+                                    <motion.div
+                                        key={sparkle.id}
+                                        initial={{ x: 0, y: 0, scale: 0, opacity: 1 }}
+                                        animate={{ 
+                                            x: Math.cos((sparkle.angle * Math.PI) / 180) * sparkle.distance,
+                                            y: Math.sin((sparkle.angle * Math.PI) / 180) * sparkle.distance,
+                                            scale: [1, 1.2, 0.5],
+                                            opacity: 0
+                                        }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ duration: 0.8, ease: "easeOut" }}
+                                        className="absolute left-1/2 top-[120px] text-lg pointer-events-none z-30"
                                     >
-                                        Flip Back to Polaroid
+                                        ⭐
+                                    </motion.div>
+                                ))}
+                            </AnimatePresence>
+
+                            {/* Stats Header */}
+                            <div className="border-b-2 border-dashed border-pencil/20 pb-4">
+                                <div className="flex items-center justify-between">
+                                    <div>
+                                        <h3 className="text-2xl font-display font-black leading-none">Soumya Chakraborty</h3>
+                                        <span className="text-xs font-mono text-pencil/50 uppercase tracking-widest mt-1.5 block">Class: Fullstack Wizard</span>
+                                    </div>
+                                    <button 
+                                        onClick={triggerLevelUp}
+                                        className="px-3 py-1.5 bg-accent hover:bg-pencil text-paper font-sans font-black text-xs uppercase border-2 border-pencil shadow-hard-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer flex items-center gap-1 shrink-0"
+                                    >
+                                        <span>Level Up</span>
+                                        <Sparkles size={12} className="animate-pulse" />
                                     </button>
-                                </Card>
+                                </div>
                             </div>
-                        </motion.div>
+
+                            {/* Core Stats */}
+                            <div className="space-y-4 my-4">
+                                <div className="flex justify-between items-center text-sm font-sans font-bold">
+                                    <span className="uppercase tracking-wide">Wizard Level:</span>
+                                    <span className="font-mono text-base text-accent">Lvl {level}</span>
+                                </div>
+                                <div className="flex justify-between items-center text-sm font-sans font-bold">
+                                    <span className="uppercase tracking-wide">Mana Points:</span>
+                                    <span className="font-mono text-base text-secondary">95 / 100</span>
+                                </div>
+
+                                {/* Focus Slider */}
+                                <div className="space-y-1">
+                                    <div className="flex justify-between items-baseline text-xs font-sans font-bold">
+                                        <span>FOCUS CAPABILITY</span>
+                                        <span className="font-mono">{focusStat}%</span>
+                                    </div>
+                                    <div className="h-3 bg-white border border-pencil rounded overflow-hidden p-0.5">
+                                        <div className="h-full bg-accent rounded" style={{ width: `${focusStat}%` }} />
+                                    </div>
+                                </div>
+
+                                {/* Speed Slider */}
+                                <div className="space-y-1">
+                                    <div className="flex justify-between items-baseline text-xs font-sans font-bold">
+                                        <span>CODING SPEED BUFF</span>
+                                        <span className="font-mono">{speedStat}%</span>
+                                    </div>
+                                    <div className="h-3 bg-white border border-pencil rounded overflow-hidden p-0.5">
+                                        <div className="h-full bg-green-500 rounded" style={{ width: `${speedStat}%` }} />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Equipped Items list */}
+                            <div className="bg-white/50 border border-pencil border-dashed rounded p-3 text-xs space-y-1">
+                                <div className="font-bold border-b border-pencil/20 pb-1 mb-1 uppercase tracking-widest text-[10px] text-pencil/50">Equipped Inventory</div>
+                                <div>🛡️ Mechanical Blue-Switch Keyboard (+15% WPM)</div>
+                                <div>🎧 Synthwave/Lofi Beats (+10% Focus Duration)</div>
+                                <div>🛡️ VS Code Dark Mode (+20% Bug Immunity)</div>
+                            </div>
+                        </Card>
                     </div>
 
                     {/* WIDGET 2: Mini Canvas Scrapbook & Coffee Mug (7 Columns) */}
