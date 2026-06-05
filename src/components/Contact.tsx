@@ -143,10 +143,11 @@ const Contact = () => {
                             <form onSubmit={handleSubmit} className="space-y-6 select-text">
                                 {/* Name Input */}
                                 <div className="space-y-2">
-                                    <label className="text-xs uppercase font-sans font-extrabold text-pencil/60 block tracking-wider">
+                                    <label htmlFor="contact-fullname" className="text-xs uppercase font-sans font-extrabold text-pencil/60 block tracking-wider">
                                         Your Full Name
                                     </label>
                                     <input 
+                                        id="contact-fullname"
                                         type="text" 
                                         name="fi-sender-fullName"
                                         placeholder="Enter your name" 
@@ -157,10 +158,11 @@ const Contact = () => {
 
                                 {/* Email Input */}
                                 <div className="space-y-2">
-                                    <label className="text-xs uppercase font-sans font-extrabold text-pencil/60 block tracking-wider">
+                                    <label htmlFor="contact-email" className="text-xs uppercase font-sans font-extrabold text-pencil/60 block tracking-wider">
                                         Your Email Address
                                     </label>
                                     <input 
+                                        id="contact-email"
                                         type="email" 
                                         name="fi-sender-email"
                                         placeholder="Enter your email" 
@@ -171,10 +173,11 @@ const Contact = () => {
 
                                 {/* Message Input */}
                                 <div className="space-y-2">
-                                    <label className="text-xs uppercase font-sans font-extrabold text-pencil/60 block tracking-wider">
+                                    <label htmlFor="contact-message" className="text-xs uppercase font-sans font-extrabold text-pencil/60 block tracking-wider">
                                         Message
                                     </label>
                                     <textarea 
+                                        id="contact-message"
                                         name="fi-text-message"
                                         placeholder="Describe your project ideas, questions, or opportunities..." 
                                         rows={5} 

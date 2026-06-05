@@ -303,6 +303,7 @@ const About = () => {
                                     onClick={clearCanvas}
                                     className="p-1.5 border border-pencil hover:bg-accent hover:text-white rounded shadow-hard-sm active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all flex items-center justify-center cursor-pointer"
                                     title="Wipe canvas clean"
+                                    aria-label="Clear canvas"
                                 >
                                     <RefreshCw size={14} />
                                 </button>
@@ -340,14 +341,17 @@ const About = () => {
                                     <button 
                                         onClick={() => setCanvasColor('#2d2d2d')}
                                         className={`w-6 h-6 rounded-full border border-pencil bg-pencil cursor-pointer transition-transform ${canvasColor === '#2d2d2d' ? 'scale-125 ring-2 ring-accent' : ''}`}
+                                        aria-label="Select black pencil color"
                                     />
                                     <button 
                                         onClick={() => setCanvasColor('#e85d04')}
                                         className={`w-6 h-6 rounded-full border border-pencil bg-accent cursor-pointer transition-transform ${canvasColor === '#e85d04' ? 'scale-125 ring-2 ring-accent' : ''}`}
+                                        aria-label="Select orange accent color"
                                     />
                                     <button 
                                         onClick={() => setCanvasColor('#22c55e')}
                                         className={`w-6 h-6 rounded-full border border-pencil bg-green-500 cursor-pointer transition-transform ${canvasColor === '#22c55e' ? 'scale-125 ring-2 ring-accent' : ''}`}
+                                        aria-label="Select green stabilizer color"
                                     />
                                 </div>
                                 <div className="flex items-center gap-2 text-xs font-sans font-bold">
@@ -359,6 +363,7 @@ const About = () => {
                                         value={brushSize} 
                                         onChange={(e) => setBrushSize(Number(e.target.value))}
                                         className="w-16 accent-accent h-1"
+                                        aria-label="Brush size"
                                     />
                                 </div>
                             </div>
@@ -398,10 +403,11 @@ const About = () => {
                                 <div className="absolute top-1 right-2 text-[8px] font-mono opacity-30">kolkata_compass.db</div>
                                 
                                 {/* Compass Needle Box */}
-                                <div 
+                                <button 
                                     onClick={spinCompass}
                                     className="w-12 h-12 rounded-full border-2 border-pencil bg-slate-50 shadow-inner flex items-center justify-center cursor-pointer relative"
                                     title="Spin compass!"
+                                    aria-label="Spin compass needle"
                                 >
                                     {/* Compass Directions */}
                                     <span className="absolute top-0.5 text-[6px] font-bold">N</span>
@@ -415,7 +421,7 @@ const About = () => {
                                         <div className="absolute top-0 left-0 right-0 h-5 bg-slate-900 rounded-t" />
                                     </motion.div>
                                     <div className="absolute w-2 h-2 rounded-full bg-pencil border border-white" />
-                                </div>
+                                </button>
 
                                 <div className="space-y-1">
                                     <div className="flex items-center justify-center text-pencil gap-1">
@@ -439,7 +445,7 @@ const About = () => {
                         <div className="border-b border-dashed border-pencil/30 pb-3 mb-3 flex items-center justify-between">
                             <span className="text-base font-display font-black text-pencil">💬 Yellow Sticky Messenger</span>
                             <div className="flex items-center gap-1.5 text-xs text-pencil/50 font-sans font-bold">
-                                <span className="w-2.5 h-2.5 rounded-full bg-green-500 animate-ping" />
+                                <span className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse" />
                                 <span>Online</span>
                             </div>
                         </div>

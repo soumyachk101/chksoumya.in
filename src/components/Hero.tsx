@@ -179,7 +179,7 @@ const Hero = () => {
                 animate={{ opacity: 1, y: [0, 10, 0] }}
                 transition={{ duration: 2, repeat: Infinity, delay: 1 }}
             >
-                <a href="#about" className="text-pencil/50 hover:text-accent transition-colors block border-2 border-transparent hover:border-pencil rounded-full p-2 border-wobbly">
+                <a href="#about" aria-label="Scroll down to explore" className="text-pencil/50 hover:text-accent transition-colors block border-2 border-transparent hover:border-pencil rounded-full p-2 border-wobbly">
                     <ArrowDown size={32} strokeWidth={2.5} />
                 </a>
             </motion.div>
