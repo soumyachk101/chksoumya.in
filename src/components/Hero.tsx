@@ -35,7 +35,7 @@ const Hero = () => {
                 <svg className="absolute top-20 right-10 w-32 h-32 text-muted hidden md:block" viewBox="0 0 100 100" fill="none">
                     <path d="M10,50 Q50,10 90,50 T50,90 T10,50" stroke="currentColor" strokeWidth="2" strokeDasharray="5,5" />
                 </svg>
-                <div className="absolute bottom-20 left-20 w-16 h-16 border-4 border-accent border-wobbly rounded-full opacity-50 animate-[bounce_3s_infinite] hidden md:block"></div>
+                <div className="absolute bottom-20 left-20 w-16 h-16 border-4 border-accent border-wobbly rounded-full opacity-50 animate-pulse hidden md:block"></div>
             </div>
 
             {/* Draggable Background Toys */}

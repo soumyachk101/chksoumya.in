@@ -23,7 +23,7 @@ const Preloader = () => {
 
     useEffect(() => {
         const controls = animate(count, 100, {
-            duration: 2.2, // Slightly longer for the pencil to scribble nicely
+            duration: 1.2,
             ease: [0.22, 1, 0.36, 1],
             onUpdate: (v) => setProgress(Math.round(v)),
         });

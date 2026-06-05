@@ -184,7 +184,7 @@ const Certificates = () => {
                                             <div className="p-3 bg-white border-2 border-pencil border-wobbly text-pencil group-hover:bg-pencil group-hover:text-paper transition-all shadow-hard transform -rotate-3 group-hover:rotate-0">
                                                 {getCategoryIcon(cat.id)}
                                             </div>
-                                            <span className="text-3xl font-display font-bold text-pencil/30 group-hover:text-accent transition-colors">
+                                            <span className="text-3xl font-display font-bold text-pencil/50 group-hover:text-accent transition-colors">
                                                 {String(index + 1).padStart(2, '0')}
                                             </span>
                                         </div>

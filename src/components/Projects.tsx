@@ -382,7 +382,7 @@ export function VolatilityChart({ ticker }) {
 
             return (
                 <div key={lineIdx} className="flex gap-4 font-mono text-sm leading-relaxed">
-                    <span className="text-pencil/20 text-right select-none w-6">{lineIdx + 1}</span>
+                    <span className="text-pencil/50 text-right select-none w-6">{lineIdx + 1}</span>
                     <span dangerouslySetInnerHTML={{ __html: highlighted || '&nbsp;' }} />
                 </div>
             );
@@ -534,19 +534,19 @@ export function VolatilityChart({ ticker }) {
                                     <div className="flex gap-2 border-b border-pencil/20 pb-2 mb-4">
                                         <button 
                                             onClick={() => setActiveTab('code')}
-                                            className={`px-3 py-1 font-mono text-xs font-bold border border-pencil rounded cursor-pointer transition-colors ${activeTab === 'code' ? `${currentProject.bg} ${currentProject.border} ${currentProject.text}` : 'bg-white text-pencil/40 border-transparent hover:text-pencil'}`}
+                                            className={`px-3 py-1 font-mono text-xs font-bold border border-pencil rounded cursor-pointer transition-colors ${activeTab === 'code' ? `${currentProject.bg} ${currentProject.border} ${currentProject.text}` : 'bg-white text-pencil/60 border-transparent hover:text-pencil'}`}
                                         >
                                             {currentProject.codeFile}
                                         </button>
                                         <button 
                                             onClick={() => setActiveTab('json')}
-                                            className={`px-3 py-1 font-mono text-xs font-bold border border-pencil rounded cursor-pointer transition-colors ${activeTab === 'json' ? `${currentProject.bg} ${currentProject.border} ${currentProject.text}` : 'bg-white text-pencil/40 border-transparent hover:text-pencil'}`}
+                                            className={`px-3 py-1 font-mono text-xs font-bold border border-pencil rounded cursor-pointer transition-colors ${activeTab === 'json' ? `${currentProject.bg} ${currentProject.border} ${currentProject.text}` : 'bg-white text-pencil/60 border-transparent hover:text-pencil'}`}
                                         >
                                             tech_stack.json
                                         </button>
                                         <button 
                                             onClick={() => setActiveTab('terminal')}
-                                            className={`px-3 py-1 font-mono text-xs font-bold border border-pencil rounded cursor-pointer transition-colors ${activeTab === 'terminal' ? `${currentProject.bg} ${currentProject.border} ${currentProject.text}` : 'bg-white text-pencil/40 border-transparent hover:text-pencil'}`}
+                                            className={`px-3 py-1 font-mono text-xs font-bold border border-pencil rounded cursor-pointer transition-colors ${activeTab === 'terminal' ? `${currentProject.bg} ${currentProject.border} ${currentProject.text}` : 'bg-white text-pencil/60 border-transparent hover:text-pencil'}`}
                                         >
                                             run.sh
                                         </button>

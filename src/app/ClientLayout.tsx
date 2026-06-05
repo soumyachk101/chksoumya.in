@@ -14,7 +14,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1800);
+    }, 1000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -34,9 +34,9 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ 
-                    duration: 1.0, 
-                    ease: [0.16, 1, 0.3, 1], // Ultra smooth easeOut
-                    delay: 0.05
+                    duration: 0.5, 
+                    ease: [0.16, 1, 0.3, 1],
+                    delay: 0.02
                 }}
               >
                 {children}
