@@ -31,8 +31,81 @@ const Projects = () => {
 
     const projects: Project[] = [
         {
+            title: "SHIPORDIE",
+            desc: "Multi-agent platform for validating SaaS ideas and optimizing resumes using CrewAI & LangGraph.",
+            tags: ["Next.js", "FastAPI", "CrewAI", "LangGraph", "Docker", "AI"],
+            image: "/images/project-shipordie.png",
+            github: "https://github.com/soumyachk101/ShipOrDie",
+            live: "#",
+            bg: "bg-[#e0e7ff]", // indigo
+            border: "border-[#6366f1]",
+            text: "text-[#3730a3]",
+            codeFile: "orchestrator.py",
+            code: `# ShipOrDie: Multi-Agent Orchestrator (LangGraph)
+from langgraph.graph import StateGraph, END
+from backend.pipeline.state import PipelineState
+from backend.agents.scraper_agent import ScraperAgent
+from backend.agents.synthesizer_agent import SynthesizerAgent
+from backend.agents.idea_gen_agent import IdeaGenAgent
+from backend.agents.monetization_agent import MonetizationAgent
+
+async def scraper_node(state: PipelineState) -> PipelineState:
+    signals = await ScraperAgent().run()
+    return {**state, "status": "scraping", "signals": signals}
+
+async def synthesizer_node(state: PipelineState) -> PipelineState:
+    clusters = await SynthesizerAgent().run(state["signals"])
+    return {**state, "status": "synthesizing", "clusters": clusters}
+
+async def idea_gen_node(state: PipelineState) -> PipelineState:
+    idea_cards = await IdeaGenAgent().run(state["clusters"])
+    return {**state, "status": "generating", "idea_cards": idea_cards}
+
+async def monetization_node(state: PipelineState) -> PipelineState:
+    agent = MonetizationAgent()
+    reports = [await agent.run(idea) for idea in state["idea_cards"]]
+    return {**state, "status": "monetizing", "monetization_reports": reports}
+
+def build_pipeline() -> StateGraph:
+    graph = StateGraph(PipelineState)
+    
+    # Register Nodes
+    graph.add_node("scrape", scraper_node)
+    graph.add_node("synthesize", synthesizer_node)
+    graph.add_node("generate", idea_gen_node)
+    graph.add_node("monetize", monetization_node)
+    
+    # Set Flow Edges
+    graph.set_entry_point("scrape")
+    graph.add_edge("scrape", "synthesize")
+    graph.add_edge("synthesize", "generate")
+    graph.add_edge("generate", "monetize")
+    graph.add_edge("monetize", END)
+    
+    return graph.compile()`,
+            techJson: `{
+  "framework": "Next.js 14, Zustand",
+  "backend": "FastAPI, Python",
+  "ai_agents": "CrewAI, LangGraph",
+  "data_layer": "PostgreSQL, Redis, ChromaDB",
+  "infrastructure": "Docker, Cloudflare R2"
+}`,
+            terminalLogs: [
+                "soumya@portfolio:~$ docker-compose up -d",
+                "[docker] Spin up Postgres, Redis, and ChromaDB...",
+                "[postgres] Database instance is healthy.",
+                "[redis] Redis queue connection active.",
+                "soumya@portfolio:~$ python3 main.py",
+                "[shipordie] Starting up ShipOrDie API server...",
+                "[crewai] Agent Trend Scraper initialized.",
+                "[crewai] Agent RAG Synthesizer initialized.",
+                "[crewai] Agent Idea Architect initialized.",
+                "[success] Server bound to port 8000. Pipeline ready."
+            ]
+        },
+        {
             title: "DRISHTI AI",
-            desc: "See every attack path before they do. AI-powered network risk intelligence. Discover attack paths, score financial blast radius, and ship AI-generated remediation — from one scan to a board-ready report in minutes.",
+            desc: "AI network scanner that visualizes attack paths and generates security remediation playbooks.",
             tags: ["React", "FastAPI", "Tailwind", "Groq", "Spline", "AI"],
             image: "/images/project-drishti.png",
             github: "https://github.com/soumyachk101/Drishti-Security",
@@ -70,7 +143,7 @@ class DrishtiAI:
         },
         {
             title: "CORTEX",
-            desc: "An AI-powered personal finance & productivity platform featuring natural language transaction tracking, custom Pomodoro focus timers, and a botanical organic design system.",
+            desc: "AI finance tracker with natural language processing, custom Pomodoro timers, and a botanical UI.",
             tags: ["Next.js", "Supabase", "Gemini API", "Tailwind", "Groq"],
             image: "/images/project-cortex.png",
             github: "https://github.com/soumyachk101/Cortex",
@@ -108,7 +181,7 @@ export default function Dashboard() {
         },
         {
             title: "NEETI AI",
-            desc: "An advanced AI-powered recruitment platform featuring real-time collaborative coding, automated evaluations, and seamless video integration.",
+            desc: "AI recruitment platform with collaborative coding, automated evaluations, and WebRTC video.",
             tags: ["FastAPI", "React", "LiveKit", "Supabase", "AI"],
             image: "/images/project-neeti-ai.png",
             github: "https://github.com/soumyachk101/Neeti-AI",
@@ -141,7 +214,7 @@ def initialize_room(candidate_id):
         },
         {
             title: "PHYGITAL TRACE",
-            desc: "A cutting-edge supply chain solution bridging physical assets with digital twins using blockchain and NFC technology for end-to-end authenticity.",
+            desc: "Supply chain validation bridging physical products and digital twins using blockchain and NFC.",
             tags: ["Blockchain", "IoT", "React", "Node.js", "Solidity"],
             image: "/images/project-phygital-trace.png",
             github: "https://github.com/soumyachk101/Phygital-trace-done",
@@ -177,7 +250,7 @@ contract Traceability {
         },
         {
             title: "STREAM.TV",
-            desc: "A premium video streaming client with a modern UI, real-time category filtering, and a high-performance video player interface.",
+            desc: "Premium video streaming client with real-time category filtering and a custom media player.",
             tags: ["React", "Vite", "Tailwind", "RapidAPI"],
             image: "/images/project-streamtv.png",
             github: "https://github.com/soumyachk101/Stream.Tv-Client",
@@ -214,7 +287,7 @@ export const VideoPlayer = ({ videoId }) => {
         },
         {
             title: "HEALTHTRACK+",
-            desc: "A comprehensive health monitoring platform for seamless medical record management and real-time biometric tracking.",
+            desc: "Medical record platform with real-time biometric tracking and HIPAA-compliant logs.",
             tags: ["React", "Express", "Node.js", "MongoDB"],
             image: "/images/project-healthtrack.png",
             github: "https://github.com/soumyachk101/HealthTrack-Client",
@@ -249,7 +322,7 @@ const Patient = mongoose.model('Patient', patientSchema);`,
         },
         {
             title: "COUNTRY FINDER",
-            desc: "An interactive geographic explorer allowing users to search and discover detailed country information with a clean, responsive interface.",
+            desc: "Interactive explorer for searching and discovering country information via REST Countries API.",
             tags: ["React", "REST Countries API", "Tailwind"],
             image: "/images/project-country.png",
             github: "https://github.com/soumyachk101/Country_Finder",
@@ -281,7 +354,7 @@ async function fetchCountryData(name) {
         },
         {
             title: "STOCK VOLATILITY",
-            desc: "A financial analysis tool for monitoring market volatility and stock trends using real-time data visualisations.",
+            desc: "Financial analysis dashboard for visualizing stock market volatility using Chart.js.",
             tags: ["React", "Finance API", "Charts.js"],
             image: "/images/project-stock.png",
             github: "https://github.com/soumyachk101/Stock-Volatility",
@@ -315,7 +388,7 @@ export function VolatilityChart({ ticker }) {
         },
         {
             title: "NEXUSOPS",
-            desc: "A comprehensive CI/CD orchestration and infrastructure management platform for streamlining DevOps workflows and accelerating delivery.",
+            desc: "CI/CD orchestration platform for automated deployments using Kubernetes, Docker, and Ansible.",
             tags: ["DevOps", "Docker", "Kubernetes", "AWS", "Terraform"],
             image: "/images/project-nexusops.png",
             github: "https://github.com/soumyachk101/NexusOps-3.0",
@@ -378,7 +451,7 @@ export function VolatilityChart({ ticker }) {
                 .replace(/\b(class|def|import|from|export|default|function|return|contract|mapping|pragma|solidity|struct|public|view|const|async|await|let|var)\b/g, '<span class="text-accent font-bold">$1</span>')
                 .replace(/(['"].*?['"])/g, '<span class="text-[#2d5da1] font-bold">$1</span>')
                 .replace(/\b(\d+)\b/g, '<span class="text-amber-600 font-bold">$1</span>')
-                .replace(/\b(DrishtiAI|Cortex|NeetiAI|Traceability|VideoPlayer|VolatilityChart|__init__|scan_network|generate_remediation|analyze|create_board_report|parseNaturalLanguage|FocusTimer|Transactions|initialize_room|connect|create_collaborative_ide|enable_auto_evaluation|verifyAuthenticity|fetchFeed|autoPlay|fetchCountryData|VolatilityChart|playbook)\b/g, '<span class="text-secondary font-bold">$1</span>');
+                .replace(/\b(DrishtiAI|Cortex|NeetiAI|Traceability|VideoPlayer|VolatilityChart|__init__|scan_network|generate_remediation|analyze|create_board_report|parseNaturalLanguage|FocusTimer|Transactions|initialize_room|connect|create_collaborative_ide|enable_auto_evaluation|verifyAuthenticity|fetchFeed|autoPlay|fetchCountryData|VolatilityChart|playbook|scraper_node|synthesizer_node|idea_gen_node|monetization_node|build_pipeline|PipelineState|StateGraph|ScraperAgent|SynthesizerAgent|IdeaGenAgent|MonetizationAgent)\b/g, '<span class="text-secondary font-bold">$1</span>');
 
             return (
                 <div key={lineIdx} className="flex gap-4 font-mono text-sm leading-relaxed">
