@@ -7,6 +7,11 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: 31536000,
     dangerouslyAllowSVG: false,
   },
+  experimental: {
+    // Inline above-the-fold CSS via Critters — eliminates the render-blocking
+    // 12 KiB stylesheet and lets the LCP element paint on first frame.
+    optimizeCss: true,
+  },
   async headers() {
     return [
       {
@@ -44,7 +49,7 @@ const nextConfig: NextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com",
               "img-src 'self' data: https: blob:",

@@ -1,22 +1,32 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import { ThemeProvider } from 'next-themes';
-import { AnimatePresence, motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import Preloader from '../components/Preloader';
 import ErrorBoundary from '../components/ErrorBoundary';
 
+// Preloader renders only on the client (avoids SSR/CSR framer-motion
+// hydration mismatches) and sits as a non-blocking overlay so the LCP
+// element is paintable in the first frame.
+const Preloader = dynamic(() => import('../components/Preloader'), { ssr: false });
+
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
+  // Show the preloader for ~1s of real time, but DO NOT gate the children
+  // behind it. The children paint into the SSR HTML immediately, so the
+  // LCP element is part of the initial response. The preloader overlays
+  // the top with `pointer-events: none` after its exit animation so it
+  // does not block interaction.
   const [isLoading, setIsLoading] = useState(true);
-  const pathname = usePathname();
 
   useEffect(() => {
+    // Roughly match the framer-motion slide animation in Preloader.
+    const exitDuration = 900;
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1000);
+    }, exitDuration);
     return () => clearTimeout(timer);
   }, []);
 
@@ -24,27 +34,16 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
     <ErrorBoundary>
       <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
         <div className="bg-background min-h-screen text-foreground transition-colors duration-300">
-          <AnimatePresence mode='wait'>
-            {isLoading && <Preloader key="preloader" />}
-          </AnimatePresence>
-
-          {!isLoading && (
-            <AnimatePresence mode='wait'>
-              <motion.div
-                key={pathname}
-                initial={{ opacity: 0, scale: 0.97 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{
-                    duration: 0.5,
-                    ease: [0.16, 1, 0.3, 1],
-                    delay: 0.02
-                }}
-              >
-                {children}
-              </motion.div>
-            </AnimatePresence>
+          {isLoading && (
+            <div
+              aria-hidden="true"
+              className="fixed inset-0 z-[100] pointer-events-none"
+            >
+              <Preloader />
+            </div>
           )}
+
+          {children}
         </div>
       </ThemeProvider>
       <Analytics />

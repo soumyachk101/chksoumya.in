@@ -173,13 +173,14 @@ const Experience = () => {
                                 <div className="absolute right-[40%] top-[40%] text-2xl opacity-15">⛵</div>
                                 
                                 {/* Dotted lines connector */}
-                                <svg className="absolute inset-0 w-full h-full pointer-events-none">
+                                <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 w-full h-full pointer-events-none">
                                     <path 
-                                        d="M 20% 35% Q 27.5% 55% 35% 70% Q 42.5% 45% 50% 20% Q 57.5% 50% 65% 75% Q 72.5% 55% 80% 35% Q 86% 50% 92% 62%" 
+                                        d="M 20 35 Q 27.5 55 35 70 Q 42.5 45 50 20 Q 57.5 50 65 75 Q 72.5 55 80 35 Q 86 50 92 62" 
                                         stroke="#2d2d2d" 
                                         strokeWidth="3.5" 
                                         strokeDasharray="6 6" 
                                         fill="none" 
+                                        vectorEffect="non-scaling-stroke"
                                     />
                                 </svg>
 
@@ -243,7 +244,9 @@ const Experience = () => {
                                     <div className="space-y-4">
                                         <div>
                                             <div className="flex items-center gap-2">
-                                                <Sparkles size={16} className="text-accent animate-pulse" />
+                                                <span className="inline-flex pulse-opacity text-accent">
+                                                    <Sparkles size={16} className="text-accent" />
+                                                </span>
                                                 <span className="text-accent font-sans font-black text-xs uppercase tracking-widest bg-accent/5 px-2 py-0.5 rounded border border-accent border-dashed">
                                                     Quest Log: {currentQuest.type}
                                                 </span>
@@ -332,14 +335,14 @@ const Experience = () => {
 
                                         <AnimatePresence mode="wait">
                                             {!chestOpened ? (
-                                                <motion.p 
+                                                <motion.p
                                                     key="closed-tip"
                                                     initial={{ opacity: 0 }}
                                                     animate={{ opacity: 1 }}
                                                     exit={{ opacity: 0 }}
-                                                    className="text-xs font-sans font-extrabold text-accent text-center mt-2 animate-pulse"
+                                                    className="text-xs font-sans font-extrabold text-accent text-center mt-2"
                                                 >
-                                                    [ Click Chest to Unlock Certificate Scroll ]
+                                                    <span className="inline-block pulse-opacity">[ Click Chest to Unlock Certificate Scroll ]</span>
                                                 </motion.p>
                                             ) : (
                                                 <motion.div 

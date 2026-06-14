@@ -241,7 +241,9 @@ const About = () => {
                                         className="px-3 py-1.5 bg-accent hover:bg-pencil text-paper font-sans font-black text-xs uppercase border-2 border-pencil shadow-hard-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer flex items-center gap-1 shrink-0"
                                     >
                                         <span>Level Up</span>
-                                        <Sparkles size={12} className="animate-pulse" />
+                                        <span className="inline-flex pulse-opacity">
+                                            <Sparkles size={12} />
+                                        </span>
                                     </button>
                                 </div>
                             </div>
@@ -445,7 +447,7 @@ const About = () => {
                         <div className="border-b border-dashed border-pencil/30 pb-3 mb-3 flex items-center justify-between">
                             <span className="text-base font-display font-black text-pencil">💬 Yellow Sticky Messenger</span>
                             <div className="flex items-center gap-1.5 text-xs text-pencil/50 font-sans font-bold">
-                                <span className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse" />
+                                <span className="w-2.5 h-2.5 rounded-full bg-green-500 pulse-opacity" />
                                 <span>Online</span>
                             </div>
                         </div>
@@ -471,7 +473,7 @@ const About = () => {
                                 <div className="flex flex-col items-start max-w-[80%]">
                                     <span className="text-[9px] uppercase font-bold text-pencil/40 mb-0.5">Soumya</span>
                                     <span className="px-3 py-1.5 border border-pencil bg-white text-pencil rounded-lg rounded-tl-none italic text-xs flex gap-1 items-center">
-                                        typing<span className="animate-pulse">...</span>
+                                        typing<span className="pulse-opacity">...</span>
                                     </span>
                                 </div>
                             )}

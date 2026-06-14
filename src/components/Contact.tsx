@@ -145,7 +145,7 @@ const Contact = () => {
                             <form onSubmit={handleSubmit} className="space-y-6 select-text">
                                 {/* Name Input */}
                                 <div className="space-y-2">
-                                    <label htmlFor="contact-fullname" className="text-xs uppercase font-sans font-extrabold text-pencil/60 block tracking-wider">
+                                    <label htmlFor="contact-fullname" className="text-xs uppercase font-sans font-extrabold text-pencil block tracking-wider">
                                         Your Full Name
                                     </label>
                                     <input 
@@ -160,7 +160,7 @@ const Contact = () => {
 
                                 {/* Email Input */}
                                 <div className="space-y-2">
-                                    <label htmlFor="contact-email" className="text-xs uppercase font-sans font-extrabold text-pencil/60 block tracking-wider">
+                                    <label htmlFor="contact-email" className="text-xs uppercase font-sans font-extrabold text-pencil block tracking-wider">
                                         Your Email Address
                                     </label>
                                     <input 
@@ -175,7 +175,7 @@ const Contact = () => {
 
                                 {/* Message Input */}
                                 <div className="space-y-2">
-                                    <label htmlFor="contact-message" className="text-xs uppercase font-sans font-extrabold text-pencil/60 block tracking-wider">
+                                    <label htmlFor="contact-message" className="text-xs uppercase font-sans font-extrabold text-pencil block tracking-wider">
                                         Message
                                     </label>
                                     <textarea 

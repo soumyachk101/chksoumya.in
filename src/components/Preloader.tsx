@@ -1,11 +1,18 @@
+"use client";
+
 import { motion, animate, useMotionValue, useTransform } from 'framer-motion';
 import { useEffect, useState, useMemo } from 'react';
 
 const ease = [0.76, 0, 0.24, 1] as const;
 const bouncyEase = [0.34, 1.56, 0.64, 1] as const;
 
-const Preloader = () => {
+interface PreloaderProps {
+    onComplete?: () => void;
+}
+
+const Preloader = ({ onComplete }: PreloaderProps) => {
     const [mounted, setMounted] = useState(false);
+    const [done, setDone] = useState(false);
     useEffect(() => {
         setMounted(true);
     }, []);
@@ -22,13 +29,20 @@ const Preloader = () => {
     }, [rounded]);
 
     useEffect(() => {
+        // Throttle setProgress: only fire when the value crosses a 5% boundary
+        // (one setState per ~60ms instead of one per 16ms frame).
         const controls = animate(count, 100, {
-            duration: 1.2,
+            duration: 0.5,
             ease: [0.22, 1, 0.36, 1],
-            onUpdate: (v) => setProgress(Math.round(v)),
+            onUpdate: (v) => {
+                const next = Math.round(v);
+                if (Math.floor(next / 5) !== Math.floor(progress / 5)) {
+                    setProgress(next);
+                }
+            },
         });
         return controls.stop;
-    }, [count]);
+    }, [count, progress]);
 
     const firstName = 'Soumya';
     const lastName = 'Chakraborty';
@@ -42,9 +56,9 @@ const Preloader = () => {
             scale: 1,
             opacity: 1,
             transition: {
-                duration: 1.0,
+                duration: 0.4,
                 ease: bouncyEase,
-                delay: 0.15 + i * 0.04,
+                delay: 0.05 + i * 0.015,
             },
         }),
     }), []);
@@ -58,23 +72,23 @@ const Preloader = () => {
     const tornPathTop = "M 0,20 L 100,20 L 100,12 Q 98,14 96,11 T 92,13 T 88,10 T 84,14 T 80,11 T 76,13 T 72,9 T 68,12 T 64,10 T 60,14 T 56,11 T 52,13 T 48,9 T 44,13 T 40,10 T 36,14 T 32,11 T 28,13 T 24,9 T 20,12 T 16,10 T 12,14 T 8,11 T 4,13 T 0,10 Z";
 
     if (!mounted) {
-        return <div className="fixed inset-0 z-[100] bg-[#1a1a1a]" />;
+        return <div className="absolute inset-0 bg-[#1a1a1a]" />;
     }
 
     return (
         <motion.div
-            className="fixed inset-0 z-[100] flex flex-col overflow-hidden"
-            exit="exit"
+            className="absolute inset-0 flex flex-col overflow-hidden"
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 0 }}
+            transition={{ duration: 0.4, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            onAnimationComplete={() => onComplete?.()}
         >
             {/* Top half curtain - Slides up */}
             <motion.div
                 className="absolute top-0 left-0 w-full h-[50vh] bg-[#1a1a1a] flex flex-col justify-end"
-                variants={{
-                    exit: {
-                        y: "-100%",
-                        transition: { duration: 0.9, ease: ease, delay: 0.1 },
-                    },
-                }}
+                initial={{ y: 0 }}
+                animate={{ y: '-100%' }}
+                transition={{ duration: 0.4, ease: ease, delay: 0.5 }}
             >
                 {/* Jagged Torn Paper Bottom Edge */}
                 <svg 
@@ -90,12 +104,9 @@ const Preloader = () => {
             {/* Bottom half curtain - Slides down */}
             <motion.div
                 className="absolute bottom-0 left-0 w-full h-[50vh] bg-[#1a1a1a]"
-                variants={{
-                    exit: {
-                        y: "100%",
-                        transition: { duration: 0.9, ease: ease, delay: 0.1 },
-                    },
-                }}
+                initial={{ y: 0 }}
+                animate={{ y: '100%' }}
+                transition={{ duration: 0.4, ease: ease, delay: 0.5 }}
             >
                 {/* Jagged Torn Paper Top Edge */}
                 <svg 
@@ -111,13 +122,9 @@ const Preloader = () => {
             {/* Content layer (fades out slightly before slide) */}
             <motion.div
                 className="absolute inset-0 flex flex-col justify-between p-6 md:p-12 lg:p-16 pointer-events-none z-10"
-                variants={{
-                    exit: {
-                        opacity: 0,
-                        y: -30,
-                        transition: { duration: 0.4, ease: 'easeIn' },
-                    },
-                }}
+                initial={{ opacity: 1, y: 0 }}
+                animate={{ opacity: 0, y: -30 }}
+                transition={{ duration: 0.2, ease: 'easeIn', delay: 0.5 }}
             >
                 {/* ── Top row ── */}
                 <div className="flex justify-between items-start">
@@ -125,7 +132,7 @@ const Preloader = () => {
                         <motion.p
                             initial={{ y: '110%' }}
                             animate={{ y: 0 }}
-                            transition={{ duration: 0.9, ease, delay: 0.1 }}
+                            transition={{ duration: 0.4, ease, delay: 0.05 }}
                             className="text-[#888] text-xs md:text-sm tracking-[0.3em] uppercase font-mono"
                         >
                             Portfolio — 2026
@@ -135,7 +142,7 @@ const Preloader = () => {
                         <motion.p
                             initial={{ y: '110%' }}
                             animate={{ y: 0 }}
-                            transition={{ duration: 0.9, ease, delay: 0.15 }}
+                            transition={{ duration: 0.4, ease, delay: 0.08 }}
                             className="text-[#888] text-xs md:text-sm tracking-[0.3em] uppercase font-mono"
                         >
                             Creative Developer
@@ -190,7 +197,7 @@ const Preloader = () => {
                         className="mt-4 md:mt-6 drop-shadow-[0_2px_8px_rgba(255,77,77,0.3)]"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ delay: 0.8, duration: 0.5 }}
+                        transition={{ delay: 0.3, duration: 0.2 }}
                     >
                         <motion.path
                             d={signaturePath}
@@ -202,9 +209,9 @@ const Preloader = () => {
                             initial={{ pathLength: 0 }}
                             animate={{ pathLength: 1 }}
                             transition={{
-                                duration: 1.2,
+                                duration: 0.5,
                                 ease: [0.65, 0, 0.35, 1],
-                                delay: 0.9,
+                                delay: 0.3,
                             }}
                         />
                     </motion.svg>
@@ -218,7 +225,7 @@ const Preloader = () => {
                             <motion.p
                                 initial={{ y: '110%' }}
                                 animate={{ y: 0 }}
-                                transition={{ duration: 0.9, ease, delay: 0.2 }}
+                                transition={{ duration: 0.4, ease, delay: 0.1 }}
                                 className="text-[#888] text-[10px] md:text-xs tracking-[0.2em] uppercase font-mono mb-3"
                             >
                                 Sketching layout
@@ -258,7 +265,7 @@ const Preloader = () => {
                         <motion.div
                             initial={{ y: '110%' }}
                             animate={{ y: 0 }}
-                            transition={{ duration: 0.9, ease, delay: 0.25 }}
+                            transition={{ duration: 0.4, ease, delay: 0.12 }}
                             className="flex items-baseline gap-1"
                         >
                             <span
@@ -288,7 +295,7 @@ const Preloader = () => {
                     fill="none"
                     initial={{ pathLength: 0 }}
                     animate={{ pathLength: 1 }}
-                    transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
+                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
                 />
             </svg>
         </motion.div>

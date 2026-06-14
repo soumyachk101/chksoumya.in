@@ -445,18 +445,44 @@ export function VolatilityChart({ ticker }) {
 
     const highlightCode = (codeText: string) => {
         return codeText.split('\n').map((line, lineIdx) => {
-            const highlighted = line
-                .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
-                .replace(/(#.*|\/\/.*)/g, '<span class="text-pencil/40 italic">$1</span>')
-                .replace(/\b(class|def|import|from|export|default|function|return|contract|mapping|pragma|solidity|struct|public|view|const|async|await|let|var)\b/g, '<span class="text-accent font-bold">$1</span>')
-                .replace(/(['"].*?['"])/g, '<span class="text-[#2d5da1] font-bold">$1</span>')
-                .replace(/\b(\d+)\b/g, '<span class="text-amber-600 font-bold">$1</span>')
-                .replace(/\b(DrishtiAI|Cortex|NeetiAI|Traceability|VideoPlayer|VolatilityChart|__init__|scan_network|generate_remediation|analyze|create_board_report|parseNaturalLanguage|FocusTimer|Transactions|initialize_room|connect|create_collaborative_ide|enable_auto_evaluation|verifyAuthenticity|fetchFeed|autoPlay|fetchCountryData|VolatilityChart|playbook|scraper_node|synthesizer_node|idea_gen_node|monetization_node|build_pipeline|PipelineState|StateGraph|ScraperAgent|SynthesizerAgent|IdeaGenAgent|MonetizationAgent)\b/g, '<span class="text-secondary font-bold">$1</span>');
+            // Escape HTML characters first
+            let escaped = line.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+            const placeholders: string[] = [];
+            const addPlaceholder = (html: string) => {
+                const index = placeholders.length;
+                placeholders.push(html);
+                return `___PLACEHOLDER_${index}___`;
+            };
+
+            // 1. Temporarily replace string literals
+            escaped = escaped.replace(/(["'])(?:\\.|[^\\])*?\1/g, (match) => {
+                return addPlaceholder(`<span class="text-[#2d5da1] font-bold">${match}</span>`);
+            });
+
+            // 2. Temporarily replace comments
+            escaped = escaped.replace(/(#.*|\/\/.*)/g, (match) => {
+                return addPlaceholder(`<span class="text-pencil/40 italic">${match}</span>`);
+            });
+
+            // 3. Highlight keywords
+            escaped = escaped.replace(/\b(class|def|import|from|export|default|function|return|contract|mapping|pragma|solidity|struct|public|view|const|async|await|let|var)\b/g, '<span class="text-accent font-bold">$1</span>');
+
+            // 4. Highlight numbers
+            escaped = escaped.replace(/\b(\d+)\b/g, '<span class="text-amber-600 font-bold">$1</span>');
+
+            // 5. Highlight custom identifiers
+            escaped = escaped.replace(/\b(DrishtiAI|Cortex|NeetiAI|Traceability|VideoPlayer|VolatilityChart|__init__|scan_network|generate_remediation|analyze|create_board_report|parseNaturalLanguage|FocusTimer|Transactions|initialize_room|connect|create_collaborative_ide|enable_auto_evaluation|verifyAuthenticity|fetchFeed|autoPlay|fetchCountryData|VolatilityChart|playbook|scraper_node|synthesizer_node|idea_gen_node|monetization_node|build_pipeline|PipelineState|StateGraph|ScraperAgent|SynthesizerAgent|IdeaGenAgent|MonetizationAgent)\b/g, '<span class="text-secondary font-bold">$1</span>');
+
+            // 6. Restore placeholders in reverse order
+            for (let i = placeholders.length - 1; i >= 0; i--) {
+                escaped = escaped.replace(`___PLACEHOLDER_${i}___`, placeholders[i]);
+            }
 
             return (
                 <div key={lineIdx} className="flex gap-4 font-mono text-sm leading-relaxed">
                     <span className="text-pencil/50 text-right select-none w-6">{lineIdx + 1}</span>
-                    <span dangerouslySetInnerHTML={{ __html: highlighted || '&nbsp;' }} />
+                    <span dangerouslySetInnerHTML={{ __html: escaped || '&nbsp;' }} />
                 </div>
             );
         });

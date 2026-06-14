@@ -211,6 +211,12 @@ export default function RootLayout({
                 />
             </head>
             <body>
+                <a
+                    href="#main-content"
+                    className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[200] focus:bg-accent focus:text-white focus:px-4 focus:py-2 focus:rounded focus:shadow-hard focus:outline-none focus:ring-2 focus:ring-pencil"
+                >
+                    Skip to main content
+                </a>
                 <noscript>
                     <h1>Soumya Chakraborty — Full Stack Developer & Software Engineer</h1>
                     <p>

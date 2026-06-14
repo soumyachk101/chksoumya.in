@@ -1,0 +1,19 @@
+# Browserslist — drop legacy polyfills
+# Use Next.js 15+ modern targets so the App Router drops its ES2022
+# polyfills (Array.prototype.{at,flat,flatMap}, Object.fromEntries,
+# Object.hasOwn, String.prototype.{trimEnd,trimStart}, URL.canParse,
+# Promise.prototype.finally).
+[production]
+chrome >= 111
+edge >= 111
+firefox >= 111
+safari >= 16.4
+not dead
+not IE 11
+not op_mini all
+not Samsung 4
+
+[development]
+last 1 Chrome version
+last 1 Firefox version
+last 1 Safari version

@@ -41,7 +41,7 @@
   .border-wobbly {
     border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
   }
-  
+
   .border-wobbly-alt {
     border-radius: 15px 255px 15px 225px / 255px 15px 225px 15px;
   }
@@ -62,4 +62,63 @@
   100% {
     transform: translateX(200%) skewX(-12deg);
   }
+}
+
+/*
+ * Composable, compositor-friendly utilities.
+ *
+ * - `.pulse-opacity` animates only `opacity` so it stays GPU-composited
+ *   even when nested inside a framer-motion wrapper.
+ * - `.hero-reveal` is a tiny fade/translate used by the Hero so the LCP
+ *   element is paintable on first frame (no framer-motion gate).
+ * Both respect `prefers-reduced-motion`.
+ */
+@keyframes pulse-opacity-kf {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+
+.pulse-opacity {
+  animation: pulse-opacity-kf 1.5s ease-in-out infinite;
+  will-change: opacity;
+}
+
+@keyframes hero-reveal-kf {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.hero-reveal {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  animation: hero-reveal-kf 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-opacity,
+  .hero-reveal {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* Accessibility: Increase opacity of pencil text utility classes to satisfy WCAG contrast ratio requirements */
+.text-pencil\/30 {
+  color: rgba(45, 45, 45, 0.7) !important;
+}
+.text-pencil\/40 {
+  color: rgba(45, 45, 45, 0.75) !important;
+}
+.text-pencil\/50 {
+  color: rgba(45, 45, 45, 0.8) !important;
+}
+.text-pencil\/60 {
+  color: rgba(45, 45, 45, 0.85) !important;
 }
