@@ -9,10 +9,10 @@ import { Card } from '../../../components/ui/Card';
 
 const CertificateDetailsClient = () => {
     const params = useParams();
-    const categoryId = params.categoryId as string;
-    const category = categories.find(c => c.id === categoryId);
+    const id = params.id as string;
+    const category = categories.find(c => c.id === id);
 
-    const filteredCerts = certificates.filter(c => c.category === categoryId);
+    const filteredCerts = certificates.filter(c => c.category === id);
 
     if (!category) {
         return (
@@ -77,19 +77,32 @@ const CertificateDetailsClient = () => {
                                             </div>
                                         </div>
 
-                                        <h3 className="text-2xl font-display font-bold text-pencil mb-2 leading-tight">
-                                            {cert.title}
-                                        </h3>
+                                        <Link
+                                            href={`/certificates/${cert.id}`}
+                                            className="block mb-2 hover:text-accent transition-colors"
+                                        >
+                                            <h3 className="text-2xl font-display font-bold text-pencil leading-tight">
+                                                {cert.title}
+                                            </h3>
+                                        </Link>
                                         <p className="text-pencil/80 font-sans font-bold text-sm mb-6 flex-grow">{cert.issuer}</p>
 
-                                        <a
-                                            href={cert.link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="inline-flex items-center text-sm font-sans font-bold text-pencil hover:text-paper bg-white border-2 border-pencil border-wobbly px-4 py-2 hover:bg-pencil transition-all shadow-[2px_2px_0_0_#2d2d2d] w-fit mt-auto"
-                                        >
-                                            View Certificate <ExternalLink size={16} className="ml-2" strokeWidth={2.5} />
-                                        </a>
+                                        <div className="flex flex-wrap gap-2 mt-auto">
+                                            <Link
+                                                href={`/certificates/${cert.id}`}
+                                                className="inline-flex items-center text-sm font-sans font-bold text-pencil hover:text-paper bg-white border-2 border-pencil border-wobbly px-4 py-2 hover:bg-pencil transition-all shadow-[2px_2px_0_0_#2d2d2d] w-fit"
+                                            >
+                                                Details
+                                            </Link>
+                                            <a
+                                                href={cert.link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex items-center text-sm font-sans font-bold text-pencil hover:text-paper bg-white border-2 border-pencil border-wobbly px-4 py-2 hover:bg-pencil transition-all shadow-[2px_2px_0_0_#2d2d2d] w-fit"
+                                            >
+                                                View Certificate <ExternalLink size={16} className="ml-2" strokeWidth={2.5} />
+                                            </a>
+                                        </div>
                                     </Card>
                                 </motion.div>
                             );

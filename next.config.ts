@@ -4,6 +4,8 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   images: {
     formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 31536000,
+    dangerouslyAllowSVG: false,
   },
   async headers() {
     return [
@@ -35,6 +37,10 @@ const nextConfig: NextConfig = {
             value: 'same-origin',
           },
           {
+            key: 'X-Robots-Tag',
+            value: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+          },
+          {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
@@ -42,7 +48,7 @@ const nextConfig: NextConfig = {
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com",
               "img-src 'self' data: https: blob:",
-              "connect-src 'self' https://api.forminit.com https://fonts.googleapis.com https://fonts.gstatic.com",
+              "connect-src 'self' https://api.forminit.com https://fonts.googleapis.com https://fonts.gstatic.com https://va.vercel-scripts.com",
               "frame-src 'none'",
               "object-src 'none'",
               "base-uri 'self'",

@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { ThemeProvider } from 'next-themes';
 import { AnimatePresence, motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import Preloader from '../components/Preloader';
 import ErrorBoundary from '../components/ErrorBoundary';
 
@@ -33,8 +35,8 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
                 initial={{ opacity: 0, scale: 0.97 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ 
-                    duration: 0.5, 
+                transition={{
+                    duration: 0.5,
                     ease: [0.16, 1, 0.3, 1],
                     delay: 0.02
                 }}
@@ -45,6 +47,8 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
           )}
         </div>
       </ThemeProvider>
+      <Analytics />
+      <SpeedInsights />
     </ErrorBoundary>
   );
 }

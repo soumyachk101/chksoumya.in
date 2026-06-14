@@ -1,4 +1,7 @@
+"use client";
+
 import { useState, FormEvent } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Phone, Github, Instagram, MessageCircle, Send, CheckCircle2, AlertTriangle } from 'lucide-react';
 import { Forminit } from 'forminit';
@@ -81,7 +84,7 @@ const Contact = () => {
                                     </div>
                                     <div>
                                         <p className="text-xs text-accent uppercase tracking-wide font-bold mb-1">Phone</p>
-                                        <p className="text-pencil font-display font-bold text-lg">+91 8145850111</p>
+                                        <a href="tel:+918145850111" className="text-pencil font-display font-bold text-lg hover:text-accent transition-colors underline decoration-wavy">+91 8145850111</a>
                                     </div>
                                 </div>
 
@@ -91,7 +94,7 @@ const Contact = () => {
                                     </div>
                                     <div>
                                         <p className="text-xs text-accent uppercase tracking-wide font-bold mb-1">Email</p>
-                                        <p className="text-pencil font-display font-bold text-lg">soumyachk1@gmail.com</p>
+                                        <a href="mailto:soumyachk1@gmail.com" className="text-pencil font-display font-bold text-lg hover:text-accent transition-colors underline decoration-wavy">soumyachk1@gmail.com</a>
                                     </div>
                                 </div>
 
@@ -101,7 +104,7 @@ const Contact = () => {
                                     </div>
                                     <div>
                                         <p className="text-xs text-accent uppercase tracking-wide font-bold mb-1">WhatsApp</p>
-                                        <a href="https://wa.me/qr/PAVVG4QPZUJXF1" target="_blank" rel="noreferrer" className="text-pencil font-display font-bold text-lg hover:text-accent transition-colors underline decoration-wavy">Chat Now</a>
+                                        <a href="https://wa.me/918145850111" target="_blank" rel="noopener noreferrer" className="text-pencil font-display font-bold text-lg hover:text-accent transition-colors underline decoration-wavy">Chat Now</a>
                                     </div>
                                 </div>
                             </div>
@@ -111,13 +114,13 @@ const Contact = () => {
                         <Card className="transform rotate-1 hover:rotate-0 transition-transform flex flex-col justify-between bg-white">
                             <span className="text-pencil text-lg font-display font-bold mb-4">Connect with me</span>
                             <div className="flex space-x-4">
-                                <a href="https://wa.me/qr/PAVVG4QPZUJXF1" target="_blank" rel="noreferrer" aria-label="WhatsApp" className="p-3 bg-white border-2 border-pencil border-wobbly text-pencil hover:bg-pencil hover:text-paper transition-all shadow-hard transform hover:scale-110 rotate-6">
+                                <a href="https://wa.me/918145850111" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="p-3 bg-white border-2 border-pencil border-wobbly text-pencil hover:bg-pencil hover:text-paper transition-all shadow-hard transform hover:scale-110 rotate-6">
                                     <MessageCircle size={20} strokeWidth={2.5} />
                                 </a>
-                                <a href="https://github.com/soumyachk101" target="_blank" rel="noreferrer" aria-label="GitHub" className="p-3 bg-white border-2 border-pencil border-wobbly text-pencil hover:bg-pencil hover:text-paper transition-all shadow-hard transform hover:scale-110 rotate-3">
+                                <a href="https://github.com/soumyachk101" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="p-3 bg-white border-2 border-pencil border-wobbly text-pencil hover:bg-pencil hover:text-paper transition-all shadow-hard transform hover:scale-110 rotate-3">
                                     <Github size={20} strokeWidth={2.5} />
                                 </a>
-                                <a href="https://www.instagram.com/soumya_chk" target="_blank" rel="noreferrer" aria-label="Instagram" className="p-3 bg-white border-2 border-pencil border-wobbly text-pencil hover:bg-pencil hover:text-paper transition-all shadow-hard transform hover:scale-110 -rotate-3">
+                                <a href="https://www.instagram.com/soumya_chk" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="p-3 bg-white border-2 border-pencil border-wobbly text-pencil hover:bg-pencil hover:text-paper transition-all shadow-hard transform hover:scale-110 -rotate-3">
                                     <Instagram size={20} strokeWidth={2.5} />
                                 </a>
                             </div>
@@ -231,6 +234,17 @@ const Contact = () => {
                     <svg className="w-full h-8 mb-8" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true">
                         <path d="M0,5 Q50,-5 100,5 M0,7 Q50,17 100,7" stroke="#2d2d2d" strokeWidth="1" strokeDasharray="4 4" fill="none" className="path-draw" />
                     </svg>
+                    <nav aria-label="Footer sitemap" className="mb-6 flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm font-sans font-bold">
+                        <Link href="/#projects" className="text-pencil hover:text-accent underline decoration-wavy">Projects</Link>
+                        <span aria-hidden="true">·</span>
+                        <Link href="/#hackathons" className="text-pencil hover:text-accent underline decoration-wavy">Hackathons</Link>
+                        <span aria-hidden="true">·</span>
+                        <Link href="/#experience" className="text-pencil hover:text-accent underline decoration-wavy">Experience</Link>
+                        <span aria-hidden="true">·</span>
+                        <Link href="/#certificates" className="text-pencil hover:text-accent underline decoration-wavy">Certificates</Link>
+                        <span aria-hidden="true">·</span>
+                        <Link href="/#contact" className="text-pencil hover:text-accent underline decoration-wavy">Contact</Link>
+                    </nav>
                     <p className="text-pencil font-sans font-bold">&copy; {new Date().getFullYear()} Soumya Chakraborty. Handcrafted with pixels and paper.</p>
                 </footer>
             </div>

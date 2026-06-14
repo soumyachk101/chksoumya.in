@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 import { ArrowRight, Globe, Database, Layers, Infinity, Cpu, GraduationCap, Award, Code2, Cloud, X, ExternalLink } from 'lucide-react';
 import { categories, certificates } from '../data/certificates';
 import { Card } from './ui/Card';
@@ -161,14 +162,16 @@ const Certificates = () => {
                         const rotClass = index % 3 === 0 ? '-rotate-1' : index % 3 === 1 ? 'rotate-1' : '-rotate-2';
 
                         return (
-                            <button
+                            <div
                                 key={cat.id}
-                                onClick={() => {
-                                    setSelectedCategory(cat.id);
-                                    playSound('open');
-                                }}
-                                className="block group text-left w-full cursor-pointer focus:outline-none"
+                                className="block group text-left w-full"
                             >
+                                <Link
+                                    href={`/certificates/${cat.id}`}
+                                    onClick={() => playSound('open')}
+                                    className="block focus:outline-none"
+                                    aria-label={`View ${cat.label} certificates (${count})`}
+                                >
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
@@ -201,7 +204,8 @@ const Certificates = () => {
                                         </div>
                                     </Card>
                                 </motion.div>
-                            </button>
+                                </Link>
+                            </div>
                         );
                     })}
                 </div>
