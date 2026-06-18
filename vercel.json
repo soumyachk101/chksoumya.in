@@ -1,16 +1,3 @@
 {
-  "framework": "nextjs",
-  "redirects": [
-    {
-      "source": "/:path(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.chksoumya.in"
-        }
-      ],
-      "destination": "https://chksoumya.in/:path",
-      "permanent": true
-    }
-  ]
+  "framework": "nextjs"
 }
