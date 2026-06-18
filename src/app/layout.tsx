@@ -173,6 +173,7 @@ const jsonLd = {
     ],
     sameAs: [
         'https://github.com/soumyachk101',
+        'https://www.linkedin.com/in/soumya-chakraborty-chk',
         'https://wa.me/918145850111',
         'https://www.instagram.com/soumya_chk',
     ],
