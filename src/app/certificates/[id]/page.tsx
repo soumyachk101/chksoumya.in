@@ -119,10 +119,58 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function CertificatePage({ params }: Props) {
     const { id } = await params;
-    const isCategory = categories.some((c) => c.id === id);
+    const category = categories.find((c) => c.id === id);
 
-    if (isCategory) {
-        return <CertificateDetailsClient />;
+    if (category) {
+        const SITE = 'https://chksoumya.in';
+        const url = `${SITE}/certificates/${category.id}`;
+        const certs = certificates.filter((c) => c.category === category.id);
+
+        const collectionLd = {
+            '@context': 'https://schema.org',
+            '@type': 'CollectionPage',
+            '@id': `${url}#collection`,
+            url,
+            name: `${category.label} Certificates — Soumya Chakraborty`,
+            description: `${certs.length} professional certificates in ${category.label} earned by Soumya Chakraborty.`,
+            isPartOf: { '@id': `${SITE}/#website` },
+            about: { '@id': `${SITE}/#person` },
+            inLanguage: 'en-IN',
+            mainEntity: {
+                '@type': 'ItemList',
+                numberOfItems: certs.length,
+                itemListElement: certs.map((c, i) => ({
+                    '@type': 'ListItem',
+                    position: i + 1,
+                    name: c.title,
+                    url: `${SITE}/certificates/${c.id}`,
+                })),
+            },
+        };
+
+        const breadcrumbLd = {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+                { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE}/` },
+                { '@type': 'ListItem', position: 2, name: 'Certificates', item: `${SITE}/#certificates` },
+                { '@type': 'ListItem', position: 3, name: category.label, item: url },
+            ],
+        };
+
+        return (
+            <>
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionLd) }}
+                />
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+                />
+                <CertificateDetailsClient />
+            </>
+        );
     }
 
     return <CertificatePageClient paramsPromise={params} />;

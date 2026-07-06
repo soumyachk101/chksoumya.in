@@ -4,7 +4,7 @@ import { categories, publicCertificates } from '../data/certificates';
 export default function sitemap(): MetadataRoute.Sitemap {
     const SITE = 'https://chksoumya.in';
     // Static build-time date — avoid "lastModified: new Date()" on every render
-    const lastModified = new Date('2026-06-14');
+    const lastModified = new Date('2026-07-06');
 
     const home: MetadataRoute.Sitemap[number] = {
         url: `${SITE}/`,
