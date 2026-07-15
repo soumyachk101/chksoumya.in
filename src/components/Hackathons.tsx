@@ -125,6 +125,20 @@ const Hackathons = () => {
             live: "https://rusk-web.vercel.app/",
             cartridgeColor: "bg-[#f3e8ff] border-[#a855f7] text-[#581c87]", // purple notes
             stickerEmoji: "🧠"
+        },
+        {
+            name: "CITADEL 1.0",
+            project: "DRISHTI",
+            organizer: "Citadel",
+            role: "Full Stack Dev",
+            duration: "48 Hours",
+            partySize: "4 Players",
+            achievement: "Participant",
+            desc: "Built an AI-powered defensive platform that models network attack paths, prices risk in dollars, and drafts Ansible fixes.",
+            tags: ["FastAPI", "React", "NetworkX", "Groq AI", "Llama 3.3"],
+            github: "https://github.com/soumyachk101/Citadel-1.0",
+            cartridgeColor: "bg-[#dcfce7] border-[#22c55e] text-[#14532d]", // green notes
+            stickerEmoji: "🛡️"
         }
     ];
 
