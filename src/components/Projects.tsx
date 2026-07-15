@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { ExternalLink, Github, Terminal as TerminalIcon, FileCode, Cpu, Play, Terminal, Info } from 'lucide-react';
+import { ExternalLink, Github, ChevronLeft, ChevronRight, Play, Pause } from 'lucide-react';
 import { Card } from './ui/Card';
 
 interface Project {
@@ -23,11 +23,8 @@ interface Project {
 }
 
 const Projects = () => {
-    const [activeIndex, setActiveIndex] = useState(0);
-    const [activeTab, setActiveTab] = useState<'code' | 'json' | 'terminal'>('code');
-    const [terminalLines, setTerminalLines] = useState<string[]>([]);
-    const [isTerminalRunning, setIsTerminalRunning] = useState(false);
-    const terminalTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+
 
     const projects: Project[] = [
         {
@@ -421,330 +418,161 @@ export function VolatilityChart({ ticker }) {
         }
     ];
 
-    const currentProject = projects[activeIndex];
 
-    // Reset tab and clear pending timers when project changes
+
+    // Carousel State
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [direction, setDirection] = useState(0); // 1 for right, -1 for left
+    const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+    const [isHovered, setIsHovered] = useState(false);
+
     useEffect(() => {
-        if (terminalTimeoutRef.current) {
-            clearTimeout(terminalTimeoutRef.current);
-            terminalTimeoutRef.current = null;
-        }
-        setActiveTab('code');
-        setTerminalLines([]);
-        setIsTerminalRunning(false);
-    }, [activeIndex]);
+        if (!isAutoPlaying || isHovered) return;
+        const timer = setInterval(() => {
+            handleNext();
+        }, 5000); // 5 seconds per slide
+        return () => clearInterval(timer);
+    }, [currentIndex, isAutoPlaying, isHovered]);
 
-    // Also clear timers on component unmount
-    useEffect(() => {
-        return () => {
-            if (terminalTimeoutRef.current) {
-                clearTimeout(terminalTimeoutRef.current);
-            }
-        };
-    }, []);
-
-    const highlightCode = (codeText: string) => {
-        return codeText.split('\n').map((line, lineIdx) => {
-            // Escape HTML characters first
-            let escaped = line.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-
-            const placeholders: string[] = [];
-            const addPlaceholder = (html: string) => {
-                const index = placeholders.length;
-                placeholders.push(html);
-                return `___PLACEHOLDER_${index}___`;
-            };
-
-            // 1. Temporarily replace string literals
-            escaped = escaped.replace(/(["'])(?:\\.|[^\\])*?\1/g, (match) => {
-                return addPlaceholder(`<span class="text-[#2d5da1] font-bold">${match}</span>`);
-            });
-
-            // 2. Temporarily replace comments
-            escaped = escaped.replace(/(#.*|\/\/.*)/g, (match) => {
-                return addPlaceholder(`<span class="text-pencil/40 italic">${match}</span>`);
-            });
-
-            // 3. Highlight keywords
-            escaped = escaped.replace(/\b(class|def|import|from|export|default|function|return|contract|mapping|pragma|solidity|struct|public|view|const|async|await|let|var)\b/g, '<span class="text-accent font-bold">$1</span>');
-
-            // 4. Highlight numbers
-            escaped = escaped.replace(/\b(\d+)\b/g, '<span class="text-amber-600 font-bold">$1</span>');
-
-            // 5. Highlight custom identifiers
-            escaped = escaped.replace(/\b(DrishtiAI|Cortex|NeetiAI|Traceability|VideoPlayer|VolatilityChart|__init__|scan_network|generate_remediation|analyze|create_board_report|parseNaturalLanguage|FocusTimer|Transactions|initialize_room|connect|create_collaborative_ide|enable_auto_evaluation|verifyAuthenticity|fetchFeed|autoPlay|fetchCountryData|VolatilityChart|playbook|scraper_node|synthesizer_node|idea_gen_node|monetization_node|build_pipeline|PipelineState|StateGraph|ScraperAgent|SynthesizerAgent|IdeaGenAgent|MonetizationAgent)\b/g, '<span class="text-secondary font-bold">$1</span>');
-
-            // 6. Restore placeholders in reverse order
-            for (let i = placeholders.length - 1; i >= 0; i--) {
-                escaped = escaped.replace(`___PLACEHOLDER_${i}___`, placeholders[i]);
-            }
-
-            return (
-                <div key={lineIdx} className="flex gap-4 font-mono text-sm leading-relaxed">
-                    <span className="text-pencil/50 text-right select-none w-6">{lineIdx + 1}</span>
-                    <span dangerouslySetInnerHTML={{ __html: escaped || '&nbsp;' }} />
-                </div>
-            );
-        });
+    const handleNext = () => {
+        setDirection(1);
+        setCurrentIndex((prev) => (prev + 1) % projects.length);
     };
 
-    const runTerminal = () => {
-        if (isTerminalRunning) return;
-        setIsTerminalRunning(true);
-        setTerminalLines([]);
-
-        const logs = currentProject.terminalLogs;
-        let currentLine = 0;
-
-        const printLine = () => {
-            if (currentLine < logs.length) {
-                setTerminalLines(prev => [...prev, logs[currentLine]]);
-                currentLine++;
-                terminalTimeoutRef.current = setTimeout(printLine, 600);
-            } else {
-                setTerminalLines(prev => [
-                    ...prev, 
-                    `\r[SUCCESS] Redirecting to live simulation...`
-                ]);
-                terminalTimeoutRef.current = setTimeout(() => {
-                    setIsTerminalRunning(false);
-                    if (currentProject.live !== "#") {
-                        window.open(currentProject.live, '_blank', 'noopener,noreferrer');
-                    } else {
-                        window.open(currentProject.github, '_blank', 'noopener,noreferrer');
-                    }
-                }, 1000);
-            }
-        };
-
-        printLine();
+    const handlePrev = () => {
+        setDirection(-1);
+        setCurrentIndex((prev) => (prev - 1 + projects.length) % projects.length);
     };
+
+    // Animation Variants
+    const slideVariants = {
+        enter: (dir: number) => ({
+            x: dir > 0 ? 1000 : -1000,
+            opacity: 0,
+            scale: 0.95,
+            rotateY: dir > 0 ? 15 : -15,
+        }),
+        center: {
+            zIndex: 1,
+            x: 0,
+            opacity: 1,
+            scale: 1,
+            rotateY: 0,
+            transition: {
+                x: { type: "spring", stiffness: 300, damping: 30 },
+                opacity: { duration: 0.2 },
+                rotateY: { duration: 0.4 }
+            }
+        },
+        exit: (dir: number) => ({
+            zIndex: 0,
+            x: dir < 0 ? 1000 : -1000,
+            opacity: 0,
+            scale: 0.95,
+            rotateY: dir < 0 ? 15 : -15,
+            transition: {
+                x: { type: "spring", stiffness: 300, damping: 30 },
+                opacity: { duration: 0.2 },
+                rotateY: { duration: 0.4 }
+            }
+        })
+    };
+
+    const currentProject = projects[currentIndex];
 
     return (
-        <section id="projects" className="py-20 relative overflow-hidden bg-background">
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <section id="projects" className="py-24 relative overflow-hidden bg-background">
+            <div className="max-w-[95vw] md:max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+                
                 {/* Section Header */}
-                <div className="text-center mb-16">
-                    <h2 className="text-4xl md:text-6xl font-heading font-bold mb-4 text-pencil transform rotate-1 inline-block relative">
+                <div className="text-center mb-16 relative">
+                    <h2 className="text-4xl md:text-6xl font-heading font-bold mb-4 text-pencil transform rotate-1 inline-block relative z-10">
                         Featured Projects
                         <svg className="absolute -bottom-4 left-0 w-full h-4" viewBox="0 0 100 20" preserveAspectRatio="none">
                             <path d="M0,15 Q50,5 100,15 M10,10 Q50,20 90,10" stroke="#e85d04" strokeWidth="3" fill="none" className="path-draw" />
                         </svg>
                     </h2>
                     <p className="mt-8 text-pencil/80 font-sans text-xl font-bold transform -rotate-1">
-                        📂 Tap a folder to open its workspace, then run script commands in the terminal!
+                        🎨 Slide through my interactive works!
                     </p>
+                    
+                    {/* Decorative Background Scribbles */}
+                    <div className="absolute top-0 right-10 opacity-20 pointer-events-none transform -rotate-12 hidden md:block">
+                        <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10,50 Q30,20 50,50 T90,50" stroke="#2d2d2d" strokeWidth="4" strokeLinecap="round" fill="none" />
+                            <path d="M20,60 Q40,30 60,60 T100,60" stroke="#2d2d2d" strokeWidth="4" strokeLinecap="round" fill="none" />
+                        </svg>
+                    </div>
                 </div>
 
-                {/* Desk Planner Layout */}
-                <div className="relative py-8 px-4 md:px-8 bg-[#f5ebe0]/40 border-4 border-pencil border-wobbly rounded-2xl shadow-hard-lg">
-                    
-                    {/* Top folder tabs */}
-                    <div className="flex overflow-x-auto gap-2 pb-4 scrollbar-thin max-w-full select-none justify-start border-b-2 border-dashed border-pencil/20">
-                        {projects.map((project, idx) => {
-                            const isActive = idx === activeIndex;
-                            return (
-                                <button
-                                    key={idx}
-                                    onClick={() => setActiveIndex(idx)}
-                                    className={`px-4 py-2.5 border-2 ${isActive ? `${project.bg} ${project.border} ${project.text} translate-y-0.5 shadow-none` : 'bg-white border-pencil text-pencil/50 hover:text-pencil shadow-hard-sm'} border-wobbly-sm font-display font-extrabold text-base md:text-lg cursor-pointer whitespace-nowrap transition-all flex items-center gap-1.5`}
-                                >
-                                    <span>📁 {project.title}</span>
-                                </button>
-                            );
-                        })}
-                    </div>
-
-                    {/* Doodle IDE Window */}
-                    <div className="bg-white border-4 border-pencil border-wobbly rounded-xl p-4 md:p-6 shadow-hard-lg mt-8 relative min-h-[460px]">
-                        
-                        {/* IDE Header Bar */}
-                        <div className="flex items-center justify-between border-b-2 border-pencil pb-3 mb-6">
-                            <div className="flex items-center gap-2">
-                                <div className="w-3 h-3 rounded-full bg-accent border-2 border-pencil" />
-                                <div className="w-3.5 h-3.5 rounded-full bg-amber-400 border-2 border-pencil" />
-                                <div className="w-3 h-3 rounded-full bg-green-500 border-2 border-pencil" />
-                                <span className="ml-2 font-mono text-xs text-pencil/40 font-bold hidden sm:inline">doodle-ide v1.0.0</span>
-                            </div>
-                            <div className="font-mono text-xs text-pencil/50 font-bold bg-muted/30 border border-pencil border-dashed px-2.5 py-0.5 rounded">
-                                ~/projects/{currentProject.title.toLowerCase()}
-                            </div>
-                        </div>
-
-                        {/* IDE Workspace Area */}
-                        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-                            
-                            {/* File Tree Directory (Left) */}
-                            <div className="hidden md:flex md:col-span-3 border-r-2 border-dashed border-pencil/20 pr-6 flex-col gap-4">
-                                <div>
-                                    <span className="text-[10px] uppercase font-sans font-black text-pencil/30 block mb-2 tracking-wider">Workspace Tree</span>
-                                    <div className="space-y-2.5 font-mono text-sm font-bold text-pencil">
-                                        <div className="pl-2 border-l border-pencil/30">
-                                            <div className="text-pencil/50 select-none">📁 src</div>
-                                            <button 
-                                                onClick={() => setActiveTab('code')}
-                                                className={`pl-4 flex items-center gap-1.5 w-full text-left py-0.5 rounded cursor-pointer ${activeTab === 'code' ? 'text-accent bg-accent/5' : 'hover:bg-muted/20'}`}
-                                            >
-                                                <FileCode size={14} />
-                                                <span>{currentProject.codeFile}</span>
-                                            </button>
-                                        </div>
-                                        <div className="pl-2 border-l border-pencil/30">
-                                            <div className="text-pencil/50 select-none">📁 config</div>
-                                            <button 
-                                                onClick={() => setActiveTab('json')}
-                                                className={`pl-4 flex items-center gap-1.5 w-full text-left py-0.5 rounded cursor-pointer ${activeTab === 'json' ? 'text-secondary bg-secondary/5' : 'hover:bg-muted/20'}`}
-                                            >
-                                                <Cpu size={14} />
-                                                <span>tech_stack.json</span>
-                                            </button>
-                                        </div>
-                                        <div className="pl-2 border-l border-pencil/30">
-                                            <button 
-                                                onClick={() => setActiveTab('terminal')}
-                                                className={`flex items-center gap-1.5 w-full text-left py-0.5 rounded cursor-pointer ${activeTab === 'terminal' ? 'text-[#166534] bg-green-500/5' : 'hover:bg-muted/20'}`}
-                                            >
-                                                <TerminalIcon size={14} />
-                                                <span>run.sh</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Mini Polaroid spec card */}
-                                <div className="hidden md:block border-2 border-pencil border-wobbly p-2.5 bg-paper rounded shadow-hard-sm rotate-2 max-w-[180px] mx-auto mt-4">
-                                    <div className="relative h-24 border border-pencil overflow-hidden">
-                                        <Image
-                                            src={currentProject.image}
-                                            alt={currentProject.title}
-                                            fill
-                                            sizes="150px"
-                                            className="object-cover"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Code Canvas Area (Right) */}
-                            <div className="col-span-12 md:col-span-9 flex flex-col justify-between min-h-[360px]">
+                {/* Carousel Container */}
+                <div 
+                    className="relative w-full max-w-6xl mx-auto min-h-[600px] md:min-h-[500px] flex items-center justify-center perspective-[1000px]"
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                >
+                    <AnimatePresence initial={false} custom={direction} mode="popLayout">
+                        <motion.div
+                            key={currentIndex}
+                            custom={direction}
+                            variants={slideVariants as any}
+                            initial="enter"
+                            animate="center"
+                            exit="exit"
+                            className="w-full flex justify-center"
+                        >
+                            <div className={`w-full flex flex-col md:flex-row gap-0 md:gap-8 bg-white border-4 border-pencil border-wobbly rounded-3xl shadow-[8px_8px_0px_0px_rgba(45,45,45,1)] hover:shadow-[12px_12px_0px_0px_rgba(45,45,45,1)] transition-all duration-300 relative overflow-hidden group`}>
                                 
-                                <div className="flex-1">
-                                    {/* Workspace Tabs Header */}
-                                    <div className="flex gap-2 border-b border-pencil/20 pb-2 mb-4">
-                                        <button 
-                                            onClick={() => setActiveTab('code')}
-                                            className={`px-3 py-1 font-mono text-xs font-bold border border-pencil rounded cursor-pointer transition-colors ${activeTab === 'code' ? `${currentProject.bg} ${currentProject.border} ${currentProject.text}` : 'bg-white text-pencil/60 border-transparent hover:text-pencil'}`}
-                                        >
-                                            {currentProject.codeFile}
-                                        </button>
-                                        <button 
-                                            onClick={() => setActiveTab('json')}
-                                            className={`px-3 py-1 font-mono text-xs font-bold border border-pencil rounded cursor-pointer transition-colors ${activeTab === 'json' ? `${currentProject.bg} ${currentProject.border} ${currentProject.text}` : 'bg-white text-pencil/60 border-transparent hover:text-pencil'}`}
-                                        >
-                                            tech_stack.json
-                                        </button>
-                                        <button 
-                                            onClick={() => setActiveTab('terminal')}
-                                            className={`px-3 py-1 font-mono text-xs font-bold border border-pencil rounded cursor-pointer transition-colors ${activeTab === 'terminal' ? `${currentProject.bg} ${currentProject.border} ${currentProject.text}` : 'bg-white text-pencil/60 border-transparent hover:text-pencil'}`}
-                                        >
-                                            run.sh
-                                        </button>
-                                    </div>
-
-                                    {/* Tabs content render */}
-                                    <div className="bg-[#FAF9F6] border-2 border-pencil border-wobbly p-4 rounded min-h-[260px] overflow-x-auto relative">
-                                        
-                                        <AnimatePresence mode="wait">
-                                            {activeTab === 'code' && (
-                                                <motion.div
-                                                    key="code-tab"
-                                                    initial={{ opacity: 0, y: 5 }}
-                                                    animate={{ opacity: 1, y: 0 }}
-                                                    exit={{ opacity: 0, y: -5 }}
-                                                    className="space-y-1"
-                                                >
-                                                    {highlightCode(currentProject.code)}
-                                                </motion.div>
-                                            )}
-
-                                            {activeTab === 'json' && (
-                                                <motion.div
-                                                    key="json-tab"
-                                                    initial={{ opacity: 0, y: 5 }}
-                                                    animate={{ opacity: 1, y: 0 }}
-                                                    exit={{ opacity: 0, y: -5 }}
-                                                    className="space-y-1"
-                                                >
-                                                    {highlightCode(currentProject.techJson)}
-                                                </motion.div>
-                                            )}
-
-                                            {activeTab === 'terminal' && (
-                                                <motion.div
-                                                    key="terminal-tab"
-                                                    initial={{ opacity: 0, y: 5 }}
-                                                    animate={{ opacity: 1, y: 0 }}
-                                                    exit={{ opacity: 0, y: -5 }}
-                                                    className="flex flex-col h-full font-mono text-sm text-green-400 bg-[#1e1e1e] p-4 rounded-md min-h-[220px] shadow-inner"
-                                                >
-                                                    {/* Console outputs */}
-                                                    <div className="flex-1 space-y-1.5 overflow-y-auto mb-4 min-h-[140px]">
-                                                        {terminalLines.map((line, idx) => (
-                                                            <div key={idx} className="leading-relaxed">
-                                                                {line && line.startsWith("soumya@") ? (
-                                                                    <span className="text-blue-400">{line}</span>
-                                                                ) : line && line.startsWith("[ALERT]") ? (
-                                                                    <span className="text-red-400">{line}</span>
-                                                                ) : line && line.startsWith("[SUCCESS]") ? (
-                                                                    <span className="text-yellow-400 font-bold">{line}</span>
-                                                                ) : (
-                                                                    <span>{line}</span>
-                                                                )}
-                                                            </div>
-                                                        ))}
-                                                        
-                                                        {/* Cursor blinking */}
-                                                        {!isTerminalRunning && terminalLines.length === 0 && (
-                                                            <div className="text-pencil/30 italic text-xs mb-2 select-none">
-                                                                Execute the script below to build and deploy...
-                                                            </div>
-                                                        )}
-                                                        {isTerminalRunning && (
-                                                            <span className="inline-block w-2.5 h-4 bg-green-400 animate-[pulse_1s_infinite] ml-1 align-middle" />
-                                                        )}
-                                                    </div>
-
-                                                    {/* Control action */}
-                                                    <button
-                                                        onClick={runTerminal}
-                                                        disabled={isTerminalRunning}
-                                                        className={`self-start inline-flex items-center gap-2 px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white font-sans font-extrabold text-sm border-2 border-pencil shadow-[3px_3px_0px_0px_#2d2d2d] active:shadow-none active:translate-x-[3px] active:translate-y-[3px] transition-all cursor-pointer ${isTerminalRunning ? 'opacity-50 pointer-events-none filter grayscale' : ''}`}
-                                                    >
-                                                        <Play size={14} fill="currentColor" />
-                                                        <span>Run Script</span>
-                                                    </button>
-                                                </motion.div>
-                                            )}
-                                        </AnimatePresence>
-
-                                    </div>
+                                {/* Decorative Tag */}
+                                <div className={`absolute top-4 right-4 md:right-8 z-20 px-4 py-1.5 font-bold text-sm uppercase border-2 border-pencil border-wobbly transform rotate-3 shadow-hard-sm ${currentProject.bg} ${currentProject.text} ${currentProject.border}`}>
+                                    {currentIndex + 1} / {projects.length}
                                 </div>
 
-                                {/* Info Description & Action Buttons */}
-                                <div className="mt-6 pt-4 border-t border-dashed border-pencil/20 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                                    <div className="max-w-xl">
-                                        <p className="text-pencil font-sans text-base leading-snug">
-                                            <span className="font-bold text-accent">Summary:</span> {currentProject.desc}
+                                {/* Project Image Area */}
+                                <div className="w-full md:w-1/2 aspect-video md:aspect-auto md:min-h-[450px] relative border-b-4 md:border-b-0 md:border-r-4 border-pencil overflow-hidden bg-muted flex items-center justify-center">
+                                    <div className="absolute inset-0 bg-gradient-to-tr from-black/20 to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                    <Image
+                                        src={currentProject.image}
+                                        alt={currentProject.title}
+                                        fill
+                                        sizes="(max-width: 768px) 100vw, 50vw"
+                                        className="object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
+                                        priority
+                                    />
+                                </div>
+
+                                {/* Project Details Area */}
+                                <div className="w-full md:w-1/2 p-6 md:p-8 flex flex-col justify-between bg-gradient-to-br from-white to-[#fdfbf7]">
+                                    <div>
+                                        <h3 className={`text-3xl sm:text-4xl font-heading font-black mb-3 transform -rotate-1 ${currentProject.text}`}>
+                                            {currentProject.title}
+                                        </h3>
+                                        <p className="text-pencil/80 font-sans text-lg leading-relaxed mb-6">
+                                            {currentProject.desc}
                                         </p>
+                                        
+                                        {/* Tags */}
+                                        <div className="flex flex-wrap gap-2.5 mb-8">
+                                            {currentProject.tags.map((tag, tagIdx) => (
+                                                <span 
+                                                    key={tagIdx}
+                                                    className="px-3 py-1 text-sm font-bold font-mono bg-muted text-pencil border-2 border-pencil rounded-md shadow-hard-sm hover:-translate-y-1 hover:shadow-hard transition-all cursor-default"
+                                                >
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </div>
                                     </div>
-                                    <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+
+                                    {/* Action Buttons */}
+                                    <div className="flex flex-wrap gap-4 mt-auto pt-4 border-t-2 border-dashed border-pencil/20">
                                         <a 
                                             href={currentProject.github}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex-1 sm:flex-initial px-4 py-2.5 bg-white hover:bg-pencil text-pencil hover:text-paper border-2 border-pencil border-wobbly flex items-center justify-center gap-2 font-sans font-bold text-sm shadow-hard-sm active:shadow-none active:translate-x-[2px] active:translate-y-[2px] transition-all cursor-pointer"
+                                            className="flex-1 min-w-[140px] px-5 py-3 bg-white hover:bg-pencil text-pencil hover:text-white border-2 border-pencil border-wobbly-alt flex items-center justify-center gap-2 font-sans font-bold text-base shadow-hard-sm active:shadow-none active:translate-x-[2px] active:translate-y-[2px] transition-all"
                                         >
-                                            <Github size={16} strokeWidth={2.5} />
+                                            <Github size={18} strokeWidth={2.5} />
                                             <span>Repository</span>
                                         </a>
                                         {currentProject.live !== "#" && (
@@ -752,20 +580,66 @@ export function VolatilityChart({ ticker }) {
                                                 href={currentProject.live}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="flex-1 sm:flex-initial px-4 py-2.5 bg-accent hover:bg-pencil text-paper hover:text-paper border-2 border-pencil border-wobbly flex items-center justify-center gap-2 font-sans font-bold text-sm shadow-hard-sm active:shadow-none active:translate-x-[2px] active:translate-y-[2px] transition-all cursor-pointer"
+                                                className={`flex-1 min-w-[140px] px-5 py-3 ${currentProject.bg} hover:bg-pencil ${currentProject.text} hover:text-white border-2 border-pencil border-wobbly flex items-center justify-center gap-2 font-sans font-bold text-base shadow-hard-sm active:shadow-none active:translate-x-[2px] active:translate-y-[2px] transition-all`}
                                             >
-                                                <ExternalLink size={16} strokeWidth={2.5} />
+                                                <ExternalLink size={18} strokeWidth={2.5} />
                                                 <span>Live Demo</span>
                                             </a>
                                         )}
                                     </div>
                                 </div>
-
                             </div>
-                        </div>
+                        </motion.div>
+                    </AnimatePresence>
+                </div>
 
+                {/* Carousel Navigation Controls */}
+                <div className="flex flex-col sm:flex-row items-center justify-between max-w-6xl mx-auto mt-8 px-4 gap-6">
+                    {/* Progress / Auto-play Toggle */}
+                    <div className="flex items-center gap-4">
+                        <button 
+                            onClick={() => setIsAutoPlaying(!isAutoPlaying)}
+                            className="p-2 border-2 border-pencil rounded-full bg-white text-pencil shadow-hard-sm hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-none transition-all"
+                            title={isAutoPlaying ? "Pause Auto-play" : "Start Auto-play"}
+                        >
+                            {isAutoPlaying ? <Pause size={18} fill="currentColor" /> : <Play size={18} fill="currentColor" />}
+                        </button>
+                        <div className="font-mono text-sm font-bold text-pencil/60">
+                            {isAutoPlaying ? "Auto-play: ON" : "Auto-play: OFF"}
+                        </div>
+                    </div>
+
+                    {/* Dots indicator */}
+                    <div className="flex items-center gap-2">
+                        {projects.map((_, idx) => (
+                            <button
+                                key={idx}
+                                onClick={() => {
+                                    setDirection(idx > currentIndex ? 1 : -1);
+                                    setCurrentIndex(idx);
+                                }}
+                                className={`w-3 h-3 rounded-full border-2 border-pencil transition-all duration-300 ${idx === currentIndex ? 'bg-accent w-6 border-wobbly' : 'bg-white hover:bg-pencil/20'}`}
+                            />
+                        ))}
+                    </div>
+
+                    {/* Next/Prev Arrows */}
+                    <div className="flex items-center gap-3">
+                        <button 
+                            onClick={handlePrev}
+                            className="p-3 bg-white border-2 border-pencil border-wobbly rounded-xl shadow-hard-sm hover:bg-pencil hover:text-white active:translate-y-1 active:shadow-none transition-all text-pencil"
+                        >
+                            <ChevronLeft size={24} strokeWidth={3} />
+                        </button>
+                        <button 
+                            onClick={handleNext}
+                            className="p-3 bg-accent border-2 border-pencil border-wobbly rounded-xl shadow-hard-sm hover:bg-pencil hover:text-white active:translate-y-1 active:shadow-none transition-all text-pencil"
+                        >
+                            <ChevronRight size={24} strokeWidth={3} />
+                        </button>
                     </div>
                 </div>
+
             </div>
         </section>
     );
