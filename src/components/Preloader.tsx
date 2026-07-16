@@ -15,11 +15,14 @@ const INK = '#2d2d2d';
 const ACCENT = '#dd2c38';
 
 // Greeting cycle — English first (longer hold), Bengali second (mother tongue), then the rest.
-const words = ['Hello', 'নমস্কার', 'नमस्ते', 'Bonjour', 'Ciao', 'Olá', 'こんにちは', '안녕하세요', 'Hallo'];
+// Kept tight: the preloader visually blocks the page, so total time directly
+// hurts Lighthouse Speed Index. Budget ≈ 2.5s end to end — fewer words held
+// longer, so each greeting is actually readable.
+const words = ['Hello', 'নমস্কার', 'नमस्ते', 'Bonjour', 'こんにちは'];
 
-const FIRST_WORD_MS = 900;
-const WORD_MS = 180;
-const EXIT_HOLD_MS = 350;
+const FIRST_WORD_MS = 800;
+const WORD_MS = 250;
+const EXIT_HOLD_MS = 300;
 const FLAP_H = 150;
 
 const Preloader = ({ onComplete }: PreloaderProps) => {
@@ -61,7 +64,7 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
             className="absolute inset-0"
             initial={{ top: 0 }}
             animate={exiting ? { top: '-100vh' } : { top: 0 }}
-            transition={{ duration: 0.8, ease }}
+            transition={{ duration: 0.6, ease }}
             onAnimationComplete={() => exiting && onComplete?.()}
         >
             {/* Paper sheet with dot grid */}
@@ -78,7 +81,7 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
                     fill={PAPER}
                     initial={{ d: flapFill }}
                     animate={exiting ? { d: flapFillFlat } : { d: flapFill }}
-                    transition={{ duration: 0.7, ease }}
+                    transition={{ duration: 0.55, ease }}
                 />
                 <motion.path
                     fill="none"
@@ -87,7 +90,7 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
                     strokeLinecap="round"
                     initial={{ d: flapEdge }}
                     animate={exiting ? { d: flapEdgeFlat } : { d: flapEdge }}
-                    transition={{ duration: 0.7, ease }}
+                    transition={{ duration: 0.55, ease }}
                 />
             </svg>
 

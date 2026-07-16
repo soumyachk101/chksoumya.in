@@ -22,9 +22,10 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Roughly match the Preloader timeline: 900ms first word + 7×180ms word
-    // cycle + 350ms hold + 800ms curtain exit ≈ 3.4s.
-    const exitDuration = 3400;
+    // Roughly match the Preloader timeline: 800ms first word + 3×250ms word
+    // cycle + 300ms hold + 600ms curtain exit ≈ 2.5s. Kept under ~2.5s — the
+    // preloader blocks the page visually, so it directly hurts Speed Index.
+    const exitDuration = 2500;
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, exitDuration);
