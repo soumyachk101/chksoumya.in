@@ -22,8 +22,9 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Roughly match the framer-motion slide animation in Preloader.
-    const exitDuration = 900;
+    // Roughly match the Preloader timeline: 900ms first word + 7×180ms word
+    // cycle + 350ms hold + 800ms curtain exit ≈ 3.4s.
+    const exitDuration = 3400;
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, exitDuration);

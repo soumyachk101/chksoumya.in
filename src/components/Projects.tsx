@@ -601,6 +601,7 @@ export function VolatilityChart({ ticker }) {
                             onClick={() => setIsAutoPlaying(!isAutoPlaying)}
                             className="p-2 border-2 border-pencil rounded-full bg-white text-pencil shadow-hard-sm hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-none transition-all"
                             title={isAutoPlaying ? "Pause Auto-play" : "Start Auto-play"}
+                            aria-label={isAutoPlaying ? "Pause Auto-play" : "Start Auto-play"}
                         >
                             {isAutoPlaying ? <Pause size={18} fill="currentColor" /> : <Play size={18} fill="currentColor" />}
                         </button>
@@ -618,6 +619,7 @@ export function VolatilityChart({ ticker }) {
                                     setDirection(idx > currentIndex ? 1 : -1);
                                     setCurrentIndex(idx);
                                 }}
+                                aria-label={`Go to slide ${idx + 1}`}
                                 className={`w-3 h-3 rounded-full border-2 border-pencil transition-all duration-300 ${idx === currentIndex ? 'bg-accent w-6 border-wobbly' : 'bg-white hover:bg-pencil/20'}`}
                             />
                         ))}
@@ -628,12 +630,14 @@ export function VolatilityChart({ ticker }) {
                         <button 
                             onClick={handlePrev}
                             className="p-3 bg-white border-2 border-pencil border-wobbly rounded-xl shadow-hard-sm hover:bg-pencil hover:text-white active:translate-y-1 active:shadow-none transition-all text-pencil"
+                            aria-label="Previous Project"
                         >
                             <ChevronLeft size={24} strokeWidth={3} />
                         </button>
                         <button 
                             onClick={handleNext}
                             className="p-3 bg-accent border-2 border-pencil border-wobbly rounded-xl shadow-hard-sm hover:bg-pencil hover:text-white active:translate-y-1 active:shadow-none transition-all text-pencil"
+                            aria-label="Next Project"
                         >
                             <ChevronRight size={24} strokeWidth={3} />
                         </button>
