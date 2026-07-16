@@ -36,6 +36,9 @@ const profilePageLd = {
     mainEntity: { '@id': `${SITE_URL}/#person` },
     isPartOf: { '@id': `${SITE_URL}/#website` },
     inLanguage: 'en-IN',
+    // Google ProfilePage rich result recommends these; bump dateModified on content updates.
+    dateCreated: '2025-11-01',
+    dateModified: '2026-07-16',
 };
 
 const projectsLd = {

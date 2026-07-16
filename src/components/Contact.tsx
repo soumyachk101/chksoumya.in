@@ -245,6 +245,15 @@ const Contact = () => {
                         <span aria-hidden="true">·</span>
                         <Link href="/#contact" className="text-pencil hover:text-accent underline decoration-wavy">Contact</Link>
                     </nav>
+                    <nav aria-label="Profiles" className="mb-6 flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm font-sans font-bold">
+                        <a href="https://github.com/soumyachk101" target="_blank" rel="noopener noreferrer" className="text-pencil hover:text-accent underline decoration-wavy">
+                            GitHub — soumyachk101
+                        </a>
+                        <span aria-hidden="true">·</span>
+                        <a href="https://www.linkedin.com/in/soumya-chakraborty-chk" target="_blank" rel="noopener noreferrer" className="text-pencil hover:text-accent underline decoration-wavy">
+                            LinkedIn
+                        </a>
+                    </nav>
                     <p className="text-pencil font-sans font-bold">&copy; {new Date().getFullYear()} Soumya Chakraborty. Handcrafted with pixels and paper.</p>
                 </footer>
             </div>
