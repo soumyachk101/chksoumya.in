@@ -187,7 +187,7 @@ const Certificates = () => {
                                             <div className="p-3 bg-white border-2 border-pencil border-wobbly text-pencil group-hover:bg-pencil group-hover:text-paper transition-all shadow-hard transform -rotate-3 group-hover:rotate-0">
                                                 {getCategoryIcon(cat.id)}
                                             </div>
-                                            <span className="text-3xl font-display font-bold text-pencil/50 group-hover:text-accent transition-colors">
+                                            <span className="text-3xl font-display font-bold text-pencil/70 group-hover:text-accent transition-colors">
                                                 {String(index + 1).padStart(2, '0')}
                                             </span>
                                         </div>
@@ -274,7 +274,7 @@ const Certificates = () => {
                                             <path d="M0,10 Q50,20 100,10 M15,13 Q50,3 85,13" stroke="#e85d04" strokeWidth="2.5" fill="none" />
                                         </svg>
                                     </h3>
-                                    <p className="text-xs font-sans font-extrabold text-pencil/50 uppercase tracking-wider mt-4">
+                                    <p className="text-xs font-sans font-extrabold text-pencil/70 uppercase tracking-wider mt-4">
                                         📜 Total Verified Credentials: {activeCerts.length}
                                     </p>
                                 </div>
@@ -295,7 +295,7 @@ const Certificates = () => {
                                                             {cert.title}
                                                         </h4>
                                                     </div>
-                                                    <p className="text-xs font-sans font-extrabold text-pencil/50 uppercase tracking-wider pl-6">
+                                                    <p className="text-xs font-sans font-extrabold text-pencil/70 uppercase tracking-wider pl-6">
                                                         Issued by: <span className="text-accent underline decoration-wavy decoration-accent/30">{cert.issuer}</span> &bull; {cert.date}
                                                     </p>
                                                 </div>
@@ -315,7 +315,7 @@ const Certificates = () => {
                                 </div>
 
                                 {/* Modal Footer decoration */}
-                                <div className="border-t border-dashed border-pencil/20 pt-4 mt-4 text-center opacity-30 select-none pointer-events-none">
+                                <div className="border-t border-dashed border-pencil/20 pt-4 mt-4 text-center opacity-70 select-none pointer-events-none">
                                     <div className="font-mono text-[8px] uppercase tracking-widest">
                                         verified_by_cryptographic_signatures.log
                                     </div>

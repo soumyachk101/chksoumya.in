@@ -136,7 +136,7 @@ const Contact = () => {
                         className="lg:col-span-7"
                     >
                         <Card decoration="tape" className="bg-white border-2 border-pencil border-wobbly p-6 md:p-8 shadow-hard-lg relative">
-                            <div className="absolute top-1 right-2 text-[8px] font-mono opacity-30">forminit_contact_channel.sh</div>
+                            <div className="absolute top-1 right-2 text-[8px] font-mono opacity-70">forminit_contact_channel.sh</div>
                             
                             <h3 className="text-2xl font-display font-black text-pencil mb-6 pb-2 border-b-2 border-dashed border-pencil/20">
                                 Send a Message

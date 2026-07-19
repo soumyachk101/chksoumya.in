@@ -537,7 +537,6 @@ export function VolatilityChart({ ticker }) {
                                         fill
                                         sizes="(max-width: 768px) 100vw, 50vw"
                                         className="object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
-                                        priority
                                     />
                                 </div>
 
@@ -605,7 +604,7 @@ export function VolatilityChart({ ticker }) {
                         >
                             {isAutoPlaying ? <Pause size={18} fill="currentColor" /> : <Play size={18} fill="currentColor" />}
                         </button>
-                        <div className="font-mono text-sm font-bold text-pencil/60">
+                        <div className="font-mono text-sm font-bold text-pencil/70">
                             {isAutoPlaying ? "Auto-play: ON" : "Auto-play: OFF"}
                         </div>
                     </div>
@@ -620,8 +619,10 @@ export function VolatilityChart({ ticker }) {
                                     setCurrentIndex(idx);
                                 }}
                                 aria-label={`Go to slide ${idx + 1}`}
-                                className={`w-3 h-3 rounded-full border-2 border-pencil transition-all duration-300 ${idx === currentIndex ? 'bg-accent w-6 border-wobbly' : 'bg-white hover:bg-pencil/20'}`}
-                            />
+                                className="w-6 h-6 flex items-center justify-center cursor-pointer"
+                            >
+                                <span className={`h-3 rounded-full border-2 border-pencil transition-all duration-300 ${idx === currentIndex ? 'bg-accent w-6 border-wobbly' : 'bg-white w-3 hover:bg-pencil/20'}`} />
+                            </button>
                         ))}
                     </div>
 

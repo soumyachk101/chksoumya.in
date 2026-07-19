@@ -206,7 +206,7 @@ const About = () => {
                             decoration="tack" 
                             className="bg-amber-50 border-2 border-pencil border-wobbly p-6 shadow-hard-lg h-full flex flex-col justify-between text-pencil relative"
                         >
-                            <div className="absolute top-1 right-2 text-[8px] font-mono opacity-30">dev_status_inspector.sh</div>
+                            <div className="absolute top-1 right-2 text-[8px] font-mono opacity-70">dev_status_inspector.sh</div>
                             
                             {/* Level Up Particle Burst */}
                             <AnimatePresence>
@@ -234,7 +234,7 @@ const About = () => {
                                 <div className="flex items-center justify-between">
                                     <div>
                                         <h3 className="text-2xl font-display font-black leading-none">Soumya Chakraborty</h3>
-                                        <span className="text-xs font-mono text-pencil/50 uppercase tracking-widest mt-1.5 block">Class: Fullstack Wizard</span>
+                                        <span className="text-xs font-mono text-pencil/70 uppercase tracking-widest mt-1.5 block">Class: Fullstack Wizard</span>
                                     </div>
                                     <button 
                                         onClick={triggerLevelUp}
@@ -284,7 +284,7 @@ const About = () => {
 
                             {/* Equipped Items list */}
                             <div className="bg-white/50 border border-pencil border-dashed rounded p-3 text-xs space-y-1">
-                                <div className="font-bold border-b border-pencil/20 pb-1 mb-1 uppercase tracking-widest text-[10px] text-pencil/50">Equipped Inventory</div>
+                                <div className="font-bold border-b border-pencil/20 pb-1 mb-1 uppercase tracking-widest text-[10px] text-pencil/70">Equipped Inventory</div>
                                 <div>🛡️ Mechanical Blue-Switch Keyboard (+15% WPM)</div>
                                 <div>🎧 Synthwave/Lofi Beats (+10% Focus Duration)</div>
                                 <div>🛡️ VS Code Dark Mode (+20% Bug Immunity)</div>
@@ -297,7 +297,7 @@ const About = () => {
                         
                         {/* Interactive Scribble Canvas */}
                         <Card decoration="tape" className="bg-white border-2 border-pencil border-wobbly p-6 shadow-hard-lg flex flex-col relative h-[280px] justify-between">
-                            <div className="absolute top-1 right-2 text-[8px] font-mono opacity-30">scribble_scratch.canvas</div>
+                            <div className="absolute top-1 right-2 text-[8px] font-mono opacity-70">scribble_scratch.canvas</div>
                             
                             <div className="flex justify-between items-center mb-3">
                                 <h3 className="text-xl font-display font-black text-pencil border-b border-dashed border-pencil">📝 Mini Doodling Canvas</h3>
@@ -375,7 +375,7 @@ const About = () => {
                             
                             {/* Coffee Mug widget */}
                             <Card className="bg-[#fff9c4] border-2 border-pencil border-wobbly p-6 shadow-hard flex flex-col justify-between items-center text-center h-[170px]">
-                                <div className="absolute top-1 left-2 text-[8px] font-mono opacity-30">caffeine_buffer.bin</div>
+                                <div className="absolute top-1 left-2 text-[8px] font-mono opacity-70">caffeine_buffer.bin</div>
                                 
                                 <div className="relative select-none flex flex-col items-center">
                                     {/* Floating Steam lines */}
@@ -388,7 +388,7 @@ const About = () => {
                                 </div>
 
                                 <div>
-                                    <span className="text-xs font-sans font-bold uppercase block text-pencil/40 mb-1">Caffeine intake</span>
+                                    <span className="text-xs font-sans font-bold uppercase block text-pencil/70 mb-1">Caffeine intake</span>
                                     <span className="text-sm font-sans font-black block mb-3 text-pencil">{coffeeCups} Cups Consumed</span>
                                 </div>
 
@@ -402,14 +402,14 @@ const About = () => {
 
                             {/* Compass & Location Watch */}
                             <Card className="bg-white border-2 border-pencil border-wobbly p-6 shadow-hard flex flex-col justify-between items-center text-center h-[170px] relative">
-                                <div className="absolute top-1 right-2 text-[8px] font-mono opacity-30">kolkata_compass.db</div>
+                                <div className="absolute top-1 right-2 text-[8px] font-mono opacity-70">kolkata_compass.db</div>
                                 
                                 {/* Compass Needle Box */}
                                 <button 
                                     onClick={spinCompass}
                                     className="w-12 h-12 rounded-full border-2 border-pencil bg-slate-50 shadow-inner flex items-center justify-center cursor-pointer relative"
                                     title="Spin compass!"
-                                    aria-label="Spin compass needle"
+                                    aria-label="NS compass — spin the needle"
                                 >
                                     {/* Compass Directions */}
                                     <span className="absolute top-0.5 text-[6px] font-bold">N</span>
@@ -430,7 +430,7 @@ const About = () => {
                                         <MapPin size={14} className="text-accent shrink-0" />
                                         <span className="text-xs font-sans font-black uppercase">Kolkata, India</span>
                                     </div>
-                                    <div className="text-sm font-mono font-bold text-accent whitespace-nowrap bg-muted border border-pencil/20 rounded px-2 py-0.5">
+                                    <div className="text-sm font-mono font-bold text-[#b02330] whitespace-nowrap bg-muted border border-pencil/20 rounded px-2 py-0.5">
                                         {timeStr || "00:00:00 AM"}
                                     </div>
                                 </div>
@@ -442,11 +442,11 @@ const About = () => {
                 {/* Recruiter texting chat console (Centered Bottom Sticky Note) */}
                 <div className="max-w-xl mx-auto mt-12">
                     <Card variant="post-it" className="rotate-1 hover:rotate-0 p-6 md:p-8 bg-[#fff9c4] border-2 border-pencil shadow-hard-lg flex flex-col relative h-[360px] justify-between">
-                        <div className="absolute top-1.5 left-2 text-[10px] text-pencil/30 font-mono">recruiter_hotline.sh</div>
+                        <div className="absolute top-1.5 left-2 text-[10px] text-pencil/70 font-mono">recruiter_hotline.sh</div>
                         
                         <div className="border-b border-dashed border-pencil/30 pb-3 mb-3 flex items-center justify-between">
                             <span className="text-base font-display font-black text-pencil">💬 Yellow Sticky Messenger</span>
-                            <div className="flex items-center gap-1.5 text-xs text-pencil/50 font-sans font-bold">
+                            <div className="flex items-center gap-1.5 text-xs text-pencil/70 font-sans font-bold">
                                 <span className="w-2.5 h-2.5 rounded-full bg-green-500 pulse-opacity" />
                                 <span>Online</span>
                             </div>
@@ -459,7 +459,7 @@ const About = () => {
                                     key={idx} 
                                     className={`flex flex-col max-w-[85%] ${msg.sender === 'user' ? 'ml-auto items-end' : 'mr-auto items-start'}`}
                                 >
-                                    <span className="text-[9px] uppercase font-bold text-pencil/40 mb-0.5">
+                                    <span className="text-[9px] uppercase font-bold text-pencil/70 mb-0.5">
                                         {msg.sender === 'user' ? 'Visitor' : 'Soumya'}
                                     </span>
                                     <span 
@@ -471,7 +471,7 @@ const About = () => {
                             ))}
                             {isTyping && (
                                 <div className="flex flex-col items-start max-w-[80%]">
-                                    <span className="text-[9px] uppercase font-bold text-pencil/40 mb-0.5">Soumya</span>
+                                    <span className="text-[9px] uppercase font-bold text-pencil/70 mb-0.5">Soumya</span>
                                     <span className="px-3 py-1.5 border border-pencil bg-white text-pencil rounded-lg rounded-tl-none italic text-xs flex gap-1 items-center">
                                         typing<span className="pulse-opacity">...</span>
                                     </span>

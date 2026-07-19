@@ -71,7 +71,7 @@ const Skills = () => {
                             <path d="M0,10 Q50,20 100,10 M10,15 Q50,5 90,15" stroke="#e85d04" strokeWidth="3" fill="none" className="path-draw" />
                         </svg>
                     </h2>
-                    <p className="text-pencil/60 font-sans font-bold text-lg mt-4 max-w-2xl">
+                    <p className="text-pencil/70 font-sans font-bold text-lg mt-4 max-w-2xl">
                         The stack I work with daily, and how each piece fits into what I build.
                     </p>
                 </div>
@@ -104,7 +104,7 @@ const Skills = () => {
                                         </span>
                                         <div className="min-w-0">
                                             <h4 className="text-lg font-sans font-bold text-pencil leading-tight">{skill.name}</h4>
-                                            <p className="text-sm font-sans font-medium text-pencil/60 leading-snug">{skill.tagline}</p>
+                                            <p className="text-sm font-sans font-medium text-pencil/70 leading-snug">{skill.tagline}</p>
                                         </div>
                                     </motion.li>
                                 ))}
@@ -128,7 +128,7 @@ const Skills = () => {
                                 <path d="M0,5 Q50,12 100,5" stroke="#dd2c38" strokeWidth="3" fill="none" className="path-draw" />
                             </svg>
                         </h3>
-                        <p className="text-pencil/60 font-sans font-bold text-lg mt-4">
+                        <p className="text-pencil/70 font-sans font-bold text-lg mt-4">
                             The working habits behind the commits.
                         </p>
                     </div>

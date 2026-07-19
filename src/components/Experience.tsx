@@ -161,7 +161,7 @@ const Experience = () => {
                         
                         {/* LEFT PAGE: Realm Quest Map (6 Columns) */}
                         <div className="md:col-span-6 flex flex-col justify-between p-2 relative min-h-[300px] md:min-h-[400px]">
-                            <div className="absolute top-1 left-2 text-[10px] text-pencil/30 font-mono">realm_quest_map.db</div>
+                            <div className="absolute top-1 left-2 text-[10px] text-pencil/70 font-mono">realm_quest_map.db</div>
                             
                             {/* Visual Adventure Map Container */}
                             <div className="relative border-2 border-pencil border-dashed rounded-xl bg-[#fffdf5] w-full flex-1 min-h-[280px] overflow-hidden shadow-inner flex items-center justify-center">
@@ -224,7 +224,7 @@ const Experience = () => {
                             </div>
 
                             {/* Legend indicator */}
-                            <div className="text-center font-display font-bold text-sm text-pencil/50 pt-2 italic">
+                            <div className="text-center font-display font-bold text-sm text-pencil/70 pt-2 italic">
                                 Page 1: Map of the Virtual Realm
                             </div>
                         </div>
@@ -259,7 +259,7 @@ const Experience = () => {
                                             </p>
                                         </div>
 
-                                        <div className="flex flex-wrap gap-4 text-xs font-sans font-bold text-pencil/60">
+                                        <div className="flex flex-wrap gap-4 text-xs font-sans font-bold text-pencil/70">
                                             <div className="flex items-center gap-1">
                                                 <Calendar size={14} />
                                                 <span>Timeline: {currentQuest.date}</span>
@@ -276,7 +276,7 @@ const Experience = () => {
 
                                         {/* Technology XP Tags */}
                                         <div className="space-y-2">
-                                            <span className="text-[10px] uppercase font-sans font-black text-pencil/40 block tracking-wider">XP Gained (Tech Stack)</span>
+                                            <span className="text-[10px] uppercase font-sans font-black text-pencil/70 block tracking-wider">XP Gained (Tech Stack)</span>
                                             <div className="flex flex-wrap gap-1.5">
                                                 {currentQuest.xpGained.map((tag, idx) => (
                                                     <span 
@@ -293,7 +293,7 @@ const Experience = () => {
 
                                     {/* Interactive Quest Loot Chest */}
                                     <div className="pt-4 border-t border-dashed border-pencil/20 flex flex-col items-center">
-                                        <span className="text-[10px] uppercase font-sans font-black text-pencil/40 block tracking-wider mb-2">Quest Loot Inspector</span>
+                                        <span className="text-[10px] uppercase font-sans font-black text-pencil/70 block tracking-wider mb-2">Quest Loot Inspector</span>
                                         
                                         <div className="relative">
                                             {/* Particle Glow elements */}
@@ -362,7 +362,7 @@ const Experience = () => {
                                                             <ExternalLink size={14} />
                                                         </a>
                                                     ) : (
-                                                        <div className="text-xs font-sans font-bold text-pencil/50 italic py-2">
+                                                        <div className="text-xs font-sans font-bold text-pencil/70 italic py-2">
                                                             No physical loot discovered for this quest.
                                                         </div>
                                                     )}
@@ -372,7 +372,7 @@ const Experience = () => {
                                     </div>
                                     
                                     {/* page sub indicator */}
-                                    <div className="text-center font-display font-bold text-sm text-pencil/50 pt-2 border-t border-dashed border-pencil/10 italic">
+                                    <div className="text-center font-display font-bold text-sm text-pencil/70 pt-2 border-t border-dashed border-pencil/10 italic">
                                         Page 2: Active Quest Log Record
                                     </div>
                                 </motion.div>

@@ -22,9 +22,9 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Roughly match the Preloader timeline: 900ms first word + 7×180ms word
-    // cycle + 350ms hold + 800ms curtain exit ≈ 3.4s.
-    const exitDuration = 3400;
+    // Roughly match the Preloader timeline: 450ms first word + 8×100ms word
+    // cycle + 200ms hold + 650ms curtain exit ≈ 2.1s.
+    const exitDuration = 2100;
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, exitDuration);

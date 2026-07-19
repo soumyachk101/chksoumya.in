@@ -8,9 +8,9 @@ const nextConfig: NextConfig = {
     dangerouslyAllowSVG: false,
   },
   experimental: {
-    // Inline above-the-fold CSS via Critters — eliminates the render-blocking
-    // 12 KiB stylesheet and lets the LCP element paint on first frame.
-    optimizeCss: true,
+    // Inline the CSS into the HTML — removes the render-blocking stylesheet
+    // request from the LCP critical chain (13 KiB, small enough to inline).
+    inlineCss: true,
   },
   async headers() {
     return [

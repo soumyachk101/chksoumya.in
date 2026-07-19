@@ -15,13 +15,13 @@ const INK = '#2d2d2d';
 const ACCENT = '#dd2c38';
 
 // Greeting cycle — English first (longer hold), Bengali second (mother tongue), then the rest.
-// Full greeting cycle (~3.4s total). Deliberate trade-off: the preloader
-// blocks the page visually and costs some Lighthouse Speed Index.
+// Full greeting cycle ~2.1s total, kept short so the overlay doesn't hurt
+// Lighthouse Speed Index.
 const words = ['Hello', 'নমস্কার', 'नमस्ते', 'Bonjour', 'Ciao', 'Olá', 'こんにちは', '안녕하세요', 'Hallo'];
 
-const FIRST_WORD_MS = 900;
-const WORD_MS = 180;
-const EXIT_HOLD_MS = 350;
+const FIRST_WORD_MS = 450;
+const WORD_MS = 100;
+const EXIT_HOLD_MS = 200;
 const FLAP_H = 150;
 
 const Preloader = ({ onComplete }: PreloaderProps) => {
@@ -61,9 +61,9 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
     return (
         <motion.div
             className="absolute inset-0"
-            initial={{ top: 0 }}
-            animate={exiting ? { top: '-100vh' } : { top: 0 }}
-            transition={{ duration: 0.8, ease }}
+            initial={{ y: 0 }}
+            animate={exiting ? { y: '-100vh' } : { y: 0 }}
+            transition={{ duration: 0.65, ease }}
             onAnimationComplete={() => exiting && onComplete?.()}
         >
             {/* Paper sheet with dot grid */}
@@ -131,13 +131,14 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
                             animate={{ scale: [1, 1.35, 1] }}
                             transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
                         />
-                        {/* Word: masked slide-up with a hand-drawn tilt on every swap */}
-                        <span className="overflow-hidden inline-flex py-1">
+                        {/* Word: masked slide-up with a hand-drawn tilt on every swap.
+                            Fixed width so varying word lengths never re-lay the row (CLS). */}
+                        <span className="overflow-hidden inline-flex justify-center py-1 w-[280px] md:w-[480px]">
                             <motion.span
                                 key={index}
                                 initial={{ y: '110%', rotate: index % 2 === 0 ? -3 : 3, opacity: 0 }}
                                 animate={{ y: 0, rotate: index % 2 === 0 ? -1.5 : 1.5, opacity: 1 }}
-                                transition={{ duration: index === 0 ? 0.5 : 0.18, ease }}
+                                transition={{ duration: index === 0 ? 0.4 : 0.12, ease }}
                                 className="font-heading font-bold text-4xl md:text-6xl lg:text-7xl tracking-tight select-none leading-tight"
                                 style={{ color: INK }}
                             >

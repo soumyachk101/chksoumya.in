@@ -180,9 +180,9 @@ const Hackathons = () => {
                             
                             {/* Board cork effect */}
                             <div className="absolute inset-0 opacity-[0.06] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#2d2d2d 2px, transparent 2px)', backgroundSize: '12px 12px' }} />
-                            <div className="absolute top-1 right-2 text-[8px] font-mono opacity-30 select-none">guild_bounty_board.db</div>
+                            <div className="absolute top-1 right-2 text-[8px] font-mono opacity-70 select-none">guild_bounty_board.db</div>
                             
-                            <h3 className="text-xs uppercase font-sans font-black tracking-wider text-pencil/60 border-b border-pencil/20 pb-2 mb-4">
+                            <h3 className="text-xs uppercase font-sans font-black tracking-wider text-pencil/70 border-b border-pencil/20 pb-2 mb-4">
                                 Pinned Wanted Bounties
                             </h3>
 
@@ -223,13 +223,13 @@ const Hackathons = () => {
 
                                             {/* Stamp/Status indicators */}
                                             <div className="mt-4 flex justify-between items-center border-t border-dashed border-pencil/20 pt-3">
-                                                <span className="text-[10px] font-mono text-pencil/50">obj: {hack.project}</span>
+                                                <span className="text-[10px] font-mono text-pencil/70">obj: {hack.project}</span>
                                                 {hack.achievement ? (
                                                     <span className="px-2 py-0.5 border-2 border-dashed border-amber-600 text-amber-700 text-[9px] font-mono font-black uppercase rotate-6 shadow-sm select-none">
                                                         🏆 CHAMPION
                                                     </span>
                                                 ) : (
-                                                    <span className="px-2 py-0.5 border border-dashed border-pencil/40 text-pencil/60 text-[9px] font-mono font-semibold uppercase -rotate-6 select-none">
+                                                    <span className="px-2 py-0.5 border border-dashed border-pencil/40 text-pencil/70 text-[9px] font-mono font-semibold uppercase -rotate-6 select-none">
                                                         ⚔️ SOLVED
                                                     </span>
                                                 )}
@@ -249,7 +249,7 @@ const Hackathons = () => {
                             <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-32 h-8 bg-pencil/15 backdrop-blur-sm rotate-1 z-10" />
 
                             {/* Top margins decoration */}
-                            <div className="absolute top-2 left-6 right-6 flex justify-between opacity-10 font-mono text-[9px] text-pencil uppercase pointer-events-none select-none">
+                            <div className="absolute top-2 left-6 right-6 flex justify-between opacity-70 font-mono text-[9px] text-pencil uppercase pointer-events-none select-none">
                                 <span>{"/// mission_directives.log"}</span>
                                 <span>level_99_wizard</span>
                             </div>
@@ -258,7 +258,7 @@ const Hackathons = () => {
                                 {/* Header */}
                                 <div className="border-b-2 border-dashed border-pencil/20 pb-4">
                                     <div className="flex items-center gap-2 mb-2">
-                                        <span className="px-2.5 py-0.5 bg-accent/5 border border-accent border-dashed rounded text-[10px] font-sans font-black text-accent uppercase tracking-wider">
+                                        <span className="px-2.5 py-0.5 bg-accent/5 border border-accent border-dashed rounded text-[10px] font-sans font-black text-[#b02330] uppercase tracking-wider">
                                             Bounty Spec Sheet
                                         </span>
                                         <span className="text-xl">{activeItem.stickerEmoji}</span>
@@ -266,7 +266,7 @@ const Hackathons = () => {
                                     <h3 className="text-3xl font-display font-black text-pencil uppercase leading-tight tracking-tight">
                                         {activeItem.name}
                                     </h3>
-                                    <p className="text-sm font-sans font-extrabold text-pencil/50 mt-1 uppercase tracking-wider flex items-center gap-1">
+                                    <p className="text-sm font-sans font-extrabold text-pencil/70 mt-1 uppercase tracking-wider flex items-center gap-1">
                                         <span>📍 Host:</span> 
                                         <span className="underline decoration-wavy decoration-accent">{activeItem.organizer}</span>
                                     </p>
@@ -275,22 +275,22 @@ const Hackathons = () => {
                                 {/* Attributes Panel */}
                                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                                     <div className="bg-[#fffcf7] border-2 border-pencil border-wobbly-sm p-3 shadow-hard-sm flex flex-col justify-between rounded-lg">
-                                        <span className="text-[9px] uppercase font-sans font-black text-pencil/40 block">⚔️ Player Class</span>
+                                        <span className="text-[9px] uppercase font-sans font-black text-pencil/70 block">⚔️ Player Class</span>
                                         <span className="text-sm font-display font-bold text-accent truncate">{activeItem.role}</span>
                                     </div>
                                     <div className="bg-[#fffcf7] border-2 border-pencil border-wobbly-sm p-3 shadow-hard-sm flex flex-col justify-between rounded-lg">
-                                        <span className="text-[9px] uppercase font-sans font-black text-pencil/40 block">⏳ Quest Time</span>
+                                        <span className="text-[9px] uppercase font-sans font-black text-pencil/70 block">⏳ Quest Time</span>
                                         <span className="text-sm font-display font-bold text-pencil truncate">{activeItem.duration}</span>
                                     </div>
                                     <div className="bg-[#fffcf7] border-2 border-pencil border-wobbly-sm p-3 shadow-hard-sm flex flex-col justify-between rounded-lg col-span-2 sm:col-span-1">
-                                        <span className="text-[9px] uppercase font-sans font-black text-pencil/40 block">👥 Party Size</span>
+                                        <span className="text-[9px] uppercase font-sans font-black text-pencil/70 block">👥 Party Size</span>
                                         <span className="text-sm font-display font-bold text-pencil truncate">{activeItem.partySize}</span>
                                     </div>
                                 </div>
 
                                 {/* Description Scroll Block */}
                                 <div className="bg-amber-50/40 border-2 border-dashed border-pencil/20 p-4 rounded-xl relative overflow-hidden">
-                                    <span className="text-[10px] uppercase font-mono font-black text-pencil/30 block mb-2">{"/// Objective Description"}</span>
+                                    <span className="text-[10px] uppercase font-mono font-black text-pencil/70 block mb-2">{"/// Objective Description"}</span>
                                     <p className="text-pencil font-sans text-base leading-relaxed font-semibold">
                                         {activeItem.desc}
                                     </p>
@@ -298,7 +298,7 @@ const Hackathons = () => {
 
                                 {/* Acquired Inventory (Tech Stack) */}
                                 <div className="space-y-2">
-                                    <span className="text-[10px] uppercase font-sans font-black text-pencil/40 block tracking-wider">Acquired Loot Items (Tech Stack)</span>
+                                    <span className="text-[10px] uppercase font-sans font-black text-pencil/70 block tracking-wider">Acquired Loot Items (Tech Stack)</span>
                                     <div className="flex flex-wrap gap-2">
                                         {activeItem.tags.map((tag, idx) => (
                                             <span 
@@ -342,7 +342,7 @@ const Hackathons = () => {
                                     </div>
 
                                     {/* HP indicators */}
-                                    <div className="flex items-center gap-1.5 text-red-500 font-sans font-extrabold text-xs ml-auto">
+                                    <div className="flex items-center gap-1.5 text-accent font-sans font-extrabold text-xs ml-auto">
                                         <span>HP:</span>
                                         <div className="flex gap-0.5 text-sm select-none">❤️❤️❤️</div>
                                     </div>
