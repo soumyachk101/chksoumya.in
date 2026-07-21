@@ -15,13 +15,13 @@ const INK = '#2d2d2d';
 const ACCENT = '#dd2c38';
 
 // Greeting cycle — English first (longer hold), Bengali second (mother tongue), then the rest.
-// Full greeting cycle ~2.1s total, kept short so the overlay doesn't hurt
-// Lighthouse Speed Index.
+// Full greeting cycle ~2.7s total — words held long enough to read, but the
+// overlay still exits early enough to protect Lighthouse Speed Index.
 const words = ['Hello', 'নমস্কার', 'नमस्ते', 'Bonjour', 'Ciao', 'Olá', 'こんにちは', '안녕하세요', 'Hallo'];
 
-const FIRST_WORD_MS = 450;
-const WORD_MS = 100;
-const EXIT_HOLD_MS = 200;
+const FIRST_WORD_MS = 650;
+const WORD_MS = 160;
+const EXIT_HOLD_MS = 250;
 const FLAP_H = 150;
 
 const Preloader = ({ onComplete }: PreloaderProps) => {
@@ -138,7 +138,7 @@ const Preloader = ({ onComplete }: PreloaderProps) => {
                                 key={index}
                                 initial={{ y: '110%', rotate: index % 2 === 0 ? -3 : 3, opacity: 0 }}
                                 animate={{ y: 0, rotate: index % 2 === 0 ? -1.5 : 1.5, opacity: 1 }}
-                                transition={{ duration: index === 0 ? 0.4 : 0.12, ease }}
+                                transition={{ duration: index === 0 ? 0.45 : 0.15, ease }}
                                 className="font-heading font-bold text-4xl md:text-6xl lg:text-7xl tracking-tight select-none leading-tight"
                                 style={{ color: INK }}
                             >
