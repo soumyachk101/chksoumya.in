@@ -135,7 +135,7 @@ const CertificateDetailsClient = () => {
  </Link>
  <Link href="/#hackathons" className="block p-6 bg-white border-2 border-pencil border-wobbly hover:-rotate-1 transition-transform shadow-hard-sm hover:shadow-hard">
  <h3 className="font-display font-bold text-pencil text-xl mb-2">Hackathon Wins</h3>
- <p className="text-sm text-pencil/70 font-sans">5 hackathons including 1st Place at Code for Change 2.0</p>
+ <p className="text-sm text-pencil/70 font-sans">6 hackathons including 1st Place at Code for Change 2.0</p>
  </Link>
  <Link href="https://github.com/soumyachk101" target="_blank" rel="noopener noreferrer" className="block p-6 bg-white border-2 border-pencil border-wobbly hover:-rotate-1 transition-transform shadow-hard-sm hover:shadow-hard">
  <h3 className="font-display font-bold text-pencil text-xl mb-2">GitHub Profile</h3>

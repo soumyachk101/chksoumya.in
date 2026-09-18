@@ -154,6 +154,21 @@ const Hackathons = () => {
             github: "https://github.com/soumyachk101/Citadel-1.0",
             cartridgeColor: "bg-[#dcfce7] border-[#22c55e] text-[#14532d]", // green notes
             stickerEmoji: "🛡️"
+        },
+        {
+            name: "FUSIONX",
+            project: "CREDOW",
+            organizer: "IEM Kolkata",
+            role: "Full Stack & Web3 Dev",
+            duration: "24 Hours",
+            partySize: "4 Players",
+            achievement: "Participant",
+            desc: "Built a corporate credit allocation protocol on Algorand where allowances are claimed via x402 payments and unclaimed credits earn yield in an on-chain vault.",
+            tags: ["React 19", "Algorand", "TypeScript", "x402", "Supabase", "TEAL"],
+            github: "https://github.com/soumyachk101/Credow",
+            live: "https://credow-app.vercel.app",
+            cartridgeColor: "bg-[#ccfbf1] border-[#14b8a6] text-[#0f766e]", // teal notes
+            stickerEmoji: "💳"
         }
     ];
 
