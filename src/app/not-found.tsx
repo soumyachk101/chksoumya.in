@@ -11,14 +11,14 @@ export default function NotFound() {
     return (
         <div className="min-h-screen flex items-center justify-center bg-background px-4">
             <div className="text-center max-w-lg">
-                <h1 className="text-8xl font-heading font-black text-pencil mb-4 transform -rotate-2">404</h1>
+                <h1 className="text-8xl font-heading font-black text-foreground mb-4 transform -rotate-2">404</h1>
                 <div className="relative inline-block mb-8">
-                    <h2 className="text-3xl font-display font-bold text-pencil">Page Not Found</h2>
+                    <h2 className="text-3xl font-display font-bold text-foreground">Page Not Found</h2>
                     <svg className="absolute -bottom-2 left-0 w-full h-3" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true">
                         <path d="M0,5 Q25,10 50,5 T100,5" stroke="#e85d04" strokeWidth="3" fill="none" />
                     </svg>
                 </div>
-                <p className="text-pencil/80 font-sans text-lg font-bold mb-8">
+                <p className="text-foreground/80 font-sans text-lg font-bold mb-8">
                     The page you are looking for does not exist or has been moved.
                 </p>
                 <Link
